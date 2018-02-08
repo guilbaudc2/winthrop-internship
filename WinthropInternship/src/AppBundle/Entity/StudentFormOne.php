@@ -147,6 +147,27 @@ class StudentFormOne
      */
     private $date;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="siteSuperName", type="string", length=150)
+     */
+    private $siteSuperName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="siteSuperEmail", type="string", length=150)
+     */
+    private $siteSuperEmail;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="siteSuperAccessCode", type="string", length=75)
+     */
+    private $siteSuperAccessCode;
+
 
     /**
      * Get id
@@ -588,6 +609,71 @@ class StudentFormOne
     public function getDate()
     {
         return $this->date;
+    }
+
+    /**
+     * Set siteSuperName
+     *
+     * @param string $siteSuperName
+     *
+     * @return StudentFormOne
+     */
+    public function setSiteSuperName($siteSuperName)
+    {
+        $this->siteSuperName = $siteSuperName;
+
+        return $this;
+    }
+
+    /**
+     * Get siteSuperName
+     *
+     * @return string
+     */
+    public function getSiteSuperName()
+    {
+        return $this->siteSuperName;
+    }
+
+    /**
+     * Set siteSuperEmail
+     *
+     * @param string $siteSuperEmail
+     *
+     * @return StudentFormOne
+     */
+    public function setSiteSuperEmail($siteSuperEmail)
+    {
+        $this->siteSuperEmail = $siteSuperEmail;
+
+        return $this;
+    }
+
+    /**
+     * Get siteSuperEmail
+     *
+     * @return string
+     */
+    public function getSiteSuperEmail()
+    {
+        return $this->siteSuperEmail;
+    }
+
+    public function setSiteSuperAccessCode($siteSuperAccessCode)
+    {
+        $this->siteSuperAccessCode = $siteSuperAccessCode;
+
+        return $this;
+    }
+
+    /**
+     * Get siteSuperAccessCode
+     *
+     * @return string
+     */
+    public function getSiteSuperAccessCode()
+    {
+        return $this->siteSuperAccessCode;
     }
 }
 
