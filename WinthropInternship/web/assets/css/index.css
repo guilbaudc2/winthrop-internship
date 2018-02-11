@@ -1,0 +1,44 @@
+.index-background-image{
+    height: 100%;
+    background-image: url(../images/background-image-main.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin:0;
+    padding:0;
+}
+
+.transparent {
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(11,47,71, 0.6);
+    margin:0;
+    padding:0;
+
+}
+
+.center-text{
+    height:100%;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    color:#fff;
+}
+
+.center-text h1{
+    width: 75%;
+}
+
+.center-text h2 {
+    border: 1px solid #00b0ff;
+    color: #fff;
+    border-radius: 25px;
+    text-align:center;
+    width: 100px;
+    margin: 0 auto;
+}

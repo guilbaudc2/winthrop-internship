@@ -1,0 +1,395 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files (x86)\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\Program Files (x86)\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   '@symfony/webpack-encore',
+1 verbose cli   '--save-dev' ]
+2 info using npm@1.3.2
+3 info using node@v0.10.13
+4 verbose node symlink C:\Program Files (x86)\nodejs\\node.exe
+5 verbose cache add [ '@symfony/webpack-encore', null ]
+6 verbose cache add name=undefined spec="@symfony/webpack-encore" args=["@symfony/webpack-encore",null]
+7 verbose parsed url { protocol: null,
+7 verbose parsed url   slashes: null,
+7 verbose parsed url   auth: null,
+7 verbose parsed url   host: null,
+7 verbose parsed url   port: null,
+7 verbose parsed url   hostname: null,
+7 verbose parsed url   hash: null,
+7 verbose parsed url   search: null,
+7 verbose parsed url   query: null,
+7 verbose parsed url   pathname: '@symfony/webpack-encore',
+7 verbose parsed url   path: '@symfony/webpack-encore',
+7 verbose parsed url   href: '@symfony/webpack-encore' }
+8 verbose cache add name="" spec="symfony/webpack-encore" args=["","symfony/webpack-encore"]
+9 verbose parsed url { protocol: null,
+9 verbose parsed url   slashes: null,
+9 verbose parsed url   auth: null,
+9 verbose parsed url   host: null,
+9 verbose parsed url   port: null,
+9 verbose parsed url   hostname: null,
+9 verbose parsed url   hash: null,
+9 verbose parsed url   search: null,
+9 verbose parsed url   query: null,
+9 verbose parsed url   pathname: 'symfony/webpack-encore',
+9 verbose parsed url   path: 'symfony/webpack-encore',
+9 verbose parsed url   href: 'symfony/webpack-encore' }
+10 silly lockFile 3a2d349e-symfony-webpack-encore symfony/webpack-encore
+11 verbose lock symfony/webpack-encore C:\Users\Catherine\AppData\Roaming\npm-cache\3a2d349e-symfony-webpack-encore.lock
+12 info maybeGithub Attempting symfony/webpack-encore from git://github.com/symfony/webpack-encore
+13 silly lockFile dde27422-ithub-com-symfony-webpack-encore git://github.com/symfony/webpack-encore
+14 verbose lock git://github.com/symfony/webpack-encore C:\Users\Catherine\AppData\Roaming\npm-cache\dde27422-ithub-com-symfony-webpack-encore.lock
+15 verbose addRemoteGit [ 'git://github.com/symfony/webpack-encore', 'master' ]
+16 verbose git remote.origin.url git://github.com/symfony/webpack-encore
+17 verbose git fetch -a origin (git://github.com/symfony/webpack-encore)
+18 verbose git rev-list -n1 master c56f9f9faddb620a15ad4e8c0e77641a7b550434
+19 verbose resolved git url git://github.com/symfony/webpack-encore#c56f9f9faddb620a15ad4e8c0e77641a7b550434
+20 verbose tar unpack C:\Users\CATHER~1\AppData\Local\Temp\npm-12280\1518325014479-0.13151932577602565\tmp.tgz
+21 silly lockFile c4c4d014-4479-0-13151932577602565-package tar://C:\Users\CATHER~1\AppData\Local\Temp\npm-12280\1518325014479-0.13151932577602565\package
+22 verbose lock tar://C:\Users\CATHER~1\AppData\Local\Temp\npm-12280\1518325014479-0.13151932577602565\package C:\Users\Catherine\AppData\Roaming\npm-cache\c4c4d014-4479-0-13151932577602565-package.lock
+23 silly lockFile 5c5631e0-4479-0-13151932577602565-tmp-tgz tar://C:\Users\CATHER~1\AppData\Local\Temp\npm-12280\1518325014479-0.13151932577602565\tmp.tgz
+24 verbose lock tar://C:\Users\CATHER~1\AppData\Local\Temp\npm-12280\1518325014479-0.13151932577602565\tmp.tgz C:\Users\Catherine\AppData\Roaming\npm-cache\5c5631e0-4479-0-13151932577602565-tmp-tgz.lock
+25 silly gunzTarPerm modes [ '755', '644' ]
+26 silly gunzTarPerm extractEntry
+27 silly gunzTarPerm modified mode [ '', 509, 493 ]
+28 silly gunzTarPerm extractEntry .editorconfig
+29 silly gunzTarPerm modified mode [ '.editorconfig', 436, 420 ]
+30 silly gunzTarPerm extractEntry .eslintignore
+31 silly gunzTarPerm modified mode [ '.eslintignore', 436, 420 ]
+32 silly gunzTarPerm extractEntry .eslintrc.js
+33 silly gunzTarPerm modified mode [ '.eslintrc.js', 436, 420 ]
+34 silly gunzTarPerm extractEntry .gitignore
+35 silly gunzTarPerm modified mode [ '.gitignore', 436, 420 ]
+36 silly gunzTarPerm extractEntry .npmignore
+37 silly gunzTarPerm modified mode [ '.npmignore', 436, 420 ]
+38 silly gunzTarPerm extractEntry .travis.yml
+39 silly gunzTarPerm modified mode [ '.travis.yml', 436, 420 ]
+40 silly gunzTarPerm extractEntry CHANGELOG.md
+41 silly gunzTarPerm modified mode [ 'CHANGELOG.md', 436, 420 ]
+42 silly gunzTarPerm extractEntry LICENSE
+43 silly gunzTarPerm modified mode [ 'LICENSE', 436, 420 ]
+44 silly gunzTarPerm extractEntry README.md
+45 silly gunzTarPerm modified mode [ 'README.md', 436, 420 ]
+46 silly gunzTarPerm extractEntry appveyor.yml
+47 silly gunzTarPerm modified mode [ 'appveyor.yml', 436, 420 ]
+48 silly gunzTarPerm extractEntry bin/
+49 silly gunzTarPerm modified mode [ 'bin/', 509, 493 ]
+50 silly gunzTarPerm extractEntry bin/encore.js
+51 silly gunzTarPerm modified mode [ 'bin/encore.js', 509, 493 ]
+52 silly gunzTarPerm extractEntry fixtures/
+53 silly gunzTarPerm modified mode [ 'fixtures/', 509, 493 ]
+54 silly gunzTarPerm extractEntry fixtures/css/
+55 silly gunzTarPerm modified mode [ 'fixtures/css/', 509, 493 ]
+56 silly gunzTarPerm extractEntry fixtures/css/another_bg_image.css
+57 silly gunzTarPerm modified mode [ 'fixtures/css/another_bg_image.css', 436, 420 ]
+58 silly gunzTarPerm extractEntry fixtures/css/autoprefixer_test.css
+59 silly gunzTarPerm modified mode [ 'fixtures/css/autoprefixer_test.css', 436, 420 ]
+60 silly gunzTarPerm extractEntry fixtures/css/background_image.scss
+61 silly gunzTarPerm modified mode [ 'fixtures/css/background_image.scss', 436, 420 ]
+62 silly gunzTarPerm extractEntry fixtures/css/h1_style.css
+63 silly gunzTarPerm modified mode [ 'fixtures/css/h1_style.css', 436, 420 ]
+64 silly gunzTarPerm extractEntry fixtures/css/h2_styles.less
+65 silly gunzTarPerm modified mode [ 'fixtures/css/h2_styles.less', 436, 420 ]
+66 silly gunzTarPerm extractEntry fixtures/css/h2_styles.styl
+67 silly gunzTarPerm modified mode [ 'fixtures/css/h2_styles.styl', 436, 420 ]
+68 silly gunzTarPerm extractEntry fixtures/css/imports_autoprefixer.css
+69 silly gunzTarPerm modified mode [ 'fixtures/css/imports_autoprefixer.css', 436, 420 ]
+70 silly gunzTarPerm extractEntry fixtures/css/roboto_font.css
+71 silly gunzTarPerm modified mode [ 'fixtures/css/roboto_font.css', 436, 420 ]
+72 silly gunzTarPerm extractEntry fixtures/css/same_filename.css
+73 silly gunzTarPerm modified mode [ 'fixtures/css/same_filename.css', 436, 420 ]
+74 silly gunzTarPerm extractEntry fixtures/css/sass_features.scss
+75 silly gunzTarPerm modified mode [ 'fixtures/css/sass_features.scss', 436, 420 ]
+76 silly gunzTarPerm extractEntry fixtures/fonts/
+77 silly gunzTarPerm modified mode [ 'fixtures/fonts/', 509, 493 ]
+78 silly gunzTarPerm extractEntry fixtures/fonts/Roboto.woff2
+79 silly gunzTarPerm modified mode [ 'fixtures/fonts/Roboto.woff2', 436, 420 ]
+80 silly gunzTarPerm extractEntry fixtures/fonts/same_filename/
+81 silly gunzTarPerm modified mode [ 'fixtures/fonts/same_filename/', 509, 493 ]
+82 silly gunzTarPerm extractEntry fixtures/fonts/same_filename/Roboto.woff2
+83 silly gunzTarPerm modified mode [ 'fixtures/fonts/same_filename/Roboto.woff2', 436, 420 ]
+84 silly gunzTarPerm extractEntry fixtures/images/
+85 silly gunzTarPerm modified mode [ 'fixtures/images/', 509, 493 ]
+86 silly gunzTarPerm extractEntry fixtures/images/same_filename/
+87 silly gunzTarPerm modified mode [ 'fixtures/images/same_filename/', 509, 493 ]
+88 silly gunzTarPerm extractEntry fixtures/images/same_filename/symfony_logo.png
+89 silly gunzTarPerm modified mode [ 'fixtures/images/same_filename/symfony_logo.png', 436, 420 ]
+90 silly gunzTarPerm extractEntry fixtures/images/symfony_logo.png
+91 silly gunzTarPerm modified mode [ 'fixtures/images/symfony_logo.png', 436, 420 ]
+92 silly gunzTarPerm extractEntry fixtures/js/
+93 silly gunzTarPerm modified mode [ 'fixtures/js/', 509, 493 ]
+94 silly gunzTarPerm extractEntry fixtures/js/CoolReactComponent.jsx
+95 silly gunzTarPerm modified mode [ 'fixtures/js/CoolReactComponent.jsx', 436, 420 ]
+96 silly gunzTarPerm extractEntry fixtures/js/arrow_function.js
+97 silly gunzTarPerm modified mode [ 'fixtures/js/arrow_function.js', 436, 420 ]
+98 silly gunzTarPerm extractEntry fixtures/js/class-syntax.js
+99 silly gunzTarPerm modified mode [ 'fixtures/js/class-syntax.js', 436, 420 ]
+100 silly gunzTarPerm extractEntry fixtures/js/code_split_load_scss.js
+101 silly gunzTarPerm modified mode [ 'fixtures/js/code_split_load_scss.js', 436, 420 ]
+102 silly gunzTarPerm extractEntry fixtures/js/code_splitting.js
+103 silly gunzTarPerm modified mode [ 'fixtures/js/code_splitting.js', 436, 420 ]
+104 silly gunzTarPerm extractEntry fixtures/js/index.coffee
+105 silly gunzTarPerm modified mode [ 'fixtures/js/index.coffee', 436, 420 ]
+106 silly gunzTarPerm extractEntry fixtures/js/index.ts
+107 silly gunzTarPerm modified mode [ 'fixtures/js/index.ts', 436, 420 ]
+108 silly gunzTarPerm extractEntry fixtures/js/no_require.js
+109 silly gunzTarPerm modified mode [ 'fixtures/js/no_require.js', 436, 420 ]
+110 silly gunzTarPerm extractEntry fixtures/js/render.ts
+111 silly gunzTarPerm modified mode [ 'fixtures/js/render.ts', 436, 420 ]
+112 silly gunzTarPerm extractEntry fixtures/js/render2.tsx
+113 silly gunzTarPerm modified mode [ 'fixtures/js/render2.tsx', 436, 420 ]
+114 silly gunzTarPerm extractEntry fixtures/js/tsconfig.json
+115 silly gunzTarPerm modified mode [ 'fixtures/js/tsconfig.json', 436, 420 ]
+116 silly gunzTarPerm extractEntry fixtures/vuejs/
+117 silly gunzTarPerm modified mode [ 'fixtures/vuejs/', 509, 493 ]
+118 silly gunzTarPerm extractEntry fixtures/vuejs/App.vue
+119 silly gunzTarPerm modified mode [ 'fixtures/vuejs/App.vue', 436, 420 ]
+120 silly gunzTarPerm extractEntry fixtures/vuejs/assets/
+121 silly gunzTarPerm modified mode [ 'fixtures/vuejs/assets/', 509, 493 ]
+122 silly gunzTarPerm extractEntry fixtures/vuejs/assets/logo.png
+123 silly gunzTarPerm modified mode [ 'fixtures/vuejs/assets/logo.png', 436, 420 ]
+124 silly gunzTarPerm extractEntry fixtures/vuejs/components/
+125 silly gunzTarPerm modified mode [ 'fixtures/vuejs/components/', 509, 493 ]
+126 silly gunzTarPerm extractEntry fixtures/vuejs/components/Hello.vue
+127 silly gunzTarPerm modified mode [ 'fixtures/vuejs/components/Hello.vue', 436, 420 ]
+128 silly gunzTarPerm extractEntry fixtures/vuejs/main.js
+129 silly gunzTarPerm modified mode [ 'fixtures/vuejs/main.js', 436, 420 ]
+130 silly gunzTarPerm extractEntry index.js
+131 silly gunzTarPerm modified mode [ 'index.js', 436, 420 ]
+132 silly gunzTarPerm extractEntry lib/
+133 silly gunzTarPerm modified mode [ 'lib/', 509, 493 ]
+134 silly gunzTarPerm extractEntry lib/WebpackConfig.js
+135 silly gunzTarPerm modified mode [ 'lib/WebpackConfig.js', 436, 420 ]
+136 silly gunzTarPerm extractEntry lib/config-generator.js
+137 silly gunzTarPerm modified mode [ 'lib/config-generator.js', 436, 420 ]
+138 silly gunzTarPerm extractEntry lib/config/
+139 silly gunzTarPerm modified mode [ 'lib/config/', 509, 493 ]
+140 silly gunzTarPerm extractEntry lib/config/RuntimeConfig.js
+141 silly gunzTarPerm modified mode [ 'lib/config/RuntimeConfig.js', 436, 420 ]
+142 silly gunzTarPerm extractEntry lib/config/parse-runtime.js
+143 silly gunzTarPerm modified mode [ 'lib/config/parse-runtime.js', 436, 420 ]
+144 silly gunzTarPerm extractEntry lib/config/path-util.js
+145 silly gunzTarPerm modified mode [ 'lib/config/path-util.js', 436, 420 ]
+146 silly gunzTarPerm extractEntry lib/config/validator.js
+147 silly gunzTarPerm modified mode [ 'lib/config/validator.js', 436, 420 ]
+148 silly gunzTarPerm extractEntry lib/context.js
+149 silly gunzTarPerm modified mode [ 'lib/context.js', 436, 420 ]
+150 silly gunzTarPerm extractEntry lib/features.js
+151 silly gunzTarPerm modified mode [ 'lib/features.js', 436, 420 ]
+152 silly gunzTarPerm extractEntry lib/friendly-errors/
+153 silly gunzTarPerm modified mode [ 'lib/friendly-errors/', 509, 493 ]
+154 silly gunzTarPerm extractEntry lib/friendly-errors/asset-output-display-plugin.js
+155 silly gunzTarPerm modified mode [ 'lib/friendly-errors/asset-output-display-plugin.js',
+155 silly gunzTarPerm   436,
+155 silly gunzTarPerm   420 ]
+156 silly gunzTarPerm extractEntry lib/friendly-errors/formatters/
+157 silly gunzTarPerm modified mode [ 'lib/friendly-errors/formatters/', 509, 493 ]
+158 silly gunzTarPerm extractEntry lib/friendly-errors/formatters/missing-loader.js
+159 silly gunzTarPerm modified mode [ 'lib/friendly-errors/formatters/missing-loader.js', 436, 420 ]
+160 silly gunzTarPerm extractEntry lib/friendly-errors/formatters/missing-postcss-config.js
+161 silly gunzTarPerm modified mode [ 'lib/friendly-errors/formatters/missing-postcss-config.js',
+161 silly gunzTarPerm   436,
+161 silly gunzTarPerm   420 ]
+162 silly gunzTarPerm extractEntry lib/friendly-errors/formatters/vue-unactivated-loader-error.js
+163 silly gunzTarPerm modified mode [ 'lib/friendly-errors/formatters/vue-unactivated-loader-error.js',
+163 silly gunzTarPerm   436,
+163 silly gunzTarPerm   420 ]
+164 silly gunzTarPerm extractEntry lib/friendly-errors/transformers/
+165 silly gunzTarPerm modified mode [ 'lib/friendly-errors/transformers/', 509, 493 ]
+166 silly gunzTarPerm extractEntry lib/friendly-errors/transformers/missing-loader.js
+167 silly gunzTarPerm modified mode [ 'lib/friendly-errors/transformers/missing-loader.js',
+167 silly gunzTarPerm   436,
+167 silly gunzTarPerm   420 ]
+168 silly gunzTarPerm extractEntry lib/friendly-errors/transformers/missing-postcss-config.js
+169 silly gunzTarPerm modified mode [ 'lib/friendly-errors/transformers/missing-postcss-config.js',
+169 silly gunzTarPerm   436,
+169 silly gunzTarPerm   420 ]
+170 silly gunzTarPerm extractEntry lib/friendly-errors/transformers/vue-unactivated-loader-error.js
+171 silly gunzTarPerm modified mode [ 'lib/friendly-errors/transformers/vue-unactivated-loader-error.js',
+171 silly gunzTarPerm   436,
+171 silly gunzTarPerm   420 ]
+172 silly gunzTarPerm extractEntry lib/loaders/
+173 silly gunzTarPerm modified mode [ 'lib/loaders/', 509, 493 ]
+174 silly gunzTarPerm extractEntry lib/loaders/babel.js
+175 silly gunzTarPerm modified mode [ 'lib/loaders/babel.js', 436, 420 ]
+176 silly gunzTarPerm extractEntry lib/loaders/coffee-script.js
+177 silly gunzTarPerm modified mode [ 'lib/loaders/coffee-script.js', 436, 420 ]
+178 silly gunzTarPerm extractEntry lib/loaders/css.js
+179 silly gunzTarPerm modified mode [ 'lib/loaders/css.js', 436, 420 ]
+180 silly gunzTarPerm extractEntry lib/loaders/extract-text.js
+181 silly gunzTarPerm modified mode [ 'lib/loaders/extract-text.js', 436, 420 ]
+182 silly gunzTarPerm extractEntry lib/loaders/less.js
+183 silly gunzTarPerm modified mode [ 'lib/loaders/less.js', 436, 420 ]
+184 silly gunzTarPerm extractEntry lib/loaders/sass.js
+185 silly gunzTarPerm modified mode [ 'lib/loaders/sass.js', 436, 420 ]
+186 silly gunzTarPerm extractEntry lib/loaders/stylus.js
+187 silly gunzTarPerm modified mode [ 'lib/loaders/stylus.js', 436, 420 ]
+188 silly gunzTarPerm extractEntry lib/loaders/typescript.js
+189 silly gunzTarPerm modified mode [ 'lib/loaders/typescript.js', 436, 420 ]
+190 silly gunzTarPerm extractEntry lib/loaders/vue-unactivated-loader.js
+191 silly gunzTarPerm modified mode [ 'lib/loaders/vue-unactivated-loader.js', 436, 420 ]
+192 silly gunzTarPerm extractEntry lib/loaders/vue.js
+193 silly gunzTarPerm modified mode [ 'lib/loaders/vue.js', 436, 420 ]
+194 silly gunzTarPerm extractEntry lib/logger.js
+195 silly gunzTarPerm modified mode [ 'lib/logger.js', 436, 420 ]
+196 silly gunzTarPerm extractEntry lib/package-helper.js
+197 silly gunzTarPerm modified mode [ 'lib/package-helper.js', 436, 420 ]
+198 silly gunzTarPerm extractEntry lib/plugins/
+199 silly gunzTarPerm modified mode [ 'lib/plugins/', 509, 493 ]
+200 silly gunzTarPerm extractEntry lib/plugins/asset-output-display.js
+201 silly gunzTarPerm modified mode [ 'lib/plugins/asset-output-display.js', 436, 420 ]
+202 silly gunzTarPerm extractEntry lib/plugins/clean.js
+203 silly gunzTarPerm modified mode [ 'lib/plugins/clean.js', 436, 420 ]
+204 silly gunzTarPerm extractEntry lib/plugins/commons-chunks.js
+205 silly gunzTarPerm modified mode [ 'lib/plugins/commons-chunks.js', 436, 420 ]
+206 silly gunzTarPerm extractEntry lib/plugins/define.js
+207 silly gunzTarPerm modified mode [ 'lib/plugins/define.js', 436, 420 ]
+208 silly gunzTarPerm extractEntry lib/plugins/delete-unused-entries.js
+209 silly gunzTarPerm modified mode [ 'lib/plugins/delete-unused-entries.js', 436, 420 ]
+210 silly gunzTarPerm extractEntry lib/plugins/extract-text.js
+211 silly gunzTarPerm modified mode [ 'lib/plugins/extract-text.js', 436, 420 ]
+212 silly gunzTarPerm extractEntry lib/plugins/forked-ts-types.js
+213 silly gunzTarPerm modified mode [ 'lib/plugins/forked-ts-types.js', 436, 420 ]
+214 silly gunzTarPerm extractEntry lib/plugins/friendly-errors.js
+215 silly gunzTarPerm modified mode [ 'lib/plugins/friendly-errors.js', 436, 420 ]
+216 silly gunzTarPerm extractEntry lib/plugins/loader-options.js
+217 silly gunzTarPerm modified mode [ 'lib/plugins/loader-options.js', 436, 420 ]
+218 silly gunzTarPerm extractEntry lib/plugins/manifest.js
+219 silly gunzTarPerm modified mode [ 'lib/plugins/manifest.js', 436, 420 ]
+220 silly gunzTarPerm extractEntry lib/plugins/notifier.js
+221 silly gunzTarPerm modified mode [ 'lib/plugins/notifier.js', 436, 420 ]
+222 silly gunzTarPerm extractEntry lib/plugins/plugin-priorities.js
+223 silly gunzTarPerm modified mode [ 'lib/plugins/plugin-priorities.js', 436, 420 ]
+224 silly gunzTarPerm extractEntry lib/plugins/uglify.js
+225 silly gunzTarPerm modified mode [ 'lib/plugins/uglify.js', 436, 420 ]
+226 silly gunzTarPerm extractEntry lib/plugins/variable-provider.js
+227 silly gunzTarPerm modified mode [ 'lib/plugins/variable-provider.js', 436, 420 ]
+228 silly gunzTarPerm extractEntry lib/plugins/versioning.js
+229 silly gunzTarPerm modified mode [ 'lib/plugins/versioning.js', 436, 420 ]
+230 silly gunzTarPerm extractEntry lib/test/
+231 silly gunzTarPerm modified mode [ 'lib/test/', 509, 493 ]
+232 silly gunzTarPerm extractEntry lib/test/assert.js
+233 silly gunzTarPerm modified mode [ 'lib/test/assert.js', 436, 420 ]
+234 silly gunzTarPerm extractEntry lib/test/setup.js
+235 silly gunzTarPerm modified mode [ 'lib/test/setup.js', 436, 420 ]
+236 silly gunzTarPerm extractEntry lib/webpack/
+237 silly gunzTarPerm modified mode [ 'lib/webpack/', 509, 493 ]
+238 silly gunzTarPerm extractEntry lib/webpack/delete-unused-entries-js-plugin.js
+239 silly gunzTarPerm modified mode [ 'lib/webpack/delete-unused-entries-js-plugin.js', 436, 420 ]
+240 silly gunzTarPerm extractEntry lib/webpack/webpack-manifest-plugin.js
+241 silly gunzTarPerm modified mode [ 'lib/webpack/webpack-manifest-plugin.js', 436, 420 ]
+242 silly gunzTarPerm extractEntry package.json
+243 silly gunzTarPerm modified mode [ 'package.json', 436, 420 ]
+244 silly gunzTarPerm extractEntry test/
+245 silly gunzTarPerm modified mode [ 'test/', 509, 493 ]
+246 silly gunzTarPerm extractEntry test/.eslintrc.js
+247 silly gunzTarPerm modified mode [ 'test/.eslintrc.js', 436, 420 ]
+248 silly gunzTarPerm extractEntry test/WebpackConfig.js
+249 silly gunzTarPerm modified mode [ 'test/WebpackConfig.js', 436, 420 ]
+250 silly gunzTarPerm extractEntry test/bin/
+251 silly gunzTarPerm modified mode [ 'test/bin/', 509, 493 ]
+252 silly gunzTarPerm extractEntry test/bin/encore.js
+253 silly gunzTarPerm modified mode [ 'test/bin/encore.js', 436, 420 ]
+254 silly gunzTarPerm extractEntry test/config-generator.js
+255 silly gunzTarPerm modified mode [ 'test/config-generator.js', 436, 420 ]
+256 silly gunzTarPerm extractEntry test/config/
+257 silly gunzTarPerm modified mode [ 'test/config/', 509, 493 ]
+258 silly gunzTarPerm extractEntry test/config/parse-runtime.js
+259 silly gunzTarPerm modified mode [ 'test/config/parse-runtime.js', 436, 420 ]
+260 silly gunzTarPerm extractEntry test/config/path-util.js
+261 silly gunzTarPerm modified mode [ 'test/config/path-util.js', 436, 420 ]
+262 silly gunzTarPerm extractEntry test/config/validator.js
+263 silly gunzTarPerm modified mode [ 'test/config/validator.js', 436, 420 ]
+264 silly gunzTarPerm extractEntry test/friendly-errors/
+265 silly gunzTarPerm modified mode [ 'test/friendly-errors/', 509, 493 ]
+266 silly gunzTarPerm extractEntry test/friendly-errors/formatters/
+267 silly gunzTarPerm modified mode [ 'test/friendly-errors/formatters/', 509, 493 ]
+268 silly gunzTarPerm extractEntry test/friendly-errors/formatters/missing-loader.js
+269 silly gunzTarPerm modified mode [ 'test/friendly-errors/formatters/missing-loader.js', 436, 420 ]
+270 silly gunzTarPerm extractEntry test/friendly-errors/transformers/
+271 silly gunzTarPerm modified mode [ 'test/friendly-errors/transformers/', 509, 493 ]
+272 silly gunzTarPerm extractEntry test/friendly-errors/transformers/missing-loader.js
+273 silly gunzTarPerm modified mode [ 'test/friendly-errors/transformers/missing-loader.js',
+273 silly gunzTarPerm   436,
+273 silly gunzTarPerm   420 ]
+274 silly gunzTarPerm extractEntry test/functional.js
+275 silly gunzTarPerm modified mode [ 'test/functional.js', 436, 420 ]
+276 silly gunzTarPerm extractEntry test/index.js
+277 silly gunzTarPerm modified mode [ 'test/index.js', 436, 420 ]
+278 silly gunzTarPerm extractEntry test/loaders/
+279 silly gunzTarPerm modified mode [ 'test/loaders/', 509, 493 ]
+280 silly gunzTarPerm extractEntry test/loaders/babel.js
+281 silly gunzTarPerm modified mode [ 'test/loaders/babel.js', 436, 420 ]
+282 silly gunzTarPerm extractEntry test/loaders/coffee-script.js
+283 silly gunzTarPerm modified mode [ 'test/loaders/coffee-script.js', 436, 420 ]
+284 silly gunzTarPerm extractEntry test/loaders/css.js
+285 silly gunzTarPerm modified mode [ 'test/loaders/css.js', 436, 420 ]
+286 silly gunzTarPerm extractEntry test/loaders/less.js
+287 silly gunzTarPerm modified mode [ 'test/loaders/less.js', 436, 420 ]
+288 silly gunzTarPerm extractEntry test/loaders/sass.js
+289 silly gunzTarPerm modified mode [ 'test/loaders/sass.js', 436, 420 ]
+290 silly gunzTarPerm extractEntry test/loaders/stylus.js
+291 silly gunzTarPerm modified mode [ 'test/loaders/stylus.js', 436, 420 ]
+292 silly gunzTarPerm extractEntry test/loaders/typescript.js
+293 silly gunzTarPerm modified mode [ 'test/loaders/typescript.js', 436, 420 ]
+294 silly gunzTarPerm extractEntry test/loaders/vue.js
+295 silly gunzTarPerm modified mode [ 'test/loaders/vue.js', 436, 420 ]
+296 silly gunzTarPerm extractEntry test/logger.js
+297 silly gunzTarPerm modified mode [ 'test/logger.js', 436, 420 ]
+298 silly gunzTarPerm extractEntry test/plugins/
+299 silly gunzTarPerm modified mode [ 'test/plugins/', 509, 493 ]
+300 silly gunzTarPerm extractEntry test/plugins/clean.js
+301 silly gunzTarPerm modified mode [ 'test/plugins/clean.js', 436, 420 ]
+302 silly gunzTarPerm extractEntry test/plugins/define.js
+303 silly gunzTarPerm modified mode [ 'test/plugins/define.js', 436, 420 ]
+304 silly gunzTarPerm extractEntry test/plugins/extract-text.js
+305 silly gunzTarPerm modified mode [ 'test/plugins/extract-text.js', 436, 420 ]
+306 silly gunzTarPerm extractEntry test/plugins/forked-ts-types.js
+307 silly gunzTarPerm modified mode [ 'test/plugins/forked-ts-types.js', 436, 420 ]
+308 silly gunzTarPerm extractEntry test/plugins/friendly-errors.js
+309 silly gunzTarPerm modified mode [ 'test/plugins/friendly-errors.js', 436, 420 ]
+310 silly gunzTarPerm extractEntry test/plugins/loader-options.js
+311 silly gunzTarPerm modified mode [ 'test/plugins/loader-options.js', 436, 420 ]
+312 silly gunzTarPerm extractEntry test/plugins/manifest.js
+313 silly gunzTarPerm modified mode [ 'test/plugins/manifest.js', 436, 420 ]
+314 silly gunzTarPerm extractEntry test/plugins/notifier.js
+315 silly gunzTarPerm modified mode [ 'test/plugins/notifier.js', 436, 420 ]
+316 silly gunzTarPerm extractEntry test/plugins/uglify.js
+317 silly gunzTarPerm modified mode [ 'test/plugins/uglify.js', 436, 420 ]
+318 silly gunzTarPerm extractEntry yarn.lock
+319 silly gunzTarPerm modified mode [ 'yarn.lock', 436, 420 ]
+320 silly lockFile c4c4d014-4479-0-13151932577602565-package tar://C:\Users\CATHER~1\AppData\Local\Temp\npm-12280\1518325014479-0.13151932577602565\package
+321 silly lockFile c4c4d014-4479-0-13151932577602565-package tar://C:\Users\CATHER~1\AppData\Local\Temp\npm-12280\1518325014479-0.13151932577602565\package
+322 silly lockFile 5c5631e0-4479-0-13151932577602565-tmp-tgz tar://C:\Users\CATHER~1\AppData\Local\Temp\npm-12280\1518325014479-0.13151932577602565\tmp.tgz
+323 silly lockFile 5c5631e0-4479-0-13151932577602565-tmp-tgz tar://C:\Users\CATHER~1\AppData\Local\Temp\npm-12280\1518325014479-0.13151932577602565\tmp.tgz
+324 silly lockFile dde27422-ithub-com-symfony-webpack-encore git://github.com/symfony/webpack-encore
+325 silly lockFile dde27422-ithub-com-symfony-webpack-encore git://github.com/symfony/webpack-encore
+326 info maybeGithub Attempting symfony/webpack-encore from git+ssh://git@github.com:symfony/webpack-encore
+327 silly lockFile 5a357fe3-ithub-com-symfony-webpack-encore git+ssh://git@github.com:symfony/webpack-encore
+328 verbose lock git+ssh://git@github.com:symfony/webpack-encore C:\Users\Catherine\AppData\Roaming\npm-cache\5a357fe3-ithub-com-symfony-webpack-encore.lock
+329 verbose addRemoteGit [ 'git@github.com:symfony/webpack-encore', 'master' ]
+330 warn `git config --get remote.origin.url` returned wrong result (git@github.com:symfony/webpack-encore)
+331 error git clone git@github.com:symfony/webpack-encore Cloning into bare repository 'C:\Users\Catherine\AppData\Roaming\npm-cache\_git-remotes\git-github-com-symfony-webpack-encore-f9340cda'...
+331 error git clone git@github.com:symfony/webpack-encore Host key verification failed.
+331 error git clone git@github.com:symfony/webpack-encore fatal: Could not read from remote repository.
+331 error git clone git@github.com:symfony/webpack-encore
+331 error git clone git@github.com:symfony/webpack-encore Please make sure you have the correct access rights
+331 error git clone git@github.com:symfony/webpack-encore and the repository exists.
+332 silly lockFile f9340cda-ithub-com-symfony-webpack-encore git@github.com:symfony/webpack-encore
+333 silly lockFile 3a2d349e-symfony-webpack-encore symfony/webpack-encore
+334 silly lockFile 3a2d349e-symfony-webpack-encore symfony/webpack-encore
+335 error addLocal Could not install symfony/webpack-encore
+336 error Error: ENOENT, stat 'C:\Users\Catherine\PhpstormProjects\WinthropInternship\winthrop-internship\WinthropInternship\symfony\webpack-encore'
+337 error If you need help, you may report this log at:
+337 error     <http://github.com/isaacs/npm/issues>
+337 error or email it to:
+337 error     <npm-@googlegroups.com>
+338 error System Windows_NT 6.2.9200
+339 error command "C:\\Program Files (x86)\\nodejs\\\\node.exe" "C:\\Program Files (x86)\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "@symfony/webpack-encore" "--save-dev"
+340 error cwd C:\Users\Catherine\PhpstormProjects\WinthropInternship\winthrop-internship\WinthropInternship
+341 error node -v v0.10.13
+342 error npm -v 1.3.2
+343 error path C:\Users\Catherine\PhpstormProjects\WinthropInternship\winthrop-internship\WinthropInternship\symfony\webpack-encore
+344 error code ENOENT
+345 error errno 34
+346 verbose exit [ 34, true ]
