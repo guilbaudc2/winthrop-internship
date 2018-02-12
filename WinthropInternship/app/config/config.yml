@@ -85,5 +85,5 @@ fos_user:
         confirmation:
             enabled: false
             from_email:
-                address:        noreply@elpofyorkcounty.org
-                sender_name:    Born to Read - ELP of York County
+                address:        cce@winthrop.edu
+                sender_name:    Winthrop Internship Application Progress

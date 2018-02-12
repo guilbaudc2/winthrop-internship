@@ -1,15 +1,10 @@
 <!DOCTYPE html>
 <html>
-    {#<head>#}
-    {#    <meta charset="UTF-8" />#}
-    {#    <title>{% block title %}Welcome!{% endblock %}</title>#}
-    {#    {% block stylesheets %}{% endblock %}#}
-    {#    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />#}
-    {#</head>#}
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Winthrop Internship Learning Engagement{% endblock %}</title>
-        <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+        <title>{% block title %}{% endblock %} | Winthrop Internship Learning Engagement</title>
+        <link rel="stylesheet" type="text/css" href="../web/assets/css/reset.css">
+        <link rel="stylesheet" type="text/css" href="../web/assets/css/main.css">
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>

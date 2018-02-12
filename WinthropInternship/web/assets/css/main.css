@@ -1,27 +1,53 @@
+/* main blue (header, check boxes, backgroundtransparent-background color) rgba(16,57,85, 0.41) - hex: #103A55; 
+cranberry color: #EB6F5D; with transparency: 54%; 
+
+
+very dark grey: 606060
+very pale grey: #F3F2F2
+
+footer grey: 999999
+
+disabled color: black with 5% opacity
+
+good news green: 1F9E62
+
+bad news red: DB4437
+
+inprogres yet cautionary yellow: F7F377
+in progress green: CFEE76
+
+*/
+
+
 @font-face {
     font-family: "Roboto Bold";
     src: url('../fonts/roboto/Roboto-Bold.woff') format('woff'),
-    url('../fonts/roboto/Roboto-Bold.woff2') format('woff2');
+    url('../fonts/roboto/Roboto-Bold.woff2') format('woff2'),
+    url('../fonts/roboto/Roboto-Bold.ttf') format('truetype');
 }
 @font-face {
     font-family: "Roboto Light";
     src: url('../fonts/roboto/Roboto-Light.woff') format('woff'),
-    url('../fonts/roboto/Roboto-Light.woff2') format('woff2');
+    url('../fonts/roboto/Roboto-Light.woff2') format('woff2'),
+    url('../fonts/roboto/Roboto-Light.ttf') format('truetype');
 }
 @font-face {
     font-family: "Roboto Medium";
     src: url('../fonts/roboto/Roboto-Medium.woff') format('woff'),
-    url('../fonts/roboto/Roboto-Medium.woff2') format('woff2');
+    url('../fonts/roboto/Roboto-Medium.woff2') format('woff2'),
+    url('../fonts/roboto/Roboto-Medium.ttf') format('truetype');
 }
 @font-face {
     font-family: "Roboto Regular";
     src: url('../fonts/roboto/Roboto-Regular.woff') format('woff'),
-    url('../fonts/roboto/Roboto-Regular.woff2') format('woff2');
+    url('../fonts/roboto/Roboto-Regular.woff2') format('woff2'),
+    url('../fonts/roboto/Roboto-Regular.ttf') format('truetype');
 }
 @font-face {
     font-family: "Roboto Thin";
     src: url('../fonts/roboto/Roboto-Thin.woff') format('woff'),
-    url('../fonts/roboto/Roboto-Thin.woff2') format('woff2');
+    url('../fonts/roboto/Roboto-Thin.woff2') format('woff2'),
+    url('../fonts/roboto/Roboto-Thin.ttf') format('truetype');
 }
 
 body, html {
@@ -33,4 +59,26 @@ body, html {
 div {
     margin:0;
     padding:0;
+}
+
+.index-background-image{
+    height: 100%;
+    background-image: url(../images/background-image-main.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin:0;
+    padding:0;
+}
+
+.transparent {
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(16,57,85, 0.41);
+    margin:0;
+    padding:0;
+
 }

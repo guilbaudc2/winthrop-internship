@@ -1,83 +1,98 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8" />
-    <title>{% block title %}Test{% endblock %}</title>
-    <link rel="stylesheet" type="text/css" href="assets/css/main.css">
-    {% block stylesheets %}{% endblock %}
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    <script src="//code.jquery.com/jquery-1.11.3.js"></script>
-    <script>
-        $('li').click(function(){
+{% extends 'base.html.twig' %}
+{% block title %}Login{% endblock %}
 
-            $(this).addClass('active')
-                .siblings()
-                .removeClass('active');
-        });
-    </script>
-</head>
-<body>
-<div class="nav-container">
-    <ul class="nav">
-        <li>
-            <a href="../">home
-            </a>
-        </li>
-        {% if not (is_granted('ROLE_USER') or is_granted('ROLE_ADMIN'))%}
-            <li>
-                <a href="/WinthropInternship/web/app_dev.php/login">
-                    <span class="icon-facetime-video"></span><span class="text">Login</span>
-                </a>
-            </li>
-            <li>
-                <a href="/WinthropInternship/web/app_dev.php/register">
-                    <span class="icon-facetime-video"></span><span class="text">Register</span>
-                </a>
-            </li>
-        {% endif %}
-        {% if is_granted('ROLE_USER') or is_granted('ROLE_ADMIN')%}
-            <li>
-                <a href="/WinthropInternship/web/app_dev.php/logout">
-                    <span class="icon-facetime-video"></span><span class="text">Logout</span>
-                </a>
-            </li>
-        {% endif %}
-    </ul>
-</div>
+{% block body %}
+    <div class="index-background-image">
+		<div class="transparent">
 
-<div id="wrapper">
-    <div id="container">
-        <div id="welcome">
+			<div class="center-text">
+    			<div class="login-page">
+                    <h1>Winthrop Internship Learning Experience</h1>
+            
+                    {#<div>#}
+                    {#    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}#}
+                    {#        {{ 'Logged in as:'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |#}
+                    {#        <a href="{{ path('fos_user_security_logout') }}">#}
+                    {#            {{ 'Logout'|trans({}, 'FOSUserBundle') }}#}
+                    {#        </a>#}
+                    {#    {% else %}#}
+                    {#        <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>#}
+                    {#    {% endif %}#}
+                    {#</div>#}
+        
+                    {% for type, messages in app.session.flashBag.all %}
+                        {% for message in messages %}
+                            <div class="{{ type }}">
+                                {{ message|trans({}, 'FOSUserBundle') }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
 
-
-            <h1>test</h1>
-        </div>
-        <div id="newbox">
-            <div>
-                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    {{ 'Logged in as:'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
-                    <a href="{{ path('fos_user_security_logout') }}">
-                        {{ 'Logout'|trans({}, 'FOSUserBundle') }}
-                    </a>
-                {% else %}
-                    <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
-                {% endif %}
-            </div>
-
-            {% for type, messages in app.session.flashBag.all %}
-                {% for message in messages %}
-                    <div class="{{ type }}">
-                        {{ message|trans({}, 'FOSUserBundle') }}
+                    <div>
+                        {% block fos_user_content %}
+                        {% endblock fos_user_content %}
                     </div>
-                {% endfor %}
-            {% endfor %}
-
-            <div>
-                {% block fos_user_content %}
-                {% endblock fos_user_content %}
+                    
+                    <a href="#"><h2 id="reset-button">Reset Password</h2></a>
+                </div>
             </div>
         </div>
     </div>
-</div>
-</body>
-</html>
+{% endblock %}
+
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="../assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/main.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/styles.css">
+{% endblock %}
+
+{#<!DOCTYPE html>#}
+{#<html>#}
+{#<head>#}
+{#    <meta charset="UTF-8" />#}
+{#    <title>{% block title %}Login{% endblock %} | Winthrop Internship Learning Experience</title>#}
+{#    <link rel="stylesheet" type="text/css" href="../assets/css/reset.css">#}
+{#    <link rel="stylesheet" type="text/css" href="../assets/css/main.css">#}
+{#    <link rel="stylesheet" type="text/css" href="../assets/css/styles.css">#}
+{#    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />#}
+{#    <script src="//code.jquery.com/jquery-1.11.3.js"></script>#}
+
+{#</head>#}
+{#<body>#}
+{#    <div class="index-background-image">#}
+{#		<div class="transparent">#}
+
+{#			<div class="center-text">#}
+{#    			<div class="login-page">#}
+{#                    <h1>Winthrop Internship Learning Experience</h1>#}
+            
+{#                    <div>#}
+{#                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}#}
+{#                            {{ 'Logged in as:'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |#}
+{#                            <a href="{{ path('fos_user_security_logout') }}">#}
+{#                                {{ 'Logout'|trans({}, 'FOSUserBundle') }}#}
+{#                            </a>#}
+                        {#{% else %}#}
+                        {#    <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>#}
+{#                        {% endif %}#}
+{#                    </div>#}
+        
+{#                    {% for type, messages in app.session.flashBag.all %}#}
+{#                        {% for message in messages %}#}
+{#                            <div class="{{ type }}">#}
+{#                                {{ message|trans({}, 'FOSUserBundle') }}#}
+{#                            </div>#}
+{#                        {% endfor %}#}
+{#                    {% endfor %}#}
+
+{#                    <div>#}
+{#                {% block fos_user_content %}#}
+{#                {% endblock fos_user_content %}#}
+{#            </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</body>#}
+{#</html>#}

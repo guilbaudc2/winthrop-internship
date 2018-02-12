@@ -1,15 +1,18 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Home{% endblock %} 
+
 {% block body %}
-<div class="index-background-image">
-        <div class="center-text">
-            <h1>Winthrop Internship Learning Engagement Portal</h1>
-            <a><h2>Login</h2></a>
+	<div class="index-background-image">
+		<div class="transparent">
+    		<div class="center-text">
+           		<h1>Winthrop Internship Learning Experience Portal</h1>
+           		<a href="/login"><h2>Login</h2></a>
+           	</div>
         </div>
-    </div>
-</div>
+	</div>
 {% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" type="text/css" href="/assets/css/index.css">
+    <link rel="stylesheet" type="text/css" href="../web/assets/css/styles.css">
 {% endblock %}
