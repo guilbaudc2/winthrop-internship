@@ -7,12 +7,14 @@
 		<div class="transparent">
     		<div class="center-text">
            		<h1>Winthrop Internship Learning Experience Portal</h1>
-           		<a href="/login"><h2>Login</h2></a>
+           		<a href="{{path('fos_user_security_login')}}"><h2>Login</h2></a>
            	</div>
         </div>
 	</div>
 {% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" type="text/css" href="../web/assets/css/styles.css">
+<link rel="stylesheet" type="text/css" href="../assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/main.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/styles.css">
 {% endblock %}

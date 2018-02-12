@@ -33,7 +33,8 @@
                         {% endblock fos_user_content %}
                     </div>
                     
-                    <a href="#"><h2 id="reset-button">Reset Password</h2></a>
+                    <a href="{{path('fos_user_resetting_request')}}"><h2 id="reset-button">Reset Password</h2></a>
+                    {#<a href="/resetting/request"><h2 id="reset-button">Reset Password</h2></a>#}
                 </div>
             </div>
         </div>
