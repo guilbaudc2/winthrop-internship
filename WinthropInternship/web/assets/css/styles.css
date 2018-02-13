@@ -27,7 +27,9 @@ h1, h2, button, input {
     font-size: 52px;
 }
 
-
+.center-text h2:hover{
+    background-color: #7ADEF9;
+}
 .login-page {
 	background-color: rgba(65,86, 106, 0.76);
 	display:flex;
