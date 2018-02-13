@@ -1,11 +1,13 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-<form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
+{% block title %}Reset Password{% endblock %}
+
+<form action="{{ path('fos_user_resetting_send_email') }}" method="POST">
     <div>
-        <label for="username">{{ 'resetting.request.username'|trans }}</label>
-        <input type="text" id="username" name="username" required="required" />
+        <input type="text" id="username" name="username" required="required" placeholder="Winthrop Username" />
     </div>
     <div>
-        <input type="submit" value="{{ 'resetting.request.submit'|trans }}" />
+        {#<input type="submit" value="{{ 'resetting.request.submit'|trans }}" />#}
+        <input type="submit" value="Submit Request" />
     </div>
 </form>

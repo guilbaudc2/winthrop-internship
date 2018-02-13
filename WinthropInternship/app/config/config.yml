@@ -80,10 +80,14 @@ fos_user:
         mailer: fos_user.mailer.twig_swift
     resetting:
         email:
-            template: email/password_resetting.email.twig
+            from_email:
+                  address:        resetting@example.com
+                  sender_name:    Demo Resetting
+#            template: email/password_resetting.email.twig
+            template: '@FOSUser/Resetting/email.txt.twig'
     registration:
         confirmation:
-            enabled: false
+            enabled: true
             from_email:
                 address:        cce@winthrop.edu
                 sender_name:    Winthrop Internship Application Progress
