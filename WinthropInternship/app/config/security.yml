@@ -28,6 +28,8 @@ security:
                 login_path: /login
                 check_path: /login_check
                 provider: fos_userbundle
+                # always_use_default_target_path: false
+                # default_target_path:            /your/start/path/
             logout:
                 path: /logout
                 target: /
