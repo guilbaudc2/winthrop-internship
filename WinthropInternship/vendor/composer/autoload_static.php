@@ -227,6 +227,13 @@ class ComposerStaticInit85b6a393644a24ae20e749f1e535e74a
     );
 
     public static $prefixesPsr0 = array (
+        'c' => 
+        array (
+            'chriskacerguis\\Randomstring\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/chriskacerguis/randomstring/src',
+            ),
+        ),
         'T' => 
         array (
             'Twig_' => 
@@ -239,6 +246,13 @@ class ComposerStaticInit85b6a393644a24ae20e749f1e535e74a
             'SensioLabs\\Security' => 
             array (
                 0 => __DIR__ . '/..' . '/sensiolabs/security-checker',
+            ),
+        ),
+        'G' => 
+        array (
+            'GenPhrase' => 
+            array (
+                0 => __DIR__ . '/..' . '/genphrase/genphrase/library',
             ),
         ),
         'D' => 

@@ -1,0 +1,97 @@
+{% extends 'innerbase.html.twig' %}
+
+{% block body %}
+
+    {#    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}#}
+            {#{{ 'Logged in as:'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |#}
+
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <br><br>
+            <h1 class="header center">Welcome, {{ app.user.username}}!</h1>
+            <div class="row center">
+                <h5 class="header col s12 light">You don't have any active Internship Learning Agreements</h5>
+            </div>
+            <div class="row center">
+                <a href="{{ path('studentformone_new') }}" id="download-button" class="btn-large waves-effect waves-light landing-btn-color">Begin New Learning Agreement</a>
+            </div>
+            <br><br>
+
+        </div>
+    </div>
+    {#<h1>Studentformones list</h1>#}
+
+    {#<table>#}
+        {#<thead>#}
+            {#<tr>#}
+                {#<th>Id</th>#}
+                {#<th>Firstname</th>#}
+                {#<th>Lastname</th>#}
+                {#<th>Username</th>#}
+                {#<th>Cwid</th>#}
+                {#<th>Emailaddress</th>#}
+                {#<th>Classenrolled</th>#}
+                {#<th>Numcredits</th>#}
+                {#<th>Phonenumber</th>#}
+                {#<th>Legallyauthorized</th>#}
+                {#<th>Futureworkauthorization</th>#}
+                {#<th>Major</th>#}
+                {#<th>Minor</th>#}
+                {#<th>Facultyliaison</th>#}
+                {#<th>Semesterenrolled</th>#}
+                {#<th>Yearenrolled</th>#}
+                {#<th>Semestergrad</th>#}
+                {#<th>Yeargrad</th>#}
+                {#<th>Date</th>#}
+                {#<th>Sitesupername</th>#}
+                {#<th>Sitesuperemail</th>#}
+                {#<th>Sitesuperaccesscode</th>#}
+                {#<th>Actions</th>#}
+            {#</tr>#}
+        {#</thead>#}
+        {#<tbody>#}
+        {#{% for studentFormOne in studentFormOnes %}#}
+            {#<tr>#}
+                {#<td><a href="{{ path('studentformone_show', { 'id': studentFormOne.id }) }}">{{ studentFormOne.id }}</a></td>#}
+                {#<td>{{ studentFormOne.firstName }}</td>#}
+                {#<td>{{ studentFormOne.lastName }}</td>#}
+                {#<td>{{ studentFormOne.userName }}</td>#}
+                {#<td>{{ studentFormOne.cWID }}</td>#}
+                {#<td>{{ studentFormOne.emailAddress }}</td>#}
+                {#<td>{{ studentFormOne.classEnrolled }}</td>#}
+                {#<td>{{ studentFormOne.numCredits }}</td>#}
+                {#<td>{{ studentFormOne.phoneNumber }}</td>#}
+                {#<td>{% if studentFormOne.legallyAuthorized %}Yes{% else %}No{% endif %}</td>#}
+                {#<td>{% if studentFormOne.futureWorkAuthorization %}Yes{% else %}No{% endif %}</td>#}
+                {#<td>{{ studentFormOne.major }}</td>#}
+                {#<td>{{ studentFormOne.minor }}</td>#}
+                {#<td>{{ studentFormOne.facultyLiaison }}</td>#}
+                {#<td>{{ studentFormOne.semesterEnrolled }}</td>#}
+                {#<td>{% if studentFormOne.yearEnrolled %}{{ studentFormOne.yearEnrolled|date('Y-m-d') }}{% endif %}</td>#}
+                {#<td>{{ studentFormOne.semesterGrad }}</td>#}
+                {#<td>{% if studentFormOne.yearGrad %}{{ studentFormOne.yearGrad|date('Y-m-d') }}{% endif %}</td>#}
+                {#<td>{% if studentFormOne.date %}{{ studentFormOne.date|date('Y-m-d') }}{% endif %}</td>#}
+                {#<td>{{ studentFormOne.siteSuperName }}</td>#}
+                {#<td>{{ studentFormOne.siteSuperEmail }}</td>#}
+                {#<td>{{ studentFormOne.siteSuperAccessCode }}</td>#}
+                {#<td>#}
+                    {#<ul>#}
+                        {#<li>#}
+                            {#<a href="{{ path('studentformone_show', { 'id': studentFormOne.id }) }}">show</a>#}
+                        {#</li>#}
+                        {#<li>#}
+                            {#<a href="{{ path('studentformone_edit', { 'id': studentFormOne.id }) }}">edit</a>#}
+                        {#</li>#}
+                    {#</ul>#}
+                {#</td>#}
+            {#</tr>#}
+        {#{% endfor %}#}
+        {#</tbody>#}
+    {#</table>#}
+
+    <ul>
+        <li>
+            <a href="{{ path('studentformone_new') }}">Create a new studentFormOne</a>
+        </li>
+    </ul>
+{% endblock %}
