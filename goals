@@ -1,0 +1,97 @@
+
+<html>
+ <head>
+  <title>Student Goals</title>
+     <div style="background: #024366 ">
+         <font color="white">WILE</font>
+     </div>
+     <div style="text-align: center; background: coral">
+         <font color="white">
+             The language in this form does not create an employment contract, either expressed<br>
+             or implied, or otherwise alter the at-will employment relationship between any<br>
+             employee and Winthrop University. Winthrop University reserves the right to revise<br>
+             the contents of this form in whole or in part, as necessary.<br>
+         </font>
+     </div>
+
+ </head>
+
+ <body>
+ <?php
+ $personalErr = $expErr = $personal = $exp =$subButton = $saveButton = "";
+    function check()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST")
+        {
+            if (empty($_POST["exp"]))
+            {
+                $expErr = "field is required";
+            }
+            else
+            {
+                $exp = test_input($_POST["exp"]);
+                // check if name only contains letters and whitespace
+                if (!preg_match("/^[a-zA-Z *$/",$exp))
+                {
+                    $expErr = "Only letters and white space allowed";
+                }
+            }
+            if (empty($_POST["personal"]))
+            {
+                $personalErr = "field is required";
+            }
+            else
+            {
+                $personal = test_input($_POST["personal"]);
+                // check if name only contains letters and whitespace
+                if (!preg_match("/^[a-zA-Z *$/",$personal))
+                {
+                    $personalErr = "Only letters and white space allowed";
+                }
+            }
+        }
+        function test_input($data) {
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            return $data ;
+        }
+    }
+ ?>
+ <form>
+<center>
+    <br>
+     Explain how this internship will add to your educational experience at Winthrop University.
+     <br><br>
+     <textarea name="exp" rows="20" cols="100"><?php echo $exp;?></textarea>
+     <br><br>
+     What professional and personal goals do you hope to achieve while at this internship
+     <br><br>
+     <textarea name="personal" rows="20" cols="100"><?php echo $personal;?></textarea>
+     <br><br>
+     <input type="submit" value="Submit" name="Submit" onClick=<?php Submitting()?> value="Submit">
+     <input type="submit" value="Save" name="save" onClick=<?php Saving()?> value="Save">
+
+
+</center>
+     <?php
+     function Submitting()
+     {
+         check();
+         $Submission = new mysqli("localhost", "username", "password", "dbname");
+         $Submission->query("INSERT "); //insert into database
+         $Submission->query("MODIFY "); //change form status to give to someone
+         //header("Location: /dashboard.php");
+     }
+     function Saving()
+     {
+         check();
+         $Save = new mysqli("localhost", "username", "password", "dbname");
+         $Save->query("INSERT ");//need db info first
+         //header("Location: /dashboard.php");
+     }
+     ?>
+ </form>
+ </body>
+</html>
+
