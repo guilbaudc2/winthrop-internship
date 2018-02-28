@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use chriskacerguis\Randomstring\Randomstring;
 
 /**
  * StudentFormOne
@@ -20,6 +21,12 @@ class StudentFormOne
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
+    /**
+     * One StudentFormOne has One SiteSupervisorForm.
+     * @ORM\OneToOne(targetEntity="SiteSupervisorForm", mappedBy="student_form_one")
+     */
+    private $site_supervisor_form;
 
     /**
      * @var string
@@ -167,8 +174,15 @@ class StudentFormOne
      * @ORM\Column(name="siteSuperAccessCode", type="string", length=75)
      */
     private $siteSuperAccessCode;
-
-
+    
+    
+    public function __construct() {
+        
+        $random = new \chriskacerguis\Randomstring\Randomstring();
+        
+        $this->siteSuperAccessCode = $random->generate(15, true);
+    }
+    
     /**
      * Get id
      *
@@ -659,12 +673,12 @@ class StudentFormOne
         return $this->siteSuperEmail;
     }
 
-    public function setSiteSuperAccessCode($siteSuperAccessCode)
-    {
-        $this->siteSuperAccessCode = $siteSuperAccessCode;
+    // public function setSiteSuperAccessCode($siteSuperAccessCode)
+    // {
+    //     $this->siteSuperAccessCode = $siteSuperAccessCode;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * Get siteSuperAccessCode

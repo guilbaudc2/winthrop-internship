@@ -20,6 +20,13 @@ class SiteSupervisorForm
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
+    /**
+     * One SiteSupervisorForm has One StudentFormOne.
+     * @ORM\OneToOne(targetEntity="StudentFormOne", inversedBy="site_supervisor_form")
+     * @ORM\JoinColumn(name="student_form_one_id", referencedColumnName="id")
+     */
+    private $student_form_one;
 
     /**
      * @var bool
@@ -185,6 +192,32 @@ class SiteSupervisorForm
     {
         return $this->id;
     }
+    
+    
+    /**
+     * Set studentFormOne
+     *
+     * @param integer $student_form_one
+     *
+     * @return SiteSupervisorForm
+     */
+    public function setStudentFormOne($student_form_one)
+    {
+        $this->student_form_one = $student_form_one;
+    
+        return $this;
+    }
+
+    /**
+     * Get studentFormOne
+     *
+     * @return integer
+     */
+    public function getStudentFormOne()
+    {
+        return $this->student_form_one;
+    }
+    
 
     /**
      * Set forProfit
