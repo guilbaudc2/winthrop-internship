@@ -3,7 +3,7 @@
 <?php
 $StudentLName=$StudentFName=$StudentUser=$StudentID=$StudentEmail=$SemEnroll=$YearEnrolled=$Major=" ";
 $SSName=$SSEmail=$Title=$Pay=" ";
-$FormID=
+$FormID=0;
 $pull = new mysqli("localhost", "username", "password", "dbname");
 $StudentLName= $pull->query("Select LastName FROM STUDENT WHERE FormID==$FormID");///this is probably terrible for a server but my 8 hours of php experience cant do any better. Sorry ;_;
 $StudentFName= $pull->query("Select FirstName FROM STUDENT WHERE FormID==$FormID");
@@ -17,8 +17,8 @@ $SSName= $pull->query("Select  FROM SiteSupervisor WHERE FormID==$FormID");
 $SSEmail= $pull->query("Select SSEmail FROM SiteSupervisor WHERE FormID==$FormID");
 $Title= $pull->query("Select Title FROM SiteSupervisor WHERE FormID==$FormID");
 $Pay= $pull->query("Select Pay FROM SiteSupervisor WHERE FormID==$FormID");
-?>
 
+?>
 <text>
     Student name <br>
     <?php   Echo($StudentLast +" " + $StudentFirst) ?>
@@ -38,7 +38,7 @@ $Pay= $pull->query("Select Pay FROM SiteSupervisor WHERE FormID==$FormID");
     Site Supervisor Name <br>
     <?php   Echo($SSName) ?>
     Site supervisor email address <br>
-    <?php   print($SSEmail) ?> <br>
+    <?php   Echo($SSEmail) ?> <br>
     Job Title <br>
     <?php   Echo($Title) ?>
     Pay <br>
@@ -46,21 +46,39 @@ $Pay= $pull->query("Select Pay FROM SiteSupervisor WHERE FormID==$FormID");
     <h2>
         Confirm Student Approval
     </h2>
-    //bubbles
-    <input type="submit" value="Submit" name="Submit" onClick=<?php Submitting()?> value="Submit">
+    <form action="#" method="post">
+        <select name="Choice">
+            <option value="Approve">Approve</option>
+            <option value="Deny">Deny</option>
+            <option value="Hold">Hold</option>
+        </select>
+        <input type="submit" name="submit" value="Confirm" />
+    </form>
+    <?php
+    
+    if(isset($_POST['submit'])){
+        $FormID=0;
+        $Submission = new mysqli("localhost", "username", "password", "dbname");
+        $selected_val = $_POST['Choice'];  // Storing Selected Value In Variable
+        if($selected_val == 'Approve')
+        {
+            $Submission->query("MODIFY Status FROM FORM WHERE FormID==$FormID"); //change form status to give to someone
+            header("Location: /dashboard.php");
+        }
+
+        else if($selected_val == 'Deny')
+        {
+            $Submission->query("Delete * WHERE FormID==$FormID"); //delete the form
+            //send the email
+            header("Location: /dashboard.php");
+        }
+        else
+        {
+            //send the email
+            header("Location: /dashboard.php");
+        }
+
+    }
+    ?>
 </text>
-<?php
-function Submitting()
-{
-    check();
-    $Submission = new mysqli("localhost", "username", "password", "dbname");
-    $Submission->query("INSERT "); //insert into database
-    $Submission->query("MODIFY Pay FROM SiteSupervisor WHERE FormID==$FormID"); //change form status to give to someone
-    //header("Location: /dashboard.php");
-}
-
-?>
-
-
-
 </body>
