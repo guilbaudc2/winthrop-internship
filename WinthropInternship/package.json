@@ -1,0 +1,26 @@
+{
+  "name": "winthropinternship",
+  "version": "1.0.0",
+  "description": "Symfony Standard Edition\r ========================",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+
+  "devDependencies": {
+    "@symfony/webpack-encore": "^0.7.2"
+  },
+
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "./node_modules/.bin/encore dev",
+    "watch": "./node_modules/.bin/encore dev --watch",
+    "prod": "./node_modules/.bin/encore production"
+
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@symfony/webpack-encore": "^0.18.0"
+  }
+}

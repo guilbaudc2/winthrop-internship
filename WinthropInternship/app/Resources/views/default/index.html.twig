@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+	<div class="index-background-image">
+		<div class="transparent">
+    		<div class="center-text">
+           		<h1>Winthrop Internship Learning Experience Portal</h1>
+           		<a href="{{path('fos_user_security_login')}}"><h2>Login</h2></a>
+           	</div>
+        </div>
+	</div>
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" type="text/css" href="../assets/css/main.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/styles.css">
+{% endblock %}

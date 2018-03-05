@@ -1,0 +1,44 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{% block subject %}
+    {%- autoescape false -%}
+        {#{{ 'resetting.email.subject'|trans({'%username%': user.username}) }}#}
+        {% block subject %}Reset Your Password{% endblock %}
+    {%- endautoescape -%}
+{% endblock %}
+
+{% block body_text %}
+    {% autoescape false %}
+        {#{{ 'resetting.email.message'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}) }}#}
+    Hello {{ user.username }}!
+
+    You can reset your password by accessing
+     {{ confirmationUrl }}
+
+    Greetings,
+    the App team
+    {% endautoescape %}
+{% endblock %}
+{% block body_html %}{% endblock %}
+
+{#{% block subject %}Resetting your password{% endblock %}#}
+
+{#{% block body_text %}#}
+    {#{% autoescape false %}#}
+        {#Hello {{ user.username }} !#}
+
+        {#You can reset your password by accessing {{ confirmationUrl }}#}
+
+        {#Greetings,#}
+        {#the App team#}
+    {#{% endautoescape %}#}
+{#{% endblock %}#}
+
+{#{% block body_html %}#}
+    {##}
+        {#You can of course render the html directly here.#}
+        {#Including a template as done here allows keeping things DRY by using#}
+        {#the template inheritance in it#}
+    {##}
+
+{#{% include 'email/password_resetting.html.twig' %}#}
+{#{% endblock %}#}

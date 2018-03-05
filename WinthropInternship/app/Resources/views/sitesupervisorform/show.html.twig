@@ -1,0 +1,116 @@
+{% extends 'innerbase.html.twig' %}
+
+{% block body %}
+    <h1>Sitesupervisorform</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ siteSupervisorForm.id }}</td>
+            </tr>
+            <tr>
+                <th>Forprofit</th>
+                <td>{% if siteSupervisorForm.forProfit %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Organizationname</th>
+                <td>{{ siteSupervisorForm.organizationName }}</td>
+            </tr>
+            <tr>
+                <th>Businesslicensenum</th>
+                <td>{{ siteSupervisorForm.businessLicenseNum }}</td>
+            </tr>
+            <tr>
+                <th>Stateissued</th>
+                <td>{{ siteSupervisorForm.stateIssued }}</td>
+            </tr>
+            <tr>
+                <th>Directinternshipsupervisor</th>
+                <td>{{ siteSupervisorForm.directInternshipSupervisor }}</td>
+            </tr>
+            <tr>
+                <th>Supervisorstitle</th>
+                <td>{{ siteSupervisorForm.supervisorsTitle }}</td>
+            </tr>
+            <tr>
+                <th>Physicaladdress</th>
+                <td>{{ siteSupervisorForm.physicalAddress }}</td>
+            </tr>
+            <tr>
+                <th>Availableforsitevisit</th>
+                <td>{% if siteSupervisorForm.availableForSiteVisit %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Supervisorphone</th>
+                <td>{{ siteSupervisorForm.supervisorPhone }}</td>
+            </tr>
+            <tr>
+                <th>Supervisoremail</th>
+                <td>{{ siteSupervisorForm.supervisorEmail }}</td>
+            </tr>
+            <tr>
+                <th>Internshipprojectedstartdate</th>
+                <td>{% if siteSupervisorForm.internshipProjectedStartDate %}{{ siteSupervisorForm.internshipProjectedStartDate|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Internshipprojectedenddate</th>
+                <td>{% if siteSupervisorForm.internshipProjectedEndDate %}{{ siteSupervisorForm.internshipProjectedEndDate|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Totalweeks</th>
+                <td>{{ siteSupervisorForm.totalWeeks }}</td>
+            </tr>
+            <tr>
+                <th>Estimatedhours</th>
+                <td>{{ siteSupervisorForm.estimatedHours }}</td>
+            </tr>
+            <tr>
+                <th>Paid</th>
+                <td>{% if siteSupervisorForm.paid %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Salary</th>
+                <td>{{ siteSupervisorForm.salary }}</td>
+            </tr>
+            <tr>
+                <th>Salaryorstipend</th>
+                <td>{% if siteSupervisorForm.salaryOrStipend %}{{ siteSupervisorForm.salaryOrStipend|join(', ') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Stipend</th>
+                <td>{{ siteSupervisorForm.stipend }}</td>
+            </tr>
+            <tr>
+                <th>Task</th>
+                <td>{{ siteSupervisorForm.task }}</td>
+            </tr>
+            <tr>
+                <th>Projects</th>
+                <td>{{ siteSupervisorForm.projects }}</td>
+            </tr>
+            <tr>
+                <th>Outcomes</th>
+                <td>{{ siteSupervisorForm.outcomes }}</td>
+            </tr>
+            <tr>
+                <th>Additionalcomments</th>
+                <td>{{ siteSupervisorForm.additionalComments }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('sitesupervisorform_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('sitesupervisorform_edit', { 'id': siteSupervisorForm.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
