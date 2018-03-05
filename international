@@ -1,0 +1,66 @@
+<title>Internship Approval</title>
+</body>
+<?php
+$StudentLName=$StudentFName=$StudentUser=$StudentID=$StudentEmail=$SemEnroll=$YearEnrolled=$Major=" ";
+$SSName=$SSEmail=$Title=$Pay=" ";
+$FormID=
+$pull = new mysqli("localhost", "username", "password", "dbname");
+$StudentLName= $pull->query("Select LastName FROM STUDENT WHERE FormID==$FormID");///this is probably terrible for a server but my 8 hours of php experience cant do any better. Sorry ;_;
+$StudentFName= $pull->query("Select FirstName FROM STUDENT WHERE FormID==$FormID");
+$StudentUser= $pull->query("Select UserName FROM STUDENT WHERE FormID==$FormID");
+$StudentID= $pull->query("Select StudentID FROM STUDENT WHERE FormID==$FormID");
+$StudentEmail= $pull->query("Select Email FROM STUDENT WHERE FormID==$FormID");
+$SemEnroll= $pull->query("Select SemEnroll FROM STUDENT WHERE FormID==$FormID");
+$YearEnroll= $pull->query("Select YearEnroll FROM STUDENT WHERE FormID==$FormID");
+$Major= $pull->query("Select Major FROM STUDENT WHERE FormID==$FormID");
+$SSName= $pull->query("Select  FROM SiteSupervisor WHERE FormID==$FormID");
+$SSEmail= $pull->query("Select SSEmail FROM SiteSupervisor WHERE FormID==$FormID");
+$Title= $pull->query("Select Title FROM SiteSupervisor WHERE FormID==$FormID");
+$Pay= $pull->query("Select Pay FROM SiteSupervisor WHERE FormID==$FormID");
+?>
+
+<text>
+    Student name <br>
+    <?php   Echo($StudentLast +" " + $StudentFirst) ?>
+    <br>
+    Student username <br>
+    <?php   Echo($StudentUser) ?> <br>
+    Student ID <br>
+    <?php   Echo($StudentID) ?>
+    Student email <br>
+    <?php   Echo($StudentEmail) ?> <br>
+    Semester Enrolled <br>
+    <?php   Echo($SemEnroll) ?>
+    Year Enrolled <br>
+    <?php   Echo($YearEnrolled) ?> <br>
+    major <br>
+    <?php   Echo($Major) ?> <br>
+    Site Supervisor Name <br>
+    <?php   Echo($SSName) ?>
+    Site supervisor email address <br>
+    <?php   print($SSEmail) ?> <br>
+    Job Title <br>
+    <?php   Echo($Title) ?>
+    Pay <br>
+    <?php   Echo($Pay) ?> <br> <br>
+    <h2>
+        Confirm Student Approval
+    </h2>
+    //bubbles
+    <input type="submit" value="Submit" name="Submit" onClick=<?php Submitting()?> value="Submit">
+</text>
+<?php
+function Submitting()
+{
+    check();
+    $Submission = new mysqli("localhost", "username", "password", "dbname");
+    $Submission->query("INSERT "); //insert into database
+    $Submission->query("MODIFY Pay FROM SiteSupervisor WHERE FormID==$FormID"); //change form status to give to someone
+    //header("Location: /dashboard.php");
+}
+
+?>
+
+
+
+</body>
