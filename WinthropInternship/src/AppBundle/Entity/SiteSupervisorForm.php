@@ -183,6 +183,27 @@ class SiteSupervisorForm
     private $additionalComments;
 
 
+    public function __construct($v) {
+        
+//         $query = $em->createQuery(
+//     'SELECT p
+//     FROM AppBundle:Product p
+//     WHERE p.price > :price
+//     ORDER BY p.price ASC'
+// )->setParameter('price', 19.99);
+
+        $query = $em->createQuery(
+            'SELECT id
+            FROM AppBundle:StudentFormOne 
+            WHERE siteSuperAccesCode = :accessCode'
+        )->setParameter('accessCode', $v);
+        
+        $this->student_form_one = $query->getResult();    
+    
+    }
+
+
+
     /**
      * Get id
      *

@@ -129,3 +129,11 @@ nav {
 .save-btn-color {
     background-color: #4E4C4A;
 }
+
+.card-panel input {
+    color: #606060;
+}
+
+label.required:after {
+    content: " *";
+}

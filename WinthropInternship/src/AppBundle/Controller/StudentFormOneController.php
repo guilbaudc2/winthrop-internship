@@ -25,10 +25,12 @@ class StudentFormOneController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $studentFormOnes = $em->getRepository('AppBundle:StudentFormOne')->findAll();
-
+        
+        if ($this->getUser()) {
         return $this->render('studentformone/index.html.twig', array(
             'studentFormOnes' => $studentFormOnes,
         ));
+        }
     }
 
     /**
@@ -47,6 +49,38 @@ class StudentFormOneController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($studentFormOne);
             $em->flush();
+            
+            $siteSuperEmail = $form["siteSuperEmail"]->getData();
+            $siteSuperName = $form["siteSuperName"]->getData();
+            // $accessCode = getSiteSuperAccessCode()
+            
+            $to = $siteSuperEmail; // note the comma
+
+            // Subject
+            $subject = 'Action Required for Winthrop Internship FOrm';
+            
+            // Message
+            $message = '
+            <html>
+            <head>
+              <title>Birthday Reminders for August</title>
+            </head>
+            <body>
+              <p>Here are the birthdays upcoming in August!</p>
+              <table>
+                <tr>
+                  <th>Person</th><th>Day</th><th>Month</th><th>Year</th>
+                </tr>
+                <tr>
+                  <td>Johny</td><td>10th</td><td>August</td><td>1970</td>
+                </tr>
+                <tr>
+                  <td>Sally</td><td>17th</td><td>August</td><td>1973</td>
+                </tr>
+              </table>
+            </body>
+            </html>
+            ';
 
             return $this->redirectToRoute('studentformone_show', array('id' => $studentFormOne->getId()));
         }

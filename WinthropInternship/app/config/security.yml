@@ -29,7 +29,7 @@ security:
                 check_path: /login_check
                 provider: fos_userbundle
                 # always_use_default_target_path: false
-                # default_target_path:            /your/start/path/
+                default_target_path:            /studentformone
             logout:
                 path: /logout
                 target: /

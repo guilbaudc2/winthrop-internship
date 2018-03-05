@@ -13,7 +13,7 @@ class StudentFormOneType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('firstName')->add('lastName')->add('userName')->add('cWID')->add('emailAddress')->add('classEnrolled')->add('numCredits')->add('phoneNumber')->add('legallyAuthorized')->add('futureWorkAuthorization')->add('major')->add('minor')->add('facultyLiaison')->add('semesterEnrolled')->add('yearEnrolled')->add('semesterGrad')->add('yearGrad')->add('date')->add('siteSuperName')->add('siteSuperEmail')->add('siteSuperAccessCode');
+        $builder->add('firstName')->add('lastName')->add('userName')->add('cWID')->add('emailAddress')->add('classEnrolled')->add('numCredits')->add('phoneNumber')->add('legallyAuthorized')->add('futureWorkAuthorization')->add('major')->add('minor')->add('facultyLiaison')->add('semesterEnrolled')->add('yearEnrolled')->add('semesterGrad')->add('yearGrad')->add('date')->add('siteSuperName')->add('siteSuperEmail');
     }/**
      * {@inheritdoc}
      */

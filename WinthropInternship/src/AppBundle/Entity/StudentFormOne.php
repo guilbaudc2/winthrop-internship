@@ -171,7 +171,7 @@ class StudentFormOne
     /**
      * @var string
      *
-     * @ORM\Column(name="siteSuperAccessCode", type="string", length=75)
+     * @ORM\Column(name="siteSuperAccessCode", type="string", length=75, unique=true)
      */
     private $siteSuperAccessCode;
     
