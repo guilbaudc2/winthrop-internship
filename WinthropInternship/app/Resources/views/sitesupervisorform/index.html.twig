@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Site Supervisor Form{% endblock %}
+
 {% block body %}
     <div class="index-background-image">
 		<div class="transparent">
@@ -8,9 +10,9 @@
     			<div class="login-page">
     			    <h1>Winthrop Internship Learning Experience</h1>
     			    
-    			    <form action="{{ path('sitesupervisorform_new') }}">
-						<input type="email" name="email" placeholder="Winthrop Email">
-						<input type="password" name="password" placeholder="Password">
+    			    <form action="{{ path('sitesupervisorform_new') }}" method="POST">
+						<input type="email" name="email" placeholder="Email Address">
+						<input type="password" name="accessCodeSS" placeholder="Access Code">
 						<input type="submit" value="Sign In">
 					</form>
     {#<h1>Sitesupervisorforms list</h1>#}

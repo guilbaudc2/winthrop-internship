@@ -27,6 +27,18 @@ class StudentFormOne
      * @ORM\OneToOne(targetEntity="SiteSupervisorForm", mappedBy="student_form_one")
      */
     private $site_supervisor_form;
+    
+    /**
+     * One StudentFormOne has One StudentFormTwo.
+     * @ORM\OneToOne(targetEntity="StudentFormTwo", mappedBy="student_form_one")
+     */
+    private $student_form_two;
+    
+    /**
+     * One StudentFormOne has One HRForm.
+     * @ORM\OneToOne(targetEntity="HRForm", mappedBy="student_form_one")
+     */
+    private $hr_form;
 
     /**
      * @var string

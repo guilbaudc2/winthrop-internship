@@ -183,22 +183,9 @@ class SiteSupervisorForm
     private $additionalComments;
 
 
-    public function __construct($v) {
+    public function __construct($student_form_one) {
         
-//         $query = $em->createQuery(
-//     'SELECT p
-//     FROM AppBundle:Product p
-//     WHERE p.price > :price
-//     ORDER BY p.price ASC'
-// )->setParameter('price', 19.99);
-
-        $query = $em->createQuery(
-            'SELECT id
-            FROM AppBundle:StudentFormOne 
-            WHERE siteSuperAccesCode = :accessCode'
-        )->setParameter('accessCode', $v);
-        
-        $this->student_form_one = $query->getResult();    
+        $this->student_form_one = $student_form_one;    
     
     }
 
@@ -215,19 +202,19 @@ class SiteSupervisorForm
     }
     
     
-    /**
-     * Set studentFormOne
-     *
-     * @param integer $student_form_one
-     *
-     * @return SiteSupervisorForm
-     */
-    public function setStudentFormOne($student_form_one)
-    {
-        $this->student_form_one = $student_form_one;
+    // /**
+    //  * Set studentFormOne
+    //  *
+    //  * @param integer $student_form_one
+    //  *
+    //  * @return SiteSupervisorForm
+    //  */
+    // public function setStudentFormOne($student_form_one)
+    // {
+    //     $this->student_form_one = $student_form_one;
     
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * Get studentFormOne

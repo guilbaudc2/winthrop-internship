@@ -20,6 +20,13 @@ class StudentFormTwo
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
+    /**
+     * One StudentFormTwo has One StudentFormOne.
+     * @ORM\OneToOne(targetEntity="StudentFormOne", inversedBy="student_form_two")
+     * @ORM\JoinColumn(name="student_form_one_id", referencedColumnName="id")
+     */
+    private $student_form_one;
 
     /**
      * @var string
@@ -36,14 +43,33 @@ class StudentFormTwo
     private $goals;
 
 
+    public function __construct($student_form_one) {
+        
+        $this->student_form_one = $student_form_one;    
+    
+    }
+
+
+
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
+    }
+    
+
+    /**
+     * Get studentFormOne
+     *
+     * @return integer
+     */
+    public function getStudentFormOne()
+    {
+        return $this->student_form_one;
     }
 
     /**
