@@ -10,10 +10,10 @@
     			<div class="login-page">
     			    <h1>Winthrop Internship Learning Experience</h1>
     			    
-    			    <form action="{{ path('sitesupervisorform_new') }}" method="POST">
+    			    <form action="{{ path('sitesupervisorform_new') }}" method="post">
 						<input type="email" name="email" placeholder="Email Address">
 						<input type="password" name="accessCodeSS" placeholder="Access Code">
-						<input type="submit" value="Sign In">
+						<input type="submit" name="submit" value="Submit">
 					</form>
     {#<h1>Sitesupervisorforms list</h1>#}
 

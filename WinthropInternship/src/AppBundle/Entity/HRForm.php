@@ -35,9 +35,10 @@ class HRForm
      */
     private $completedTitleIX;
 
-    public function __construct($student_form_one) {
+    public function __construct($student_form_one, $approved) {
         
-        $this->student_form_one = $student_form_one;    
+        $this->student_form_one = $student_form_one;
+        $this->completedTitleIX = $approved;
     
     }
 
@@ -51,19 +52,19 @@ class HRForm
         return $this->id;
     }
 
-    /**
-     * Set completedTitleIX
-     *
-     * @param boolean $completedTitleIX
-     *
-     * @return HRForm
-     */
-    public function setCompletedTitleIX($completedTitleIX)
-    {
-        $this->completedTitleIX = $completedTitleIX;
+    // /**
+    //  * Set completedTitleIX
+    //  *
+    //  * @param boolean $completedTitleIX
+    //  *
+    //  * @return HRForm
+    //  */
+    // public function setCompletedTitleIX($completedTitleIX)
+    // {
+    //     $this->completedTitleIX = $completedTitleIX;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * Get completedTitleIX

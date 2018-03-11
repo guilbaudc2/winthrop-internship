@@ -57,28 +57,28 @@ class StudentFormOne
     /**
      * @var string
      *
-     * @ORM\Column(name="userName", type="string", length=50, unique=true)
+     * @ORM\Column(name="userName", type="string", length=50)
      */
     private $userName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="CWID", type="string", length=9, unique=true)
+     * @ORM\Column(name="CWID", type="string", length=9)
      */
     private $cWID;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="emailAddress", type="string", length=150, unique=true)
+     * @ORM\Column(name="emailAddress", type="string", length=150)
      */
     private $emailAddress;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="classEnrolled", type="string", length=7)
+     * @ORM\Column(name="classEnrolled", type="string", length=10)
      */
     private $classEnrolled;
 

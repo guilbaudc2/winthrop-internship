@@ -9,31 +9,61 @@
                 {#<table>#}
                     <thead>
                         <tr>
-                            <th class="mdl-data-table__cell--non-numeric">Firstname</th>
+                            <th class="mdl-data-table__cell--non-numeric">First Name</th>
                             {#<th>Firstname</th>#}
-                            <th>Lastname</th>
-                            <th>Username</th>
-                            <th>Cwid</th>
-                            <th>Actions</th>
+                            <th>Last Name</th>
+                            <th>Email Address</th>
+                            <th>Winthrop ID Number (CWID)</th>
                         </tr>
                     </thead>
                     <tbody>
                     {% for studentFormOne in studentFormOnes %}
                         <tr>
-                            <a href="{{ path('studentformone_show', { 'id': studentFormOne.id }) }}">
                             <td class="mdl-data-table__cell--non-numeric">{{ studentFormOne.firstName }}</td>
                             {#<td>{{ studentFormOne.firstName }}</td>#}
                             <td>{{ studentFormOne.lastName }}</td>
-                            <td>{{ studentFormOne.userName }}</td>
+                            <td>{{ studentFormOne.emailAddress}}</td>
                             <td>{{ studentFormOne.cWID }}</td>
-                            </a>
+                            {#<td>#}
+                            {#    <ul>#}
+                            {#        <li>#}
+                            {#            <a href="{{ path('studentformone_show', { 'id': studentFormOne.id }) }}">show</a>#}
+                            {#        </li>#}
+                            {#        <li>#}
+                            {#            <a href="{{ path('studentformone_edit', { 'id': studentFormOne.id }) }}">edit</a>#}
+                            {#        </li>#}
+                            {#    </ul>#}
+                            {#</td>#}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <div class="card-panel">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Completedtitleix</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for hRForm in hRForms %}
+                        <tr>
+                            <td><a href="{{ path('hrform_show', { 'id': hRForm.id }) }}">{{ hRForm.id }}</a></td>
+                            <td>{% if hRForm.completedTitleIX %}Yes{% else %}No{% endif %}</td>
                             <td>
                                 <ul>
                                     <li>
-                                        <a href="{{ path('studentformone_show', { 'id': studentFormOne.id }) }}">show</a>
+                                        <a href="{{ path('hrform_show', { 'id': hRForm.id }) }}">show</a>
                                     </li>
                                     <li>
-                                        <a href="{{ path('studentformone_edit', { 'id': studentFormOne.id }) }}">edit</a>
+                                        <a href="{{ path('hrform_edit', { 'id': hRForm.id }) }}">edit</a>
                                     </li>
                                 </ul>
                             </td>
@@ -44,34 +74,6 @@
             </div>
         </div>
     </div>
-    {#<table>#}
-    {#    <thead>#}
-    {#        <tr>#}
-    {#            <th>Id</th>#}
-    {#            <th>Completedtitleix</th>#}
-    {#            <th>Actions</th>#}
-    {#        </tr>#}
-    {#    </thead>#}
-    {#    <tbody>#}
-    {#    {% for hRForm in hRForms %}#}
-    {#        <tr>#}
-    {#            <td><a href="{{ path('hrform_show', { 'id': hRForm.id }) }}">{{ hRForm.id }}</a></td>#}
-    {#            <td>{% if hRForm.completedTitleIX %}Yes{% else %}No{% endif %}</td>#}
-    {#            <td>#}
-    {#                <ul>#}
-    {#                    <li>#}
-    {#                        <a href="{{ path('hrform_show', { 'id': hRForm.id }) }}">show</a>#}
-    {#                    </li>#}
-    {#                    <li>#}
-    {#                        <a href="{{ path('hrform_edit', { 'id': hRForm.id }) }}">edit</a>#}
-    {#                    </li>#}
-    {#                </ul>#}
-    {#            </td>#}
-    {#        </tr>#}
-    {#    {% endfor %}#}
-    {#    </tbody>#}
-    {#</table>#}
-
     <ul>
         <li>
             <a href="{{ path('hrform_new') }}">Create a new hRForm</a>
