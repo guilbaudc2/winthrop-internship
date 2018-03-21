@@ -45,7 +45,7 @@ class SiteSupervisorForm
     /**
      * @var string
      *
-     * @ORM\Column(name="businessLicenseNum", type="string", length=255, unique=true)
+     * @ORM\Column(name="businessLicenseNum", type="string", length=255)
      */
     private $businessLicenseNum;
 
@@ -157,38 +157,55 @@ class SiteSupervisorForm
     /**
      * @var string
      *
-     * @ORM\Column(name="task", type="blob")
+     * @ORM\Column(name="task", type="text")
      */
     private $task;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="projects", type="blob")
+     * @ORM\Column(name="projects", type="text")
      */
     private $projects;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="outcomes", type="blob")
+     * @ORM\Column(name="outcomes", type="text")
      */
     private $outcomes;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="additionalComments", type="blob", nullable=true)
+     * @ORM\Column(name="additionalComments", type="text", nullable=true)
      */
     private $additionalComments;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="digitalSignature", type="string", length=255)
+     */
+    private $digitalSignature;
+    
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="submitDate", type="datetime", nullable=true)
+     */
+    private $submitDate;
+    
 
 
     public function __construct($student_form_one) {
+        date_default_timezone_set('America/New_York');
         
-        $this->student_form_one = $student_form_one;    
-    
+        $this->student_form_one = $student_form_one;
+        
+        $this->submitDate = new \DateTime("now");
     }
-
 
 
     /**
@@ -753,6 +770,40 @@ class SiteSupervisorForm
     public function getAdditionalComments()
     {
         return $this->additionalComments;
+    }
+    
+    /**
+     * Set digitalSignature
+     *
+     * @param string $digitalSignature
+     *
+     * @return SiteSupervisorForm
+     */
+    public function setDigitalSignature($digitalSignature)
+    {
+        $this->digitalSignature = $digitalSignature;
+    
+        return $this;
+    }
+
+    /**
+     * Get digitalSignature
+     *
+     * @return string
+     */
+    public function getDigitalSignature()
+    {
+        return $this->digitalSignature;
+    }
+    
+    /**
+     * Get submitDate
+     *
+     * @return \DateTime
+     */
+    public function getSubmitDate()
+    {
+        return $this->submitDate->format('Y-m-d H:i:s');
     }
 }
 

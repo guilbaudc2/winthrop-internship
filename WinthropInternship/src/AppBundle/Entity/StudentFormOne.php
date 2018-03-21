@@ -39,6 +39,12 @@ class StudentFormOne
      * @ORM\OneToOne(targetEntity="HRForm", mappedBy="student_form_one")
      */
     private $hr_form;
+    
+    /**
+     * One StudentFormOne has One Internationl Office Form.
+     * @ORM\OneToOne(targetEntity="InternationalOfficeForm", mappedBy="student_form_one")
+     */
+    private $io_form;
 
     /**
      * @var string

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Internationalofficeforms list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Approve</th>
+                <th>Approvedate</th>
+                <th>Digitalsignature</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for internationalOfficeForm in internationalOfficeForms %}
+            <tr>
+                <td><a href="{{ path('internationalofficeform_show', { 'id': internationalOfficeForm.id }) }}">{{ internationalOfficeForm.id }}</a></td>
+                <td>{% if internationalOfficeForm.approve %}Yes{% else %}No{% endif %}</td>
+                <td>{% if internationalOfficeForm.approveDate %}{{ internationalOfficeForm.approveDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ internationalOfficeForm.digitalSignature }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('internationalofficeform_show', { 'id': internationalOfficeForm.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('internationalofficeform_edit', { 'id': internationalOfficeForm.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('internationalofficeform_new') }}">Create a new internationalOfficeForm</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -52,19 +52,19 @@ class HRForm
         return $this->id;
     }
 
-    // /**
-    //  * Set completedTitleIX
-    //  *
-    //  * @param boolean $completedTitleIX
-    //  *
-    //  * @return HRForm
-    //  */
-    // public function setCompletedTitleIX($completedTitleIX)
-    // {
-    //     $this->completedTitleIX = $completedTitleIX;
+    /**
+     * Set completedTitleIX
+     *
+     * @param boolean $completedTitleIX
+     *
+     * @return HRForm
+     */
+    public function setCompletedTitleIX($completedTitleIX)
+    {
+        $this->completedTitleIX = $completedTitleIX;
 
-    //     return $this;
-    // }
+        return $this;
+    }
 
     /**
      * Get completedTitleIX
