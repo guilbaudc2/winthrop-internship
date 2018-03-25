@@ -29,15 +29,11 @@
 
 {% block checkbox_row -%}
     <div class="row {% if not valid %} has-error{% endif %}">
-        {{- form_widget(form) -}}
+        {#{{- form_widget(form) -}}#}
         {{- form_label(form) -}}
         {{- form_errors(form) -}}
     </div>
 {%- endblock checkbox_row %}
-
-{% block checkbox_widget -%}
-    <input type="checkbox" class="filled-in"{{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
-{%- endblock checkbox_widget %}
 
 {# Checkbox label is raw here #}
 {%- block checkbox_label -%}
@@ -59,10 +55,55 @@
             {%- endif -%}
         {%- endif -%}
         <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
-            {{ translation_domain is same as(false) ? label|raw : label|trans({}, translation_domain)|raw }}
+            
+
+{% block checkbox_widget -%}
+    <input type="checkbox" class="filled-in"{{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+{%- endblock checkbox_widget %}
+
+<span>{{ translation_domain is same as(false) ? label|raw : label|trans({}, translation_domain)|raw }}</span>
         </label>
     {%- endif -%}
 {%- endblock -%}
+
+
+{#{% block checkbox_row -%}#}
+{#    <div class="row {% if not valid %} has-error{% endif %}">#}
+{#        {{- form_widget(form) -}}#}
+{#        {{- form_label(form) -}}#}
+{#        {{- form_errors(form) -}}#}
+{#    </div>#}
+{#{%- endblock checkbox_row %}#}
+
+{#{% block checkbox_widget -%}#}
+{#    <input type="checkbox" class="filled-in"{{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />#}
+{#{%- endblock checkbox_widget %}#}
+
+{# Checkbox label is raw here #}
+{#{%- block checkbox_label -%}#}
+{#    {% if label is not same as(false) -%}#}
+{#        {% if not compound -%}#}
+{#            {% set label_attr = label_attr|merge({'for': id}) %}#}
+{#        {%- endif -%}#}
+{#        {% if required -%}#}
+{#            {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}#}
+{#        {%- endif -%}#}
+{#        {% if label is empty -%}#}
+{#            {%- if label_format is not empty -%}#}
+{#                {% set label = label_format|replace({#}
+{#                '%name%': name,#}
+{#                '%id%': id,#}
+{#                }) %}#}
+{#            {%- else -%}#}
+{#                {% set label = name|humanize %}#}
+{#            {%- endif -%}#}
+{#        {%- endif -%}#}
+{#        <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>#}
+{#            {{ translation_domain is same as(false) ? label|raw : label|trans({}, translation_domain)|raw }}#}
+{#        </label>#}
+{#    {%- endif -%}#}
+{#{%- endblock -%}#}
+
 
 {% block button_widget -%}
     {% set attr = attr|merge({class: (attr.class|default('waves-effect waves-light') ~ ' btn')|trim}) %}

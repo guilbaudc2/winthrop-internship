@@ -29,6 +29,18 @@ class SiteSupervisorFormController extends Controller
      */
     public function indexAction(Request $request)
     {
+        
+        if ($this->getUser() && $this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
+            
+            $em = $this->getDoctrine()->getManager();
+
+            $siteSupervisorForms = $em->getRepository('AppBundle:SiteSupervisorForm')->findAll();
+            
+            return $this->render('sitesupervisorform/adminindex.html.twig', array(
+                'siteSupervisorForms' => $siteSupervisorForms,
+            ));
+        }else{
+         
         $em = $this->getDoctrine()->getManager();
 
         $data = array();
@@ -49,6 +61,7 @@ class SiteSupervisorFormController extends Controller
         return $this->render('sitesupervisorform/index.html.twig', array(
                 'form' => $form->createView(),
         ));
+        }
     }
 
     /**
@@ -74,7 +87,7 @@ class SiteSupervisorFormController extends Controller
             
         }
         
-        var_dump($this->studentFormOne);
+        // var_dump($this->studentFormOne);
         
         $siteSupervisorForm = new SiteSupervisorForm($this->studentFormOne);
 

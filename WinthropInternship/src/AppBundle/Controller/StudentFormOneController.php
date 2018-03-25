@@ -44,6 +44,7 @@ class StudentFormOneController extends Controller
         }
         
         if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
+
                 $studentFormOnes = $em->getRepository('AppBundle:StudentFormOne')->findAll();
                 
                 return $this->render('studentformone/index.html.twig', array(

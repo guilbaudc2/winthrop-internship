@@ -1,15 +1,16 @@
 {% extends 'innerbase.html.twig' %}
 
 {% block body %}
-    <h1 class="header center">Hrform list</h1>
+    <h1 class="header center">HR Form list</h1>
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
             <div class="card-panel">
+                <form method="post" action="{{ path('hrform_new') }}"></form>
                 <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
                 {#<table>#}
                     <thead>
                         <tr>
-                            <th class="mdl-data-table__cell--non-numeric">First Name</th>
+                            <th class="mdl-data-table__cell--non-numeric"><label><input type="checkbox" class="filled-in"/><span>First Name</span></label></th>
                             {#<th>Firstname</th>#}
                             <th>Last Name</th>
                             <th>Email Address</th>
@@ -20,7 +21,7 @@
                     <tbody>
                     {% for studentFormOne in studentFormOnes %}
                         <tr>
-                            <td class="mdl-data-table__cell--non-numeric">{{ studentFormOne.firstName }}</td>
+                            <td class="mdl-data-table__cell--non-numeric"><label><input type="checkbox" class="filled-in"/><span>{{ studentFormOne.firstName }}</span></label></td>
                             {#<td>{{ studentFormOne.firstName }}</td>#}
                             <td>{{ studentFormOne.lastName }}</td>
                             <td>{{ studentFormOne.emailAddress}}</td>

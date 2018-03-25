@@ -143,7 +143,7 @@ class SiteSupervisorForm
     /**
      * @var array
      *
-     * @ORM\Column(name="salaryOrStipend", type="array")
+     * @ORM\Column(name="salaryOrStipend", type="boolean")
      */
     private $salaryOrStipend;
 
