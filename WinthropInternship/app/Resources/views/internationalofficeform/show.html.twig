@@ -2,28 +2,32 @@
 
 {% block body %}
     <h1>Internationalofficeform</h1>
-
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ internationalOfficeForm.id }}</td>
-            </tr>
-            <tr>
-                <th>Approve</th>
-                <td>{% if internationalOfficeForm.approve %}Yes{% else %}No{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Approvedate</th>
-                <td>{% if internationalOfficeForm.approveDate %}{{ internationalOfficeForm.approveDate|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Digitalsignature</th>
-                <td>{{ internationalOfficeForm.digitalSignature }}</td>
-            </tr>
-        </tbody>
-    </table>
-
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <div class="card-panel">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Id</th>
+                            <td>{{ internationalOfficeForm.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Approve</th>
+                            <td>{% if internationalOfficeForm.approve %}Yes{% else %}No{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Approvedate</th>
+                            <td>{% if internationalOfficeForm.approveDate %}{{ internationalOfficeForm.approveDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Digitalsignature</th>
+                            <td>{{ internationalOfficeForm.digitalSignature }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
     <ul>
         <li>
             <a href="{{ path('internationalofficeform_index') }}">Back to the list</a>
