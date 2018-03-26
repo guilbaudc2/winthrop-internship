@@ -141,7 +141,8 @@
 {%- endblock choice_widget_collapsed -%}
 
 {%- block textarea_widget -%}
-    {% set attr = attr|merge({class: (attr.class|default('') ~ 'materialize-textarea')|trim}) %}
+    {% set attr = attr|merge({class: (attr.class|default('') ~ 'materialize-textarea')|trim , "data-length": "5000"}) %}
+
     {{ parent() }}
 {%- endblock -%}
 

@@ -157,12 +157,22 @@ class StudentFormOneController extends Controller
      */
     public function showAction(StudentFormOne $studentFormOne)
     {
-        $deleteForm = $this->createDeleteForm($studentFormOne);
-
-        return $this->render('studentformone/show.html.twig', array(
-            'studentFormOne' => $studentFormOne,
-            'delete_form' => $deleteForm->createView(),
-        ));
+        $user = $this->getUser();
+        
+        $username = $user->getUsername();
+        
+        // if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') || in_array($username, $studentFormOne)){
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') || $username == $studentFormOne->getUserName()){
+            // $username == "$studentFormOne") {
+            $deleteForm = $this->createDeleteForm($studentFormOne);
+    
+            return $this->render('studentformone/show.html.twig', array(
+                'studentFormOne' => $studentFormOne,
+                'delete_form' => $deleteForm->createView(),
+            ));
+        }else {
+            return $this->redirectToRoute('studentformone_index');
+        }
     }
 
     /**
