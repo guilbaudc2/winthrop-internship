@@ -14,7 +14,7 @@
 !var/sessions/.gitkeep
 !var/SymfonyRequirements.php
 /node_modules/*
-/vendor/
+
 .bash_history
 .bash_logout
 .bashrc
