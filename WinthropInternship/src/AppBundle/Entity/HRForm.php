@@ -35,9 +35,10 @@ class HRForm
      */
     private $completedTitleIX;
 
-    public function __construct($student_form_one) {
+    public function __construct($student_form_one, $approved) {
         
-        $this->student_form_one = $student_form_one;    
+        $this->student_form_one = $student_form_one;
+        $this->completedTitleIX = $approved;
     
     }
 

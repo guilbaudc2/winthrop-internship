@@ -19,41 +19,49 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class SiteSupervisorFormController extends Controller
 {
     private $accessCode;
+    private $studentFormOne;
+    private $studentFormOneID;
     /**
      * Lists all siteSupervisorForm entities.
      *
      * @Route("/", name="sitesupervisorform_index")
      * @Method({"GET", "POST"})
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+        
+        if ($this->getUser() && $this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
+            
+            $em = $this->getDoctrine()->getManager();
+
+            $siteSupervisorForms = $em->getRepository('AppBundle:SiteSupervisorForm')->findAll();
+            
+            return $this->render('sitesupervisorform/adminindex.html.twig', array(
+                'siteSupervisorForms' => $siteSupervisorForms,
+            ));
+        }else{
+         
         $em = $this->getDoctrine()->getManager();
 
-        // $siteSupervisorForms = $em->getRepository('AppBundle:SiteSupervisorForm')->findAll();
-
-        // return $this->render('sitesupervisorform/index.html.twig', array(
-        //     'siteSupervisorForms' => $siteSupervisorForms,
-        // ));
-
-        
         $data = array();
         $form = $this->createFormBuilder($data)
             ->add('email', EmailType::class)
             ->add('accessCodeSS', PasswordType::class)
+            ->add('submit', SubmitType::class)
             ->getForm();
 
+        $form->handleRequest($request);
         
-    
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->accessCode = $form["accessCodeSS"]->getData();
+            $accessCode = $form["accessCodeSS"]->getData();
 
-            return $this->render('sitesupervisorform/new.html.twig', array(
-                'siteSupervisorForm' => $siteSupervisorForm,
-                'form' => $form->createView(),
-            ));
+            return $this->redirectToRoute('sitesupervisorform_new');
         }
         
-        return $this->render('sitesupervisorform/index.html.twig');
+        return $this->render('sitesupervisorform/index.html.twig', array(
+                'form' => $form->createView(),
+        ));
+        }
     }
 
     /**
@@ -64,15 +72,25 @@ class SiteSupervisorFormController extends Controller
      */
     public function newAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery('SELECT u.id FROM AppBundle:StudentFormOne u WHERE u.siteSuperAccessCode = :accessCode')
-            ->setParameter('accessCode', $this->accessCode);
+        if(isset($_GET["accessCodeSS"])){
+    
+            $this->accessCode = $_GET["accessCodeSS"];
+    
+            $accessCode = $this->accessCode;
+            $em = $this->getDoctrine()->getManager();
+                
+            $query = $em->createQuery('SELECT u FROM AppBundle:StudentFormOne u WHERE u.siteSuperAccessCode = :accessCode')
+                ->setParameter('accessCode', $accessCode);
+            $studentFormOneID = $query->getResult();
 
-        $studentFormOneID = $query->getResult();
+            $this->studentFormOne = $studentFormOneID[0];
+            
+        }
         
-        $studentFormOne = $this->getDoctrine()->getRepository('AppBundle:StudentFormOne')->findOneById($studentFormOneID);
+        // var_dump($this->studentFormOne);
         
-        $siteSupervisorForm = new Sitesupervisorform($studentFormOne);
+        $siteSupervisorForm = new SiteSupervisorForm($this->studentFormOne);
+
         $form = $this->createForm('AppBundle\Form\SiteSupervisorFormType', $siteSupervisorForm);
         $form->handleRequest($request);
 
@@ -83,11 +101,11 @@ class SiteSupervisorFormController extends Controller
 
             return $this->redirectToRoute('sitesupervisorform_show', array('id' => $siteSupervisorForm->getId()));
         }
-
-        return $this->render('sitesupervisorform/new.html.twig', array(
-            'siteSupervisorForm' => $siteSupervisorForm,
-            'form' => $form->createView(),
-        ));
+    
+            return $this->render('sitesupervisorform/new.html.twig', array(
+                'siteSupervisorForm' => $siteSupervisorForm,
+                'form' => $form->createView(),
+            ));
     }
 
     /**

@@ -10,6 +10,20 @@
 {{form_start(form, {'method': 'POST', 'attr':{'class': 'register'}})}}
     <div>
         <div>
+            <label for="form.firstName">{{ 'First Name: '|trans }}</label>
+            {{ form_widget(form.firstName) }}
+        </div>
+        {{ form_errors(form.firstName) }}
+    </div>
+        <div>
+        <div>
+            <label for="form.lastName">{{ 'Last Name: '|trans }}</label>
+            {{ form_widget(form.lastName) }}
+        </div>
+        {{ form_errors(form.lastName) }}
+    </div>
+    <div>
+        <div>
             <label for="form.username">{{ 'Username: '|trans }}</label>
             {{ form_widget(form.username) }}
         </div>
@@ -36,9 +50,7 @@
         </div>
         {{ form_errors(form.plainPassword.second) }}
      </div>
-  <div>
-    <button type="submit" name="action">
-      {{ 'Submit'|trans }}
-    </button>
-  </div>
+
+  
+  <input type="submit" id="_submit" name="action" value="Submit" />
 {{ form_end(form) }}

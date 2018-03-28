@@ -88,6 +88,11 @@ fos_user:
 #            template: email/password_resetting.email.twig
             template: '@FOSUser/Resetting/email.txt.twig'
     registration:
+        form:
+            # name: app_user_registration
+            type: AppBundle\Form\RegistrationType
+        form:
+            handler: app.form.handler.registration
         confirmation:
             enabled: true
             from_email:

@@ -23,21 +23,72 @@ class HRFormController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
-//        $hRForms = $em->getRepository('AppBundle:HRForm')->findAll();
-
-        // return $this->render('hrform/index.html.twig', array(
-        //     'hRForms' => $hRForms,
-        // ));
         
-        $em = $this->getDoctrine()->getManager();
-
-        $studentFormOnes = $em->getRepository('AppBundle:StudentFormOne')->findAll();
+        $repo =  $this->getDoctrine()->getRepository('AppBundle:StudentFormOne');
+        // $queryBuilder = $repo->createQueryBuilder("w");
+        // $queryBuilder
+        //     ->select('s.firstName', 's.lastName', 'h.completedTitleIX')
+        //     ->from('student_form_one', 's')
+        //     ->innerJoin('s', 'h_r_form', 'h', 's.id != h.student_form_one_id');
+        
+        $query = $em->createQuery("SELECT sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf WHERE sfo.id = ssf.student_form_one LEFT JOIN AppBundle:HRform h WHERE sfo.id != h.student_form_one");
+        
+        $studentFormOnes = $query->getResult();
+        // $queryBuilder
+        //     ->select('u.id', 'u.name', 'p.number')
+        //     ->from('users', 'u')
+        //     ->innerJoin('u', 'phonenumbers', 'p', 'u.id = p.user_id')
+//          $repo =  $this->getDoctrine()->getRepository('MyBundle:Models');
+//              $query = $repo->createQueryBuilder('m')
+//              ->innerJoin('m.phonenumbers', 'p')
+//              ->where('m.id = :id')
+//              ->setParameter('id', $id);
+        
+        // $query = $em->createQuery('SELECT u.id FROM AppBundle:StudentFormOne u LEFT JOIN AppBundle:HRForm)
+        //     h WHERE u.hr_form = NULL');
+        //     ->where('u.profile is NULL');
+        
+        // $query = $em->createQuerybuilder('SELECT s FROM AppBundle:StudentFormOne s')
+        //     ->leftJoin('s.hr_form', 'h')
+        //     ->where('h.id is NULL');
+        
+        // $studentFormOnes = $queryBuilder->getResult();
+        
+        // $studentFormOnes = $em->getRepository('AppBundle:StudentFormOne')->findAll();
+         
+        
+        $query = $em->createQuery("SELECT sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf WHERE sfo.id = ssf.student_form_one JOIN AppBundle:HRform h WHERE sfo.id = h.student_form_one"); 
+        // $hRForms = $em->getRepository('AppBundle:HRForm')->findAll();
+        $hRForms = $query->getResult();
+        
+    //     $entity = $em
+    // ->getRepository('MyBundle:MyEntity')
+    // ->createQueryBuilder('e')
+    // ->join('e.idRelatedEntity', 'r')
+    // ->where('r.foo = 1')
+    // ->getQuery()
+    // ->getResult();
+    
+    //     $studentFormOnes = $em->getRepository('AppBundle:StudentFormOne')
+    //         ->createQueryBuilder('s')
+    //         ->join('s.site_supervisor_form', 'r')
+    //         ->where('s.site_supervisor_form = r.student_form_one')
+    //         ->getQuery()
+    //         ->getResult();
+            
+    //         $qb->select('p')
+    // ->from('BRBProductBundle:Product', 'p')
+    // ->join('p.category', 'c')
+    // ->where('1 = 1');
+            
         
         if ($this->getUser()) {
             return $this->render('hrform/index.html.twig', array(
                 'studentFormOnes' => $studentFormOnes,
+                'hRForms' => $hRForms,
             ));
+        }else{
+            return $this->redirectToRoute('homepage');
         }
     }
 

@@ -14,12 +14,14 @@ security:
 
     encoders:
         FOS\UserBundle\Model\UserInterface: bcrypt
-        Symfony\Component\Security\Core\User\User: plaintext
+        # Symfony\Component\Security\Core\User\User: plaintext
 
     role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
-        ROLE_SUPER_ADMIN: ROLE_ADMIN
-        ROLE_SUPER_MOD_ADMIN: [ROLE_SUPER_ADMIN]
+        ROLE_STUDENT:       ROLE_USER
+        ROLE_HR_ADMIN:      ROLE_STUDENT
+        ROLE_IO_ADMIN:      ROLE_STUDENT
+        ROLE_FL_ADMIN:      ROLE_STUDENT
+        ROLE_SUPER_ADMIN: [ROLE_FL_ADMIN]
 
     firewalls:
         main:

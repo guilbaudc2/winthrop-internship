@@ -31,14 +31,14 @@ class StudentFormTwo
     /**
      * @var string
      *
-     * @ORM\Column(name="educationalExperience", type="blob")
+     * @ORM\Column(name="educationalExperience", type="text")
      */
     private $educationalExperience;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="goals", type="blob")
+     * @ORM\Column(name="goals", type="text")
      */
     private $goals;
 

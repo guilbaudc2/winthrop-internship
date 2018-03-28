@@ -6,21 +6,19 @@
   "directories": {
     "test": "tests"
   },
-
   "devDependencies": {
-    "@symfony/webpack-encore": "^0.7.2"
+    "@symfony/webpack-encore": "^0.18.0"
   },
-
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "./node_modules/.bin/encore dev",
     "watch": "./node_modules/.bin/encore dev --watch",
     "prod": "./node_modules/.bin/encore production"
-
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "@symfony/webpack-encore": "^0.18.0"
+  "dependencies": {
+    "datatables.net-dt": "^1.10.16",
+    "moment": "^2.21.0"
   }
 }

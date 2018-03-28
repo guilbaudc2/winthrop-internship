@@ -137,3 +137,7 @@ nav {
 label.required:after {
     content: " *";
 }
+
+.btn:hover, .btn-large:hover, .btn-small:hover {
+    background-color: #9E3D2F;
+}
