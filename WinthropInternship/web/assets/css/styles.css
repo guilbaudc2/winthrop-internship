@@ -86,7 +86,7 @@ h2#reset-button {
     border-bottom: 1px solid #6F7477;
 }
 
-.login-page input {
+.login-page input:not([type="submit"]) {
     padding-left: 15px;
     color: #000;
 }
@@ -140,4 +140,12 @@ label.required:after {
 
 .btn:hover, .btn-large:hover, .btn-small:hover {
     background-color: #9E3D2F;
+}
+
+.sidenav {
+    background-color: #F3F2F2;
+}
+
+.sidenav li>a{
+    height: auto;
 }
