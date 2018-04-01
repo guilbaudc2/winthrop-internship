@@ -22,23 +22,34 @@
 </head>
 <body>
 <nav role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="{{path('homepage') }}" class="brand-logo">WILE</a>
+    <div class="nav-wrapper container">
+        <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons">menu</i></a>
+        <a id="logo-container" href="{{path('homepage') }}" class="brand-logo">WILE</a>
         <ul class="right hide-on-med-and-down">
             <li><a href="{{path('fos_user_security_logout')}}">Logout</a></li>
         </ul>
-
-        <ul id="nav-mobile" class="sidenav">
-            <li><a href="{{path('fos_user_security_logout')}}">Logout</a></li>
-        </ul>
-        <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     </div>
 </nav>
+
+<ul id="slide-out" class="sidenav">
+    <li><a href="#!"><figure><img src="../../assets/images/Home.png" alt="Dashboard Icon"><figcaption>Dashboard</figcaption></figure></a></li>
+    <li><a href="#!"><figure><img src="../../assets/images/Reporting.png" alt="Generate Reports Icon"><figcaption>Generate Reports</figcaption></figure></a></li>
+    <li><a href="#!"><figure><img src="../../assets/images/Gear.png" alt="Update System Icon"><figcaption>Update System</figcaption></figure></a></li>
+    <li><a href="#!"><figure><img src="../../assets/images/export.png" alt="Export Icon"><figcaption>Export Files</figcaption></figure></a></li>
+    {#<li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>#}
+    {#<li><a href="#!">Second Link</a></li>#}
+    {#<li><div class="divider"></div></li>#}
+    {#<li><a class="subheader">Subheader</a></li>#}
+    {#<li><a class="waves-effect" href="#!">Third Link With Waves</a></li>#}
+    <li><a href="{{path('fos_user_security_logout')}}">Logout</a></li>
+</ul>
 {% block body %}{% endblock %}
 <script>
     $(document).ready(function(){
         $('select').formSelect();
         $('.datepicker').datepicker();
         $('textarea').characterCounter();
+        $('.sidenav').sidenav();
   });
 </script>
 {% block javascripts %}{% endblock %}

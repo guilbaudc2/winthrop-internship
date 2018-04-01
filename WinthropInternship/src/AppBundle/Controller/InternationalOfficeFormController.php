@@ -32,12 +32,12 @@ class InternationalOfficeFormController extends Controller
         //     ->from('student_form_one', 's')
         //     ->innerJoin('s', 'h_r_form', 'h', 's.id != h.student_form_one_id');
         
-        $query = $em->createQuery("SELECT sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf WHERE sfo.id = ssf.student_form_one AND sfo.legallyAuthorized = 0 And sfo.futureWorkAuthorization = 0 LEFT JOIN AppBundle:InternationalOfficeForm h WHERE sfo.id != io.student_form_one");
+        $query = $em->createQuery("SELECT DISTINCT sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf WHERE sfo.id = ssf.student_form_one AND NOT (sfo.legallyAuthorized = 1 AND sfo.futureWorkAuthorization = 0) JOIN AppBundle:InternationalOfficeForm io WHERE sfo.id != io.student_form_one");
         
         $studentFormOnes = $query->getResult();
 
         
-        $ioQuery = $em->createQuery("SELECT sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf WHERE sfo.id = ssf.student_form_one AND sfo.legallyAuthorized = 0 And sfo.futureWorkAuthorization = 0 LEFT JOIN AppBundle:InternationalOfficeForm h WHERE sfo.id = io.student_form_one"); 
+        $ioQuery = $em->createQuery("SELECT sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf WHERE sfo.id = ssf.student_form_one JOIN AppBundle:InternationalOfficeForm io WHERE sfo.id = io.student_form_one"); 
     
         $internationalOfficeForms = $ioQuery->getResult();
         
