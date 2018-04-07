@@ -23,6 +23,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class SiteSupervisorFormController extends Controller
 {
     private $accessCode;
+    private $studentFormOneData;
     private $studentFormOne;
     private $studentFormOneID;
     /**
@@ -86,12 +87,13 @@ class SiteSupervisorFormController extends Controller
             $query = $em->createQuery('SELECT u FROM AppBundle:StudentFormOne u WHERE u.siteSuperAccessCode = :accessCode')
                 ->setParameter('accessCode', $accessCode);
             $studentFormOneID = $query->getResult();
+            
+            $this->studentFormOneData = $studentFormOneID;
 
             $this->studentFormOne = $studentFormOneID[0];
             
         }
-        
-        // var_dump($this->studentFormOne);
+        var_dump($this->studentFormOneData);
         
         $siteSupervisorForm = new SiteSupervisorForm($this->studentFormOne);
 

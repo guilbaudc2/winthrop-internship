@@ -229,11 +229,12 @@ class StudentFormOneController extends Controller
             $query = $em->createQuery("SELECT ssf FROM AppBundle:SiteSupervisorForm ssf JOIN AppBundle:StudentFormOne sfo WHERE sfo.id = ssf.student_form_one AND sfo.id = :id");
             $query->setParameter("id", $studentFormOne->getId());
         
-            $user = $query->getResult();
-            var_dump($user);
+            $siteSupervisorForm = $query->getResult();
+            // var_dump($studentInfo);
             $deleteForm = $this->createDeleteForm($studentFormOne);
     
             return $this->render('studentformone/show.html.twig', array(
+                // 'siteSuperForm' => $siteSupervisorForm,
                 'studentFormOne' => $studentFormOne,
                 'delete_form' => $deleteForm->createView(),
             ));

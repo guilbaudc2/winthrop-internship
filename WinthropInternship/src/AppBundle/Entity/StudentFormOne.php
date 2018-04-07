@@ -193,12 +193,21 @@ class StudentFormOne
      */
     private $siteSuperAccessCode;
     
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="submitDate", type="datetime", nullable=true)
+     */
+    private $submitDate;
+    
     
     public function __construct() {
         
         $random = new \chriskacerguis\Randomstring\Randomstring();
         
         $this->siteSuperAccessCode = $random->generate(15, true);
+        
+        $this->submitDate = new \DateTime("now");
     }
     
     /**
@@ -706,6 +715,10 @@ class StudentFormOne
     public function getSiteSuperAccessCode()
     {
         return $this->siteSuperAccessCode;
+    }
+    
+    public function __toString() {
+        return "{$this->id}";
     }
 }
 

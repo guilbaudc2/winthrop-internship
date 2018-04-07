@@ -14,6 +14,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
  */
 class InternationalOfficeFormController extends Controller
 {
+    private $studentFormOne;
+    private $studentFormOneID;
+    private $studentID;
+    
     /**
      * Lists all internationalOfficeForm entities.
      *
@@ -26,18 +30,13 @@ class InternationalOfficeFormController extends Controller
        $em = $this->getDoctrine()->getManager();
         
         $repo =  $this->getDoctrine()->getRepository('AppBundle:StudentFormOne');
-        // $queryBuilder = $repo->createQueryBuilder("w");
-        // $queryBuilder
-        //     ->select('s.firstName', 's.lastName', 'h.completedTitleIX')
-        //     ->from('student_form_one', 's')
-        //     ->innerJoin('s', 'h_r_form', 'h', 's.id != h.student_form_one_id');
         
-        $query = $em->createQuery("SELECT DISTINCT sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf WHERE sfo.id = ssf.student_form_one AND NOT (sfo.legallyAuthorized = 1 AND sfo.futureWorkAuthorization = 0) JOIN AppBundle:InternationalOfficeForm io WHERE sfo.id != io.student_form_one");
+        $query = $em->createQuery("SELECT DISTINCT sfo.id, sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf WHERE sfo.id = ssf.student_form_one AND NOT (sfo.legallyAuthorized = 1 AND sfo.futureWorkAuthorization = 0) JOIN AppBundle:InternationalOfficeForm io WHERE sfo.id != io.student_form_one");
         
         $studentFormOnes = $query->getResult();
 
         
-        $ioQuery = $em->createQuery("SELECT sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf WHERE sfo.id = ssf.student_form_one JOIN AppBundle:InternationalOfficeForm io WHERE sfo.id = io.student_form_one"); 
+        $ioQuery = $em->createQuery("SELECT io.id, sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf WHERE sfo.id = ssf.student_form_one JOIN AppBundle:InternationalOfficeForm io WHERE sfo.id = io.student_form_one"); 
     
         $internationalOfficeForms = $ioQuery->getResult();
         
@@ -62,7 +61,34 @@ class InternationalOfficeFormController extends Controller
      */
     public function newAction(Request $request)
     {
-        $internationalOfficeForm = new Internationalofficeform();
+        
+         if(isset($_GET["studentInfo"])){
+             $studentID = $_GET["studentInfo"];
+    
+    
+            $em = $this->getDoctrine()->getManager();
+                
+            $query = $em->createQuery('SELECT u FROM AppBundle:StudentFormOne u WHERE u.id = :id')
+                ->setParameter('id', $studentID);
+            $studentFormOneID = $query->getResult();
+            
+            //$this->studentFormOneData = $studentFormOneID;
+
+            $this->studentFormOne = $studentFormOneID[0];
+            dump($studentFormOneID);
+            
+            $query = $em->createQuery("SELECT ssf FROM AppBundle:SiteSupervisorForm ssf JOIN AppBundle:StudentFormOne sfo WHERE sfo.id = ssf.student_form_one AND sfo.id = :id");
+            $query->setParameter("id", $studentID);
+        
+            $siteSupervisorFormArray = $query->getResult();
+            
+            $siteSupervisorForm = $siteSupervisorFormArray[0];
+            
+            
+            
+        }
+        
+        $internationalOfficeForm = new Internationalofficeform($this->studentFormOne);
         $form = $this->createForm('AppBundle\Form\InternationalOfficeFormType', $internationalOfficeForm);
         $form->handleRequest($request);
 
@@ -75,6 +101,8 @@ class InternationalOfficeFormController extends Controller
         }
 
         return $this->render('internationalofficeform/new.html.twig', array(
+            'studentFormOne' => $this->studentFormOne,
+            'siteSupervisorForm' => $siteSupervisorForm,
             'internationalOfficeForm' => $internationalOfficeForm,
             'form' => $form->createView(),
         ));
@@ -88,12 +116,38 @@ class InternationalOfficeFormController extends Controller
      */
     public function showAction(InternationalOfficeForm $internationalOfficeForm)
     {
-        $deleteForm = $this->createDeleteForm($internationalOfficeForm);
+        $this->studentID = $internationalOfficeForm->getStudentFormOne();
+        $user = $this->getUser();
+        
+        $username = $user->getUsername();
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') || $username == $studentFormOne->getUserName() || $this->get('security.authorization_checker')->isGranted('ROLE_IO_ADMIN')){
+            
+            $em = $this->getDoctrine()->getManager();
+            
+            $query = $em->createQuery("SELECT sfo JOIN AppBundle:StudentFormOne sfo WHERE sfo.id = :id");
+            $query->setParameter("id", $this->studentID);
+        
+            $studentFormOneArray = $query->getResult();
+            
+            $studentFormOne = $studentFormOneArray[0];
 
-        return $this->render('internationalofficeform/show.html.twig', array(
-            'internationalOfficeForm' => $internationalOfficeForm,
-            'delete_form' => $deleteForm->createView(),
-        ));
+            $query = $em->createQuery("SELECT ssf FROM AppBundle:SiteSupervisorForm ssf JOIN AppBundle:StudentFormOne sfo WHERE sfo.id = ssf.student_form_one AND sfo.id = :id");
+            $query->setParameter("id", $this->studentID);
+        
+            $siteSupervisorFormArray = $query->getResult();
+            
+            $siteSupervisorForm = $siteSupervisorFormArray[0];
+            $deleteForm = $this->createDeleteForm($internationalOfficeForm);
+        
+            return $this->render('internationalofficeform/show.html.twig', array(
+                'studentFormOne' => $studentFormOne,
+                'siteSupervisorForm' => $siteSupervisorForm,
+                'internationalOfficeForm' => $internationalOfficeForm,
+                'delete_form' => $deleteForm->createView(),
+            ));
+        }else {
+            return $this->redirectToRoute('internationalofficeform_index');
+        }
     }
 
     /**
