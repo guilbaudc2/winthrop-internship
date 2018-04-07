@@ -20,56 +20,30 @@ class StudentFormTwo
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-    
-    /**
-     * One StudentFormTwo has One StudentFormOne.
-     * @ORM\OneToOne(targetEntity="StudentFormOne", inversedBy="student_form_two")
-     * @ORM\JoinColumn(name="student_form_one_id", referencedColumnName="id")
-     */
-    private $student_form_one;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="educationalExperience", type="text")
+     * @ORM\Column(name="educationalExperience", type="blob")
      */
     private $educationalExperience;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="goals", type="text")
+     * @ORM\Column(name="goals", type="blob")
      */
     private $goals;
-
-
-    public function __construct($student_form_one) {
-        
-        $this->student_form_one = $student_form_one;    
-    
-    }
-
 
 
     /**
      * Get id
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
         return $this->id;
-    }
-    
-
-    /**
-     * Get studentFormOne
-     *
-     * @return integer
-     */
-    public function getStudentFormOne()
-    {
-        return $this->student_form_one;
     }
 
     /**

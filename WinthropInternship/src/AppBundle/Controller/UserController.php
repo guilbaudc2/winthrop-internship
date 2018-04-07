@@ -22,17 +22,13 @@ class UserController extends Controller
      */
     public function indexAction()
     {
-        // if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
-            $em = $this->getDoctrine()->getManager();
-    
-            $users = $em->getRepository('AppBundle:User')->findAll();
-    
-            return $this->render('user/index.html.twig', array(
-                'users' => $users,
-            ));
-        // }else{
-        //     return $this->redirectToRoute('studentFormOne_index');
-        // }
+        $em = $this->getDoctrine()->getManager();
+
+        $users = $em->getRepository('AppBundle:User')->findAll();
+
+        return $this->render('user/index.html.twig', array(
+            'users' => $users,
+        ));
     }
 
     /**

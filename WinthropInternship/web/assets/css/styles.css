@@ -86,7 +86,7 @@ h2#reset-button {
     border-bottom: 1px solid #6F7477;
 }
 
-.login-page input:not([type="submit"]) {
+.login-page input {
     padding-left: 15px;
     color: #000;
 }
@@ -142,10 +142,6 @@ label.required:after {
     background-color: #9E3D2F;
 }
 
-.sidenav {
-    background-color: #F3F2F2;
-}
-
-.sidenav li>a{
-    height: auto;
+input[type=date]:not(.browser-default) {
+    margin-top: 20px;
 }

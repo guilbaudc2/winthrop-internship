@@ -1,12 +1,25 @@
-{% extends 'base.html.twig' %}
+{% extends 'innerbase.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="../../../assets/css/reset.css">
+    <link type="text/css" rel="stylesheet" href="../../../assets/css/materialize.min.css"  media="screen,projection"/>
+    <link rel="stylesheet" type="text/css" href="../../../assets/css/styles.css">
+{% endblock %}
+
+{% block javascripts %}<script type="text/javascript" src="../../../assets/js/materialize.min.js"></script>{% endblock %}
 
 {% block body %}
-    <h1>Studentformone edit</h1>
-
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
+    <h1 class="header center">Studentformone edit</h1>
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <div class="card-panel">
+            {{ form_start(edit_form) }}
+                {{ form_widget(edit_form) }}
+                <input type="submit" value="Save Changes" />
+            {{ form_end(edit_form) }}
+            </div>
+        </div>
+    </div>
 
     <ul>
         <li>

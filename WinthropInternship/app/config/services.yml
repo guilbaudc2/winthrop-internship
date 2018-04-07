@@ -33,14 +33,3 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
-   
-    app.form.registration:
-        class: AppBundle\Form\RegistrationType
-        tags:
-            - { name: form.type, alias: app_user_registration }
-            
-    app.form.handler.registration:
-        class: AppBundle\Form\Handler\RegistrationFormHandler
-        arguments: ["@fos_user.registration.form", "@request", "@fos_user.user_manager", "@fos_user.mailer", "@fos_user.util.token_generator"]
-        scope: request
-        public: false

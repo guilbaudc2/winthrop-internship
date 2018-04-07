@@ -10,41 +10,35 @@
 {{form_start(form, {'method': 'POST', 'attr':{'class': 'register'}})}}
     <div>
         <div>
-            {{ form_widget(form.firstName, {'attr': {'placeholder': 'First Name'}}) }}
-        </div>
-        {{ form_errors(form.firstName) }}
-    </div>
-    <div>
-        <div>
-            {{ form_widget(form.lastName, {'attr': {'placeholder': 'Last Name'}}) }}
-        </div>
-        {{ form_errors(form.lastName) }}
-    </div>
-    <div>
-        <div>
-            {{ form_widget(form.username, {'attr': {'placeholder': 'Winthrop Username'}}) }}
+            <label for="form.username">{{ 'Username: '|trans }}</label>
+            {{ form_widget(form.username) }}
         </div>
         {{ form_errors(form.username) }}
     </div>
     <div>
         <div>
-            {{ form_widget(form.email, {'attr': {'placeholder': 'Winthrop Email Address'}}) }}
+            <label for="form.email">{{ 'Email Address: '|trans }}</label>
+            {{ form_widget(form.email) }}
         </div>
         {{ form_errors(form.email) }}
     </div>
     <div>
         <div>
-            {{ form_widget(form.plainPassword.first, {'attr': {'placeholder': 'Password'}}) }}
+            <label for="form.plainPassword.first">{{ 'Password: '|trans }}</label>
+            {{ form_widget(form.plainPassword.first) }}
         </div>
         {{ form_errors(form.plainPassword.first) }}
     </div>
     <div>
         <div>
-            {{ form_widget(form.plainPassword.second, {'attr': {'placeholder': 'Confirm Password'}}) }}
+            <label for="form.plainPassword.second">{{ 'Confirm Password: '|trans }}</label>
+            {{ form_widget(form.plainPassword.second) }}
         </div>
         {{ form_errors(form.plainPassword.second) }}
      </div>
-
-  
-  <input type="submit" id="_submit" name="action" value="Submit" />
+  <div>
+    <button type="submit" name="action">
+      {{ 'Submit'|trans }}
+    </button>
+  </div>
 {{ form_end(form) }}

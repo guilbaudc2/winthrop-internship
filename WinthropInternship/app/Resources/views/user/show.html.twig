@@ -1,43 +1,17 @@
-{% extends 'innerbase.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1 class="header">{{ user.firstName }} {{ user.lastName }}'s User Information</h1>
-    <div class="section no-pad-bot" id="index-banner">
-        <div class="container">
-            <div class="card-panel">
-                <table>
-                    <tbody>
-                        <tr>
-                            <th>Id</th>
-                            <td>{{ user.id }}</td>
-                        </tr>
-                        <tr>
-                            <th>First Name</th>
-                            <td>{{ user.firstName }}</td>
-                        </tr>
-                        <tr>
-                            <th>Last Name</th>
-                            <td>{{ user.lastName }}</td>
-                        </tr>
-                        <tr>
-                            <th>Username</th>
-                            <td>{{ user.username }}</td>
-                        </tr>
-                        <tr>
-                            <th>Roles</th>
-                            <td>
-                                <ul>
-                                {% for item in user.roles %}
-                                    <li>{{ item }}</li>
-                                {% endfor %}
-                                </ul>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+    <h1>User</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ user.id }}</td>
+            </tr>
+        </tbody>
+    </table>
+
     <ul>
         <li>
             <a href="{{ path('user_index') }}">Back to the list</a>
