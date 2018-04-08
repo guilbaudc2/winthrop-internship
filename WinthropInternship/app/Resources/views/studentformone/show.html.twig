@@ -1,103 +1,115 @@
 {% extends 'innerbase.html.twig' %}
 
 {% block body %}
-    <h1>Studentformone</h1>
-
-    <table>
-        <tbody>
-            <tr>
-                <th>Firstname</th>
-                <td>{{ studentFormOne.firstName }}</td>
-            </tr>
-            <tr>
-                <th>Lastname</th>
-                <td>{{ studentFormOne.lastName }}</td>
-            </tr>
-            <tr>
-                <th>Username</th>
-                <td>{{ studentFormOne.userName }}</td>
-            </tr>
-            <tr>
-                <th>Cwid</th>
-                <td>{{ studentFormOne.cWID }}</td>
-            </tr>
-            <tr>
-                <th>Emailaddress</th>
-                <td>{{ studentFormOne.emailAddress }}</td>
-            </tr>
-            <tr>
-                <th>Classenrolled</th>
-                <td>{{ studentFormOne.classEnrolled }}</td>
-            </tr>
-            <tr>
-                <th>Numcredits</th>
-                <td>{{ studentFormOne.numCredits }}</td>
-            </tr>
-            <tr>
-                <th>Phonenumber</th>
-                <td>{{ studentFormOne.phoneNumber }}</td>
-            </tr>
-            <tr>
-                <th>Legallyauthorized</th>
-                <td>{% if studentFormOne.legallyAuthorized %}Yes{% else %}No{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Futureworkauthorization</th>
-                <td>{% if studentFormOne.futureWorkAuthorization %}Yes{% else %}No{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Major</th>
-                <td>{{ studentFormOne.major }}</td>
-            </tr>
-            <tr>
-                <th>Minor</th>
-                <td>{{ studentFormOne.minor }}</td>
-            </tr>
-            <tr>
-                <th>Facultyliaison</th>
-                <td>{{ studentFormOne.facultyLiaison }}</td>
-            </tr>
-            <tr>
-                <th>Semesterenrolled</th>
-                <td>{{ studentFormOne.semesterEnrolled }}</td>
-            </tr>
-            <tr>
-                <th>Yearenrolled</th>
-                <td>{% if studentFormOne.yearEnrolled %}{{ studentFormOne.yearEnrolled|date('Y-m-d') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Semestergrad</th>
-                <td>{{ studentFormOne.semesterGrad }}</td>
-            </tr>
-            <tr>
-                <th>Yeargrad</th>
-                <td>{% if studentFormOne.yearGrad %}{{ studentFormOne.yearGrad|date('Y-m-d') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Date</th>
-                <td>{% if studentFormOne.date %}{{ studentFormOne.date|date('Y-m-d') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Sitesupername</th>
-                <td>{{ studentFormOne.siteSuperName }}</td>
-            </tr>
-            <tr>
-                <th>Sitesuperemail</th>
-                <td>{{ studentFormOne.siteSuperEmail }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <h1 class="header center">Studentformone</h1>
+    <div class="section" id="nav-backBtn">
+        <ul>
+            <li>
+                <a href="{{ path('studentformone_index') }}" class="btn waves-effect waves-light button-back">Back to the list</a>
+            </li>
+            <li>
+                <a href="{{ path('export_file', { 'id': studentFormOne.id }) }}" class="btn waves-effect waves-light button-back">Export file</a>
+            </li>
+            <li>
+                <a href="{{ path('studentformone_edit', { 'id': studentFormOne.id }) }}" class="btn waves-effect waves-light button-back">Edit</a>
+            </li>
+        </ul>
+    </div>
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <div class="card-panel">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Firstname</th>
+                            <td>{{ studentFormOne.firstName }}</td>
+                        </tr>
+                        <tr>
+                            <th>Lastname</th>
+                            <td>{{ studentFormOne.lastName }}</td>
+                        </tr>
+                        <tr>
+                            <th>Username</th>
+                            <td>{{ studentFormOne.userName }}</td>
+                        </tr>
+                        <tr>
+                            <th>Cwid</th>
+                            <td>{{ studentFormOne.cWID }}</td>
+                        </tr>
+                        <tr>
+                            <th>Emailaddress</th>
+                            <td>{{ studentFormOne.emailAddress }}</td>
+                        </tr>
+                        <tr>
+                            <th>Classenrolled</th>
+                            <td>{{ studentFormOne.classEnrolled }}</td>
+                        </tr>
+                        <tr>
+                            <th>Numcredits</th>
+                            <td>{{ studentFormOne.numCredits }}</td>
+                        </tr>
+                        <tr>
+                            <th>Phonenumber</th>
+                            <td>{{ studentFormOne.phoneNumber }}</td>
+                        </tr>
+                        <tr>
+                            <th>Legallyauthorized</th>
+                            <td>{% if studentFormOne.legallyAuthorized %}Yes{% else %}No{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Futureworkauthorization</th>
+                            <td>{% if studentFormOne.futureWorkAuthorization %}Yes{% else %}No{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Major</th>
+                            <td>{{ studentFormOne.major }}</td>
+                        </tr>
+                        <tr>
+                            <th>Minor</th>
+                            <td>{{ studentFormOne.minor }}</td>
+                        </tr>
+                        <tr>
+                            <th>Facultyliaison</th>
+                            <td>{{ studentFormOne.facultyLiaison }}</td>
+                        </tr>
+                        <tr>
+                            <th>Semesterenrolled</th>
+                            <td>{{ studentFormOne.semesterEnrolled }}</td>
+                        </tr>
+                        <tr>
+                            <th>Yearenrolled</th>
+                            <td>{% if studentFormOne.yearEnrolled %}{{ studentFormOne.yearEnrolled|date('Y-m-d') }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Semestergrad</th>
+                            <td>{{ studentFormOne.semesterGrad }}</td>
+                        </tr>
+                        <tr>
+                            <th>Yeargrad</th>
+                            <td>{% if studentFormOne.yearGrad %}{{ studentFormOne.yearGrad|date('Y-m-d') }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Date</th>
+                            <td>{% if studentFormOne.date %}{{ studentFormOne.date|date('Y-m-d') }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Sitesupername</th>
+                            <td>{{ studentFormOne.siteSuperName }}</td>
+                        </tr>
+                        <tr>
+                            <th>Sitesuperemail</th>
+                            <td>{{ studentFormOne.siteSuperEmail }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
     <ul>
         <li>
-            <a href="{{ path('studentformone_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('studentformone_edit', { 'id': studentFormOne.id }) }}">Edit</a>
-        </li>
-        <li>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                <input type="submit" class="btn-large waves-effect waves-light landing-btn-color button-resize" value="Delete">
             {{ form_end(delete_form) }}
         </li>
     </ul>

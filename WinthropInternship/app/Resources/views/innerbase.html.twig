@@ -10,42 +10,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     {% block stylesheets %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="../../assets/js/materialize.min.js"></script>
+    {#<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">#}
+    {#<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>#}
+    <!--Icon Attribution-->
+    <!--Gear by asianson.design from the Noun Project-->
+    <!--Home by asianson.design from the Noun Project-->
+    <!--Reporting by AlfredoCreates.com/Icons from the Noun Project-->
+    <!--export by Eagle Eye from the Noun Project-->
 </head>
 <body>
 <nav role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="{{path('homepage') }}" class="brand-logo">WILE</a>
+    <div class="nav-wrapper container">
+        <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons">menu</i></a>
+        <a id="logo-container" href="{{path('homepage') }}" class="brand-logo">WILE</a>
         <ul class="right hide-on-med-and-down">
-            <li><a href="#">Navbar Link</a></li>
+            <li><a href="{{path('fos_user_security_logout')}}">Logout</a></li>
         </ul>
-
-        <ul id="nav-mobile" class="sidenav">
-            <li><a href="#">Navbar Link</a></li>
-        </ul>
-        <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     </div>
 </nav>
+
+<ul id="slide-out" class="sidenav">
+    <li><a href="#!"><figure><img src="../../assets/images/Home.png" alt="Dashboard Icon"><figcaption>Dashboard</figcaption></figure></a></li>
+    <li><a href="#!"><figure><img src="../../assets/images/Reporting.png" alt="Generate Reports Icon"><figcaption>Generate Reports</figcaption></figure></a></li>
+    <li><a href="#!"><figure><img src="../../assets/images/Gear.png" alt="Update System Icon"><figcaption>Update System</figcaption></figure></a></li>
+    <li><a href="#!"><figure><img src="../../assets/images/export.png" alt="Export Icon"><figcaption>Export Files</figcaption></figure></a></li>
+    {#<li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>#}
+    {#<li><a href="#!">Second Link</a></li>#}
+    {#<li><div class="divider"></div></li>#}
+    {#<li><a class="subheader">Subheader</a></li>#}
+    {#<li><a class="waves-effect" href="#!">Third Link With Waves</a></li>#}
+    <li><a href="{{path('fos_user_security_logout')}}">Logout</a></li>
+</ul>
 {% block body %}{% endblock %}
+<script>
+    $(document).ready(function(){
+        $('select').formSelect();
+        $('.datepicker').datepicker();
+        $('textarea').characterCounter();
+        $('.sidenav').sidenav();
+  });
+</script>
 {% block javascripts %}{% endblock %}
 <footer class="page-footer">
     <div class="container">
         <div class="row">
             <div class="col l6 s12">
-                <h5 class="white-text">Company Bio</h5>
-                <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
+                <h5 class="white-text">Team and Project Description</h5>
+                <p class="grey-text text-lighten-4">Our team consists of a group of college students working tirelessly on this project. 
+                This project is built for Winthrop University's Career and Civic Engagement Center to make a working electronic version of their internship process.</p>
 
 
             </div>
             <div class="col l3 s12">
-                <h5 class="white-text">Settings</h5>
+                <h5 class="white-text">Links</h5>
                 <ul>
-                    <li><a class="white-text" href="#!">Link 1</a></li>
-                    <li><a class="white-text" href="#!">Link 2</a></li>
-                    <li><a class="white-text" href="#!">Link 3</a></li>
-                    <li><a class="white-text" href="#!">Link 4</a></li>
+                    <li><a class="white-text" href="{{ path('homepage') }}">Login Page</a></li>
+                    <li><a class="white-text" href="#!">FAQ</a></li>
+                    <li><a class="white-text" href="#!">Tutorial</a></li>
+                    <li><a class="white-text" href="https://www.winthrop.edu/cce/Default.aspx">CCE Main Page</a></li>
                 </ul>
             </div>
+            {#
             <div class="col l3 s12">
                 <h5 class="white-text">Connect</h5>
                 <ul>
@@ -55,6 +82,7 @@
                     <li><a class="white-text" href="#!">Link 4</a></li>
                 </ul>
             </div>
+            #}
         </div>
     </div>
     <div class="footer-copyright">

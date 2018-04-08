@@ -11,52 +11,64 @@
         <div class="container">
             <br><br>
             <h1 class="header center">Welcome, {{ app.user.username}}!</h1>
-            <div class="row center">
-                <h5 class="header col s12 light">You don't have any active Internship Learning Agreements</h5>
-            </div>
-            <div class="row center">
-                <a href="{{ path('studentformone_new') }}" id="download-button" class="btn-large waves-effect waves-light landing-btn-color">Begin New Learning Agreement</a>
-            </div>
-            <br><br>
+            
+            {% if not (is_granted('ROLE_HR_ADMIN') or is_granted('ROLE_IO_ADMIN') or is_granted('ROLE_FL_ADMIN') or is_granted('ROLE_SUPER_ADMIN'))%}  
+            
+                {% if studentFormOnes is empty %} 
+                    <div class="row center">
+                        <h5 class="header col s12 light">You don't have any active Internship Learning Agreements</h5>
+                    </div>
+                {% endif %}
+                <div class="row center">
+                    <a href="{{ path('studentformone_new') }}" id="download-button" class="btn-large waves-effect waves-light landing-btn-color">Begin New Learning Agreement</a>
+                </div>
+                <br><br>
+            {% endif %}
 
         </div>
     </div>
     {#<h1>Studentformones list</h1>#}
-
-    {#<table>#}
-    {#    <thead>#}
-    {#        <tr>#}
-    {#            <th>Firstname</th>#}
-    {#            <th>Lastname</th>#}
-    {#            <th>Username</th>#}
-    {#            <th>Cwid</th>#}
-    {#            <th>Actions</th>#}
-    {#        </tr>#}
-    {#    </thead>#}
-    {#    <tbody>#}
-    {#    {% for studentFormOne in studentFormOnes %}#}
-    {#        <tr>#}
-    {#            <a href="{{ path('studentformone_show', { 'id': studentFormOne.id }) }}">#}
-    {#            <td>{{ studentFormOne.firstName }}</td>#}
-    {#            <td>{{ studentFormOne.lastName }}</td>#}
-    {#            <td>{{ studentFormOne.userName }}</td>#}
-    {#            <td>{{ studentFormOne.cWID }}</td>#}
-    {#            </a>#}
-    {#            <td>#}
-    {#                <ul>#}
-    {#                    <li>#}
-    {#                        <a href="{{ path('studentformone_show', { 'id': studentFormOne.id }) }}">show</a>#}
-    {#                    </li>#}
-    {#                    <li>#}
-    {#                        <a href="{{ path('studentformone_edit', { 'id': studentFormOne.id }) }}">edit</a>#}
-    {#                    </li>#}
-    {#                </ul>#}
-    {#            </td>#}
-    {#        </tr>#}
-    {#    {% endfor %}#}
-    {#    </tbody>#}
-    {#</table>#}
-
+    {% if studentFormOnes is not empty %} 
+        <div class="section no-pad-bot" id="index-banner">
+            <div class="container">
+                <div class="card-panel">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Firstname</th>
+                                <th>Lastname</th>
+                                <th>Username</th>
+                                <th>Cwid</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for studentFormOne in studentFormOnes %}
+                            <tr>
+                                <a href="{{ path('studentformone_show', { 'id': studentFormOne.id }) }}">
+                                <td>{{ studentFormOne.firstName }}</td>
+                                <td>{{ studentFormOne.lastName }}</td>
+                                <td>{{ studentFormOne.userName }}</td>
+                                <td>{{ studentFormOne.cWID }}</td>
+                                </a>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            <a href="{{ path('studentformone_show', { 'id': studentFormOne.id }) }}">show</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ path('studentformone_edit', { 'id': studentFormOne.id }) }}">edit</a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% endif %}
     {#<ul>#}
     {#    <li>#}
     {#        <a href="{{ path('studentformone_new') }}">Create a new studentFormOne</a>#}

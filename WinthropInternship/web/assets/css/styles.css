@@ -91,10 +91,7 @@ h2#reset-button {
     color: #000;
 }
 
-input[type=submit]{
-    margin-top:20px;
-    color: #fff;
-}
+
 
 .login-page input::placeholder {
     color: #6F7477;
@@ -136,4 +133,52 @@ nav {
 
 label.required:after {
     content: " *";
+}
+
+.btn:hover, .btn-large:hover, .btn-small:hover {
+    background-color: #9E3D2F;
+}
+
+input[type=date]:not(.browser-default) {
+    margin-top: 20px;
+}
+
+input[type=submit]{
+    /*margin-top:20px;*/
+    
+    letter-spacing: 1px;
+    padding-top: 0px;
+    padding-right: 1rem;
+    padding-bottom: 0px;
+    padding-left: 1rem;
+    color: #fff;
+}
+
+.button-resize{
+    font-size: 18px;
+}
+
+.button-back{
+    color: #222;
+    background-color: #ffffff;
+}
+#nav-backBtn ul{
+    position: absolute;
+    left: 50%;
+    transform: translatex(-50%);
+    padding-bottom:10px;
+}
+#nav-backBtn .btn:hover, #nav-backBtn .btn-large:hover, #nav-backBtn .btn-small:hover{
+    background-color: #103a55;
+    color: #ffffff;
+}
+#nav-backBtn:after {
+  content: "";
+  display: block;
+  height: 20px;
+  width: 100%;
+}
+#nav-backBtn li{
+    display: inline;
+    padding: 5px;
 }
