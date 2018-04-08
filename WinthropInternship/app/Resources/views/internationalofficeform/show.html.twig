@@ -1,7 +1,8 @@
 {% extends 'innerbase.html.twig' %}
 
 {% block body %}
-    <h1 class="header center">Internationalofficeform</h1>
+    <h1 class="header center">International Office Form</h1>
+    <h2>Student Information</h2>
     
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
@@ -98,6 +99,7 @@
         </div>
     </div>
     
+    <h2>Internship Site Information</h2>
     
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
@@ -149,7 +151,7 @@
                             <td>{% if siteSupervisorForm.internshipProjectedStartDate %}{{ siteSupervisorForm.internshipProjectedStartDate|date('Y-m-d') }}{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Internshipprojectedenddate</th>
+                            <th>Internship Projected End Date</th>
                             <td>{% if siteSupervisorForm.internshipProjectedEndDate %}{{ siteSupervisorForm.internshipProjectedEndDate|date('Y-m-d') }}{% endif %}</td>
                         </tr>
                         <tr>
@@ -200,15 +202,13 @@
                             <th>Signature</th>
                             <td>{{ siteSupervisorForm.digitalSignature }}</td>
                         </tr>
-                        {#<tr>#}
-                        {#    <th>SF1</th>#}
-                        {#    <td>{{ siteSupervisorForm.student_form_one }}</td>#}
-                        {#</tr>#}
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+    
+    <h2>International Office Approval Information</h2>
 
     
     <div class="section no-pad-bot" id="index-banner">
@@ -216,24 +216,24 @@
             <div class="card-panel">
                 <table>
                     <tbody>
-                        <tr>
-                            <th>Id</th>
-                            <td>{{ internationalOfficeForm.id }}</td>
-                        </tr>
-                        <tr>
-                            <th>Student Id</th>
-                            <td>{{ internationalOfficeForm.studentFormOne }}</td>
-                        </tr>
+                        {#<tr>#}
+                        {#    <th>Id</th>#}
+                        {#    <td>{{ internationalOfficeForm.id }}</td>#}
+                        {#</tr>#}
+                        {#<tr>#}
+                        {#    <th>Student Id</th>#}
+                        {#    <td>{{ internationalOfficeForm.studentFormOne }}</td>#}
+                        {#</tr>#}
                         <tr>
                             <th>Approve</th>
                             <td>{% if internationalOfficeForm.approve %}Yes{% else %}No{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Approvedate</th>
+                            <th>Approved Date</th>
                             <td>{% if internationalOfficeForm.approveDate %}{{ internationalOfficeForm.approveDate|date('Y-m-d H:i:s') }}{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Digitalsignature</th>
+                            <th>Digital Signature</th>
                             <td>{{ internationalOfficeForm.digitalSignature }}</td>
                         </tr>
                     </tbody>

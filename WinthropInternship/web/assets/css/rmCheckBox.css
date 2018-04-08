@@ -1,0 +1,9 @@
+span.mdl-checkbox__focus-helper:before {
+    display: none;
+}
+
+.flexRow{
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+}
