@@ -1,0 +1,48 @@
+language: php
+
+sudo: false
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+php:
+  - 5.5
+  - 5.6
+  - 7.0
+  - 7.1
+  - 7.2
+  - nightly
+
+matrix:
+  include:
+    - php: 5.5
+      env: deps=low SYMFONY_DEPRECATIONS_HELPER=weak
+    - php: 5.6
+      env: SYMFONY_VERSION="2.8.*"
+    - php: 7.0
+      env: SYMFONY_VERSION="3.2.*"
+    - php: 7.1
+      env: stability=RC SYMFONY_DEPRECATIONS_HELPER=weak SYMFONY_VERSION="3.4.*"
+    - php: 7.2
+      env: stability=alpha
+  allow_failures:
+    - php: nightly
+
+env:
+  global:
+    - deps=no
+
+before_install:
+  - composer self-update
+  - if [ "$SYMFONY_VERSION" != "" ]; then jq "(.require, .\"require-dev\")|=(with_entries(if .key|test(\"^symfony/\") then .value|=\"${SYMFONY_VERSION}\" else . end))" composer.json|ex -sc 'wq!composer.json' /dev/stdin; fi;
+  - if [ ! -z "$stability" ]; then perl -pi -e "s/^}$/,\"minimum-stability\":\"$stability\"}/" composer.json; fi;
+
+install:
+  - if [ "$deps" = "low" ]; then composer --prefer-lowest --prefer-stable update; else composer update; fi;
+
+script:
+  - ./vendor/bin/phpunit -v --coverage-clover ./build/logs/clover.xml
+
+after_script:
+    - php ./vendor/bin/coveralls -v

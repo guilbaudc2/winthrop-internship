@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PhpIncludePathManager">
+    <include_path>
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/friendsofsymfony/user-bundle" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/symfony/polyfill-apcu" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/symfony/polyfill-intl-icu" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/monolog/monolog" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/symfony/polyfill-util" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/doctrine/orm" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/symfony/swiftmailer-bundle" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/symfony/polyfill-php56" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/sensiolabs/security-checker" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/psr/cache" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/symfony/phpunit-bridge" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/fig/link-util" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/symfony/polyfill-php70" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/symfony/monolog-bundle" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/symfony/symfony" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/doctrine/dbal" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/psr/simple-cache" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/psr/link" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/sensio/generator-bundle" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/sensio/distribution-bundle" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/sensio/framework-extra-bundle" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/doctrine/instantiator" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/doctrine/annotations" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/doctrine/collections" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/paragonie/random_compat" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/doctrine/doctrine-cache-bundle" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/doctrine/doctrine-bundle" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/doctrine/inflector" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/doctrine/cache" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/incenteev/composer-parameter-handler" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/twig/twig" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/swiftmailer/swiftmailer" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/doctrine/common" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/composer" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/jdorn/sql-formatter" />
+      <path value="$PROJECT_DIR$/WinthropInternship/vendor/doctrine/lexer" />
+    </include_path>
+  </component>
+</project>
