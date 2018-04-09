@@ -6,35 +6,55 @@
         <div class="container">
             <div class="card-panel">
                 {#<form method="post" action="{{ path('hrform_new') }}"></form>#}
-                <form action="{{ path('hrform_new') }}" method="GET">
-                    <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+                <form id="hrAction" action="{{ path('hrform_new') }}" method="GET">
+                    {#<table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" id="hrTable">#}
+                    <table class="mdl-data-table mdl-shadow--2dp" id="hrTable">
                     {#<table>#}
                         <thead>
                             <tr>
-                                <th class="mdl-data-table__cell--non-numeric">
-                                    <ul class="flexRow">
-                                        <li>First Name</li>
-                                        <li>Last Name</li>
-                                        <li>Email Address</li>
-                                        <li>Winthrop ID Number (CWID)</li>
-                                        <li>Internship Company Name</li>
-                                    </ul>
+                                <th>
+                                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-data-table__select" for="table-header">
+                                        <input type="checkbox" id="table-header" class="mdl-checkbox__input" />
+                                    </label>
                                 </th>
+                                <th class="mdl-data-table__cell--non-numeric">First Name</th>
+                                <th>Last Name</th>
+                                <th>Email Address</th>
+                                <th>Winthrop ID Number (CWID)</th>
+                                <th>Internship Company Name</th>
+                                    {#<ul class="flexRow">#}
+                                    {#    <li>First Name</li>#}
+                                    {#    <li>Last Name</li>#}
+                                    {#    <li>Email Address</li>#}
+                                    {#    <li>Winthrop ID Number (CWID)</li>#}
+                                    {#    <li>Internship Company Name</li>#}
+                                    {#</ul>#}
+                                {#</th>#}
                             </tr>
                         </thead>
                         <tbody>
                         {% for studentFormOne in studentFormOnes %}
                             <tr>
-                                <td class="mdl-data-table__cell--non-numeric">
-                                    <input type="checkbox" name="studentInfo" value="{{ studentFormOne.id }}" />
-                                    <ul class="flexRow">
-                                        <li>{{ studentFormOne.firstName }}</li>
-                                        <li>{{ studentFormOne.lastName }}</li>
-                                        <li>{{ studentFormOne.emailAddress}}</li>
-                                        <li>{{ studentFormOne.cWID }}</li>
-                                        <li>{{ studentFormOne.organizationName }}</li>
-                                    </ul>
+                                <td>
+                                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-data-table__select" for="row[{{ loop.index }}]">
+                                        <input type="checkbox" id="row[{{ loop.index }}]" name="studentInfo[]" class="mdl-checkbox__input"  value="{{ studentFormOne.id }}"/>
+                                    </label>
                                 </td>
+                                <td class="mdl-data-table__cell--non-numeric">{{ studentFormOne.firstName }}</td>
+                                <td>{{ studentFormOne.lastName }}</td>
+                                <td>{{ studentFormOne.emailAddress}}</td>
+                                <td>{{ studentFormOne.cWID }}</td>
+                                <td>{{ studentFormOne.organizationName }}</td>
+                                {#<td class="mdl-data-table__cell--non-numeric">#}
+                                    {#<input type="hidden" name="studentInfo[]" value="{{ studentFormOne.id }}" />#}
+                                {#    <ul class="flexRow">#}
+                                {#        <li>{{ studentFormOne.firstName }}</li>#}
+                                {#        <li>{{ studentFormOne.lastName }}</li>#}
+                                {#        <li>{{ studentFormOne.emailAddress}}</li>#}
+                                {#        <li>{{ studentFormOne.cWID }}</li>#}
+                                {#        <li>{{ studentFormOne.organizationName }}</li>#}
+                                {#    </ul>#}
+                                {#</td>#}
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -60,18 +80,6 @@
                     <tbody>
                     {% for hRForm in hRForms %}
                         <tr>
-                            {#<td><a href="{{ path('hrform_show', { 'id': hRForm.id }) }}">{{ hRForm.id }}</a></td>#}
-                            {#<td>{% if hRForm.completedTitleIX %}Yes{% else %}No{% endif %}</td>#}
-                            {#<td>#}
-                            {#    <ul>#}
-                            {#        <li>#}
-                            {#            <a href="{{ path('hrform_show', { 'id': hRForm.id }) }}">show</a>#}
-                            {#        </li>#}
-                            {#        <li>#}
-                            {#            <a href="{{ path('hrform_edit', { 'id': hRForm.id }) }}">edit</a>#}
-                            {#        </li>#}
-                            {#    </ul>#}
-                            {#</td>#}
                             <td>{{ hRForm.firstName }}</td>
                             <td>{{ hRForm.lastName }}</td>
                             <td>{{ hRForm.emailAddress}}</td>
@@ -98,4 +106,64 @@
 
 {% block javascripts %}    
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    
+    <script type="text/javascript">
+        var table = document.querySelector('table');
+        var headerCheckbox = table.querySelector('thead .mdl-data-table__select input');
+        var boxes = table.querySelectorAll('tbody .mdl-data-table__select');
+        var rows = table.querySelectorAll('tbody tr');
+        
+        var headerCheckHandler = function(event) {
+          if (event.target.checked) {
+            for (var i = 0, length = boxes.length; i < length; i++) {
+                boxes[i].MaterialCheckbox.check();
+                rows[i].classList.add('is-selected');
+            }
+          }else {
+            for (var i = 0, length = boxes.length; i < length; i++) {
+                boxes[i].MaterialCheckbox.uncheck();
+                rows[i].classList.remove('is-selected');
+            }
+          }
+        };
+        headerCheckbox.addEventListener('change', headerCheckHandler);
+    
+    
+        // var table = document.querySelector('table');
+        // var headerCheckbox = table.querySelector('thead .mdl-data-table__select input');
+        // var boxes = table.querySelectorAll('tbody .mdl-data-table__select');
+        // var headerCheckHandler = function(event) {
+        //   if (event.target.checked) {
+        //     for (var i = 0, length = boxes.length; i < length; i++) {
+        //       boxes[i].MaterialCheckbox.check();
+        //       boxes[i].MaterialCheckbox.updateClasses();
+        //     }
+        //   } else {
+        //     for (var i = 0, length = boxes.length; i < length; i++) {
+        //       boxes[i].MaterialCheckbox.uncheck();
+        //       boxes[i].MaterialCheckbox.updateClasses();
+        //     }
+        //   }
+        // };
+        // headerCheckbox.addEventListener('change', headerCheckHandler);
+        // $(document).ready(function(){
+        // //     $("input[name=submit]").click(function(){
+        // //         if (!$("tr").hasClass("is-selected")) {
+        // //           $("tr.is-selected").find("input").removeAttr( "value" );  
+        // //         }
+        // //     });
+        // // });
+        
+        //     $('#hrAction').submit(function(){
+        //         $('#hrTable > tbody  > tr').each(function() {
+        //             if(!$("tr").hasClass("is-selected")) {
+        //             // if($("tr:not([is-selected])")){
+        //                 // $("tr").removeClass("is-selected");
+        //                 // $("tr:not([is-selected]) > td > input").remove(); 
+        //                 $("tr:not([is-selected]) > td > input").val("");
+        //             }
+        //         });
+        //     });
+        // });
+    </script>
 {% endblock %}

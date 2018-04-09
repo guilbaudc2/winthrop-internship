@@ -34,7 +34,6 @@ class HRFormController extends Controller
         
         $repo =  $this->getDoctrine()->getRepository('AppBundle:StudentFormOne');
         
-        // $query = $em->createQuery("SELECT DISTINCT sfo.id, sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf WHERE sfo.id = ssf.student_form_one LEFT JOIN AppBundle:HRform h WHERE sfo.id != h.student_form_one");
         $query = $em->createQuery("SELECT DISTINCT sfo.id, sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName FROM AppBundle:StudentFormOne sfo INNER JOIN AppBundle:SiteSupervisorForm ssf WITH sfo.id = ssf.student_form_one LEFT JOIN AppBundle:HRform h WITH sfo.id = h.student_form_one WHERE h.student_form_one IS NULL");
         
         $studentFormOnes = $query->getResult();
@@ -63,50 +62,36 @@ class HRFormController extends Controller
      */
     public function newAction(Request $request)
     {
+        
         if(isset($_GET["studentInfo"])){
-             $studentArray = $_GET["studentInfo"];
+            $studentArray = $_GET["studentInfo"];
              
-             
-             foreach($studentArray as $student){
-                 $em = $this->getDoctrine()->getManager();
+            foreach($studentArray as $studentID){
+                if($studentID != ""){
+                $em = $this->getDoctrine()->getManager();
             
 //  The student ID is used here to query from the database where the student form one ID equals the one from the hidden input.
 
-
-            $query = $em->createQuery('SELECT u FROM AppBundle:StudentFormOne u WHERE u.id = :id')
-                ->setParameter('id', $studentID);
-            $studentFormOneID = $query->getResult();
-            
-            $this->studentFormOne = $studentFormOneID[0];
-            
-            $hRForm = new Hrform($this->studentFormOne);
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($hRForm);
-            $em->flush();
-            
-        }
+                $query = $em->createQuery('SELECT u FROM AppBundle:StudentFormOne u WHERE u.id = :id')
+                    ->setParameter('id', $studentID);
+                $studentFormOneID = $query->getResult();
+                
+                $this->studentFormOne = $studentFormOneID[0];
+                
+                $hRForm = new Hrform($this->studentFormOne);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($hRForm);
+                $em->flush();
+                
+                }
+                
+            }
         
-        // $internationalOfficeForm = new Internationalofficeform($this->studentFormOne);
-             }
-             
-        
-        
-        // $form = $this->createForm('AppBundle\Form\HRFormType', $hRForm);
-        // $form->handleRequest($request);
 
-        // if ($form->isSubmitted() && $form->isValid()) {
-        //     $em = $this->getDoctrine()->getManager();
-        //     $em->persist($hRForm);
-        //     $em->flush();
+        } 
 
-            // return $this->redirectToRoute('hrform_show', array('id' => $hRForm->getId()));
               return $this->redirectToRoute('hrform_index');
-        // }
 
-        // return $this->render('hrform/new.html.twig', array(
-        //     'hRForm' => $hRForm,
-        //     'form' => $form->createView(),
-        // ));
     }
 
     /**
