@@ -238,11 +238,6 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             }
             not_studentformone_delete:
 
-            // export_file
-            if (preg_match('#^/studentformone/(?P<id>[^/]++)/export_file$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'export_file')), array (  '_controller' => 'AppBundle\\Controller\\StudentFormOneController::exportFileAction',));
-            }
-
         }
 
         elseif (0 === strpos($pathinfo, '/user')) {

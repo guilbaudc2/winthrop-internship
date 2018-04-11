@@ -1,6 +1,6 @@
 <?php
 
-namespace Container0v8gvay;
+namespace ContainerU251tgx;
 
 use Symfony\Component\DependencyInjection\Argument\RewindableGenerator;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -318,6 +318,7 @@ class appDevDebugProjectContainer extends Container
             'security.validator.user_password' => __DIR__.'/getSecurity_Validator_UserPasswordService.php',
             'sensio_distribution.security_checker' => __DIR__.'/getSensioDistribution_SecurityCheckerService.php',
             'sensio_distribution.security_checker.command' => __DIR__.'/getSensioDistribution_SecurityChecker_CommandService.php',
+            'service_locator.e6dvaok' => __DIR__.'/getServiceLocator_E6dvaokService.php',
             'services_resetter' => __DIR__.'/getServicesResetterService.php',
             'session' => __DIR__.'/getSessionService.php',
             'session.handler' => __DIR__.'/getSession_HandlerService.php',
@@ -566,6 +567,7 @@ class appDevDebugProjectContainer extends Container
             'sensio_framework_extra.converter.manager' => true,
             'sensio_framework_extra.security.listener' => true,
             'sensio_framework_extra.view.listener' => true,
+            'service_locator.e6dvaok' => true,
             'session.handler' => true,
             'session.save_listener' => true,
             'session.storage.filesystem' => true,

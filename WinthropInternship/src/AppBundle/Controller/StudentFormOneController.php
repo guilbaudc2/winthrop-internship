@@ -283,12 +283,12 @@ class StudentFormOneController extends Controller
     }
 
     
-    /**
-     * 
-     * @param StudentFormOne $studentFormOne The studentFormOne entity
-     * 
-     * @Route("/{id}/export_file", name="export_file")
-    **/
+    // * 
+    // * @param StudentFormOne $studentFormOne The studentFormOne entity
+    // * 
+    // * @Route("/{id}/export_file", name="export_file")
+    
+    /*
     public function exportFileAction(StudentFormOne $studentFormOne)
     {
         //$pageID = $studentFormOne->getId();
@@ -302,7 +302,7 @@ class StudentFormOneController extends Controller
        // $response = new StreamedResponse();
        // $response->setCallback(function() 
        // {
-            /**/
+            
             $em = $this->getDoctrine()->getManager();
             $query = $em->createQuery("SELECT sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID FROM AppBundle:StudentFormOne sfo");// WHERE sfo.id =". $pageID);
         
@@ -323,14 +323,14 @@ class StudentFormOneController extends Controller
                 $fields = array('FName', 'LName', 'Email', 'WID');
                 //fputcsv($f, $fields, $delimiter);
                 
-                /*
+                
                 //output each row of the data, format line as csv and write to file pointer
-                while($row = $query->fetch_assoc()){
+               // while($row = $query->fetch_assoc()){
                     //$status = ($row['status'] == '1')?'Active':'Inactive';
-                    $lineData = array($row['firstName'], $row['lastName'], $row['emailAddress'], $row['CWID']);
-                    fputcsv($f, $lineData, $delimiter);
-                }
-                */
+                  //  $lineData = array($row['firstName'], $row['lastName'], $row['emailAddress'], $row['CWID']);
+                  //  fputcsv($f, $lineData, $delimiter);
+              //  }
+               
                // var_dump($lineData);
                 //var_dump($f);
                 
@@ -345,7 +345,7 @@ class StudentFormOneController extends Controller
             //output all remaining data on a file pointer
             //fpassthru($f);
             fclose($f);
-            /**/
+            
         
        // });
     
@@ -360,6 +360,8 @@ class StudentFormOneController extends Controller
         //print "about to return response";
         //return $response;
         
-        return $this->redirectToRoute('studentformone_show'/*, array('id' => $studentFormOne->getId())*/);
+        //return $this->redirectToRoute('studentformone_show', array('id' => $studentFormOne->getId()));
+        return $this->redirectToRoute('studentformone_show');
     }
+    */
 }

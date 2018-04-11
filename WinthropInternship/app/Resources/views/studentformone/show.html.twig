@@ -1,5 +1,37 @@
 {% extends 'innerbase.html.twig' %}
 
+
+{% block javascripts %} 
+    <script>
+        $(document).ready(function(){
+            $("#export").click(function(){
+                const rows = [["{{ studentFormOne.firstName }}", "{{ studentFormOne.lastName }}", "{{ studentFormOne.userName }}", "{{ studentFormOne.cWID }}"]];
+                let csvContent = "data:text/csv;charset=utf-8,";
+                rows.forEach(function(rowArray){
+                   let row = rowArray.join(",");
+                   csvContent += row + "\r\n";
+                });
+                var encodedUri = encodeURI(csvContent);
+                
+                var d = new Date();
+                var month = d.getMonth()+1;
+                var day = d.getDate();
+                var specDate = d.getFullYear() + '/' +
+                    (month<10 ? '0' : '') + month + '/' +
+                    (day<10 ? '0' : '') + day;
+                var csv = 'studentExport_' + specDate + '.csv';
+                
+                var link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", csv);
+                document.body.appendChild(link); // Required for FF
+                
+                link.click(); // This will download the data file named "my_data.csv".
+            });
+        });
+    </script>
+{% endblock %}
+
 {% block body %}
     <h1 class="header center">Studentformone</h1>
     <div class="section" id="nav-backBtn">
@@ -8,7 +40,8 @@
                 <a href="{{ path('studentformone_index') }}" class="btn waves-effect waves-light button-back">Back to the list</a>
             </li>
             <li>
-                <a href="{{ path('export_file', { 'id': studentFormOne.id }) }}" class="btn waves-effect waves-light button-back">Export file</a>
+                <button id="export" class="btn waves-effect waves-light button-back" >Export File</button>
+               {# <a href="{{ path('export_file', { 'id': studentFormOne.id }) }}" class="btn waves-effect waves-light button-back">Export file</a> #}
             </li>
             <li>
                 <a href="{{ path('studentformone_edit', { 'id': studentFormOne.id }) }}" class="btn waves-effect waves-light button-back">Edit</a>
