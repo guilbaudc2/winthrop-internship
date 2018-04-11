@@ -31,7 +31,7 @@ class StudentFormOneController extends Controller
         
         $em = $this->getDoctrine()->getManager();
         
-        $studentFormOnes= $em->getRepository('AppBundle:StudentFormOne')->findBy(array('emailAddress' => $emailAddress));
+        $studentFormOnes = $em->getRepository('AppBundle:StudentFormOne')->findBy(array('emailAddress' => $emailAddress));
 
         if ($this->get('security.authorization_checker')->isGranted('ROLE_HR_ADMIN')) {
             return $this->redirectToRoute('hrform_index');
