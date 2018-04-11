@@ -14,6 +14,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
  */
 class StudentFormTwoController extends Controller
 {
+    protected $studentFormTwosApp;
+    
     /**
      * Lists all studentFormTwo entities.
      *
@@ -22,9 +24,44 @@ class StudentFormTwoController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        
+        
+        if(!$this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')){
+            
+            $user = $this->getUser();
+            
+            $username = $user->getUsername();
+            
+            $em = $this->getDoctrine()->getManager();
+            $query = $em->createQuery('SELECT u.id FROM AppBundle:StudentFormOne u WHERE u.userName = :userName')
+                ->setParameter('userName', $username);
+            $studentFormOneArray = $query->getResult();
+            $studentFormOneID = $studentFormOneArray[0]['id'];
+            
+            foreach($studentFormOneArray as $studentOneApp){
+                // $studentFormTwos[] = $this->getDoctrine()->getRepository('AppBundle:StudentFormOne')->findOneById($studentFormOneID);
+                var_dump($studentOneApp);
+                // $query = $em->createQuery("SELECT sft FROM AppBundle:StudentFormTwo sft JOIN AppBundle:StudentFormOne sfo WHERE sfo.id = sft.student_form_one AND sfo.id = :id");
+                // $query->setParameter("id", $studentOneApp);
+                
+                // dump($query->getResult());
+                    
+                // if($query->getResult() != null){
+                //     $studentFormTwos = $query->getResult();
+                }
+                
+                
+                
+            }
+            dump($studentFormTwos);
+        
+        
+        
+            
+        
+        // $em = $this->getDoctrine()->getManager();
 
-        $studentFormTwos = $em->getRepository('AppBundle:StudentFormTwo')->findAll();
+        // $studentFormTwos = $em->getRepository('AppBundle:StudentFormTwo')->findAll();
 
         return $this->render('studentformtwo/index.html.twig', array(
             'studentFormTwos' => $studentFormTwos,

@@ -9,32 +9,52 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Student First Name</th>
-                            <th>Student Last Name</th>
-                            <th>Student Email Address</th>
-                            <th>Student CWID</th>
-                            <th>Organization Name</th>
+                            <td>
+                                <table>
+                                    <th>Student First Name</th>
+                                    <th>Student Last Name</th>
+                                    <th>Student Email Address</th>
+                                    <th>Student CWID</th>
+                                    <th>Organization Name</th>
+                                    <th>View Application</th>
+                                </table>
+                            </td>
                         </tr>
                     </thead>
                     <tbody>
                     {% for studentFormOne in studentFormOnes %}
                         <tr>
-                            <td class="mdl-data-table__cell--non-numeric"><label><input type="checkbox" class="filled-in"/><span>{{ studentFormOne.firstName }}</span></label></td>
-                            {#<td>{{ studentFormOne.firstName }}</td>#}
-                            <td>{{ studentFormOne.lastName }}</td>
-                            <td>{{ studentFormOne.emailAddress}}</td>
-                            <td>{{ studentFormOne.cWID }}</td>
-                            <td>{{ studentFormOne.organizationName }}</td>
-                            {#<td>#}
-                            {#    <ul>#}
-                            {#        <li>#}
-                            {#            <a href="{{ path('studentformone_show', { 'id': studentFormOne.id }) }}">show</a>#}
-                            {#        </li>#}
-                            {#        <li>#}
-                            {#            <a href="{{ path('studentformone_edit', { 'id': studentFormOne.id }) }}">edit</a>#}
-                            {#        </li>#}
-                            {#    </ul>#}
-                            {#</td>#}
+                            <td>
+                                <form action="{{ path('internationalofficeform_new') }}" method="GET">
+                                    <input type="hidden" name="studentInfo" value="{{ studentFormOne.id }}" />
+                                    <table>
+                                        {#<td class="mdl-data-table__cell--non-numeric"><label><input type="checkbox" class="filled-in"/><span>{{ studentFormOne.firstName }}</span></label></td>#}
+                                        <td>{{ studentFormOne.firstName }}</td>
+                                        <td>{{ studentFormOne.lastName }}</td>
+                                        <td>{{ studentFormOne.emailAddress}}</td>
+                                        <td>{{ studentFormOne.cWID }}</td>
+                                        <td>{{ studentFormOne.organizationName }}</td>
+                                        {#<td>#}
+                                        {#    <ul>#}
+                                        {#        <li>#}
+                                        {#            <a href="{{ path('studentformone_show', { 'id': studentFormOne.id }) }}">show</a>#}
+                                        {#        </li>#}
+                                        {#        <li>#}
+                                        {#            <a href="{{ path('studentformone_edit', { 'id': studentFormOne.id }) }}">edit</a>#}
+                                        {#        </li>#}
+                                        {#    </ul>#}
+                                        {#</td>#}
+                                        <td>
+                                            {#<ul>#}
+                                            {#    <li>#}
+                                            {#        <a href="{{ path('internationalofficeform_new') }}">Create a new internationalOfficeForm</a>#}
+                                            {#    </li>#}
+                                            {#</ul>#}
+                                            <input type="submit" name="submit" value="View Application">
+                                        </td>
+                                    </table>
+                                </form>
+                            </td>
                         </tr>
                     {% endfor %}
                     </tbody>
@@ -54,27 +74,25 @@
                             <th>Student Email Address</th>
                             <th>Student CWID</th>
                             <th>Organization Name</th>
+                            <th>Application Actions</th>
                         </tr>
                     </thead>
                     </tbody>
                     {% for internationalOfficeForm in internationalOfficeForms %}
                         <tr>
-                            <td class="mdl-data-table__cell--non-numeric"><label><input type="checkbox" class="filled-in"/><span>{{ internationalOfficeForm.firstName }}</span></label></td>
-                            {#<td>{{ studentFormOne.firstName }}</td>#}
+                            {#<td class="mdl-data-table__cell--non-numeric"><label><input type="checkbox" class="filled-in"/><span>{{ internationalOfficeForm.firstName }}</span></label></td>#}
+                            <td>{{ internationalOfficeForm.firstName }}</td>
                             <td>{{ internationalOfficeForm.lastName }}</td>
                             <td>{{ internationalOfficeForm.emailAddress}}</td>
                             <td>{{ internationalOfficeForm.cWID }}</td>
                             <td>{{ internationalOfficeForm.organizationName }}</td>
-                            {#<td>#}
-                            {#    <ul>#}
-                            {#        <li>#}
-                            {#            <a href="{{ path('studentformone_show', { 'id': studentFormOne.id }) }}">show</a>#}
-                            {#        </li>#}
-                            {#        <li>#}
-                            {#            <a href="{{ path('studentformone_edit', { 'id': studentFormOne.id }) }}">edit</a>#}
-                            {#        </li>#}
-                            {#    </ul>#}
-                            {#</td>#}
+                            <td>
+                                <ul>
+                                    <li>
+                                        <a href="{{ path('internationalofficeform_show', { 'id': internationalOfficeForm.id }) }}">show</a>
+                                    </li>
+                                </ul>
+                            </td>
                         </tr>
                     {% endfor %}
                     </tbody>

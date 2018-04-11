@@ -31,7 +31,7 @@ class StudentFormOneController extends Controller
         
         $em = $this->getDoctrine()->getManager();
         
-        $studentFormOnes= $em->getRepository('AppBundle:StudentFormOne')->findBy(array('emailAddress' => $emailAddress));
+        $studentFormOnes = $em->getRepository('AppBundle:StudentFormOne')->findBy(array('emailAddress' => $emailAddress));
 
         if ($this->get('security.authorization_checker')->isGranted('ROLE_HR_ADMIN')) {
             return $this->redirectToRoute('hrform_index');
@@ -229,11 +229,12 @@ class StudentFormOneController extends Controller
             $query = $em->createQuery("SELECT ssf FROM AppBundle:SiteSupervisorForm ssf JOIN AppBundle:StudentFormOne sfo WHERE sfo.id = ssf.student_form_one AND sfo.id = :id");
             $query->setParameter("id", $studentFormOne->getId());
         
-            $user = $query->getResult();
-            var_dump($user);
+            $siteSupervisorForm = $query->getResult();
+            // var_dump($studentInfo);
             $deleteForm = $this->createDeleteForm($studentFormOne);
     
             return $this->render('studentformone/show.html.twig', array(
+                // 'siteSuperForm' => $siteSupervisorForm,
                 'studentFormOne' => $studentFormOne,
                 'delete_form' => $deleteForm->createView(),
             ));

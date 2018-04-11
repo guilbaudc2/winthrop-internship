@@ -22,8 +22,8 @@ class InternationalOfficeForm
     private $id;
     
     /**
-     * One StudentFormOne has One International Office Form.
-     * @ORM\OneToOne(targetEntity="StudentFormOne", inversedBy="student_form_one_form")
+     * One InternationalOfficeForm has One StudentFormOne.
+     * @ORM\OneToOne(targetEntity="StudentFormOne", inversedBy="io_form")
      * @ORM\JoinColumn(name="student_form_one_id", referencedColumnName="id")
      */
     private $student_form_one;
@@ -50,6 +50,16 @@ class InternationalOfficeForm
     private $digitalSignature;
 
 
+    public function __construct($student_form_one) {
+        date_default_timezone_set('America/New_York');
+        
+        $this->student_form_one = $student_form_one;
+
+    
+        $this->approveDate = new \DateTime("now");
+    }
+
+
     /**
      * Get id
      *
@@ -59,6 +69,18 @@ class InternationalOfficeForm
     {
         return $this->id;
     }
+    
+
+    /**
+     * Get studentFormOne
+     *
+     * @return integer
+     */
+    public function getStudentFormOne()
+    {
+        return $this->student_form_one;
+    }
+    
 
     /**
      * Set approve
@@ -84,19 +106,19 @@ class InternationalOfficeForm
         return $this->approve;
     }
 
-    /**
-     * Set approveDate
-     *
-     * @param \DateTime $approveDate
-     *
-     * @return InternationalOfficeForm
-     */
-    public function setApproveDate($approveDate)
-    {
-        $this->approveDate = $approveDate;
+    // /**
+    //  * Set approveDate
+    //  *
+    //  * @param \DateTime $approveDate
+    //  *
+    //  * @return InternationalOfficeForm
+    //  */
+    // public function setApproveDate($approveDate)
+    // {
+    //     $this->approveDate = $approveDate;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * Get approveDate

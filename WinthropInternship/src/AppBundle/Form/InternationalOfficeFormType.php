@@ -13,7 +13,8 @@ class InternationalOfficeFormType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('approve')->add('approveDate')->add('digitalSignature')->add('student_form_one');
+        $builder->add('approve')->add('digitalSignature');
+        // ->add('student_form_one');
     }/**
      * {@inheritdoc}
      */
