@@ -1,0 +1,180 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Careerconsultantforms list</h1>
+<style>
+body {font-family: Arial;}
+
+/* Style the tab */
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+</style>
+    
+    <div class="tab">
+      <button class="tablinks" onclick="openCity(event, 'Action Required')">Action Required</button>
+      <button class="tablinks" onclick="openCity(event, 'All')">All</button>
+    </div>
+    
+    <div id="Action Required" class="tabcontent">
+  <h3>Action Required</h3>
+  <div>
+      <table>
+        <thead>
+            <tr>
+                <th>Studentformoneid</th>
+                <th>Legalname</th>
+                <th>Approvedate</th>
+                <th>Approve</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for studentFormOneReady in studentFormOneReady %}
+                        <tr>
+                            <td>
+                                <form action="{{ path('careerconsultantform_new') }}" method="GET">
+                                    <input type="hidden" name="studentInfo" value="{{ studentFormOneReady.id }}" />
+                                    <table>
+                                        {#<td class="mdl-data-table__cell--non-numeric"><label><input type="checkbox" class="filled-in"/><span>{{ studentFormOne.firstName }}</span></label></td>#}
+                                        <td>{{ studentFormOneReady.id }}</td>
+                                        <td>{{ studentFormOneReady.firstName }}</td>
+                                        <td>{{ studentFormOneReady.lastName }}</td>
+                                        <td>{{ studentFormOneReady.emailAddress}}</td>
+                                        <td>{{ studentFormOneReady.cWID }}</td>
+                                        {#<td>#}
+                                        {#    <ul>#}
+                                        {#        <li>#}
+                                        {#            <a href="{{ path('studentformone_show', { 'id': studentFormOne.id }) }}">show</a>#}
+                                        {#        </li>#}
+                                        {#        <li>#}
+                                        {#            <a href="{{ path('studentformone_edit', { 'id': studentFormOne.id }) }}">edit</a>#}
+                                        {#        </li>#}
+                                        {#    </ul>#}
+                                        {#</td>#}
+                                        <td>
+                                            {#<ul>#}
+                                            {#    <li>#}
+                                            {#        <a href="{{ path('internationalofficeform_new') }}">Create a new internationalOfficeForm</a>#}
+                                            {#    </li>#}
+                                            {#</ul>#}
+                                            <input type="submit" name="submit" value="Create a new FacultyLiaisonForm">
+                                        </td>
+                                    </table>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+        </tbody>
+    </table>
+  </div>>
+</div>
+
+    <div id="All" class="tabcontent">
+  <h3>Action Required</h3>
+  <div>
+      <table>
+        <thead>
+            <tr>
+                <th>Studentformoneid</th>
+                <th>Legalname</th>
+                <th>Approvedate</th>
+                <th>Approve</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for studentFormOnes in studentFormOnes %}
+                        <tr>
+                            <td>
+                                <form action="{{ path('careerconsultantform_new') }}" method="GET">
+                                    <input type="hidden" name="studentInfo" value="{{ studentFormOnes.id }}" />
+                                    <table>
+                                        {#<td class="mdl-data-table__cell--non-numeric"><label><input type="checkbox" class="filled-in"/><span>{{ studentFormOne.firstName }}</span></label></td>#}
+                                        <td>{{ studentFormOnes.id }}</td>
+                                        <td>{{ studentFormOnes.firstName }}</td>
+                                        <td>{{ studentFormOnes.lastName }}</td>
+                                        <td>{{ studentFormOnes.emailAddress}}</td>
+                                        <td>{{ studentFormOnes.cWID }}</td>
+                                        {#<td>#}
+                                        {#    <ul>#}
+                                        {#        <li>#}
+                                        {#            <a href="{{ path('studentformone_show', { 'id': studentFormOne.id }) }}">show</a>#}
+                                        {#        </li>#}
+                                        {#        <li>#}
+                                        {#            <a href="{{ path('studentformone_edit', { 'id': studentFormOne.id }) }}">edit</a>#}
+                                        {#        </li>#}
+                                        {#    </ul>#}
+                                        {#</td>#}
+                                        <td>
+                                            {#<ul>#}
+                                            {#    <li>#}
+                                            {#        <a href="{{ path('internationalofficeform_new') }}">Create a new internationalOfficeForm</a>#}
+                                            {#    </li>#}
+                                            {#</ul>#}
+                                            <input type="submit" name="submit" value="Create a new FacultyLiaisonForm">
+                                        </td>
+                                    </table>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+        </tbody>
+    </table>
+  </div>>
+</div>
+
+
+
+
+
+<script>
+function openCity(evt, cityName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+</script>
+
+
+{% endblock %}

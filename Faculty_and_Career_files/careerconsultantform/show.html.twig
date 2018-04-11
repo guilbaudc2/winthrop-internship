@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Careerconsultantform</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ careerConsultantForm.id }}</td>
+            </tr>
+            <tr>
+                <th>Studentformoneid</th>
+                <td>{{ careerConsultantForm.studentFormOneId }}</td>
+            </tr>
+            <tr>
+                <th>Legalname</th>
+                <td>{{ careerConsultantForm.legalName }}</td>
+            </tr>
+            <tr>
+                <th>Dateapproved</th>
+                <td>{% if careerConsultantForm.dateApproved %}{{ careerConsultantForm.dateApproved|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Approve</th>
+                <td>{% if careerConsultantForm.approve %}Yes{% else %}No{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('careerconsultantform_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('careerconsultantform_edit', { 'id': careerConsultantForm.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Facult_liaison_form</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ facult_Liaison_Form.id }}</td>
+            </tr>
+            <tr>
+                <th>Studentformoneid</th>
+                <td>{{ facult_Liaison_Form.studentFormOneId }}</td>
+            </tr>
+            <tr>
+                <th>Legalname</th>
+                <td>{{ facult_Liaison_Form.legalName }}</td>
+            </tr>
+            <tr>
+                <th>Approvedate</th>
+                <td>{% if facult_Liaison_Form.approveDate %}{{ facult_Liaison_Form.approveDate|date('Y/m/d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Approve</th>
+                <td>{% if facult_Liaison_Form.approve %}Yes{% else %}No{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('facult_liaison_form_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('facult_liaison_form_edit', { 'id': facult_Liaison_Form.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}
