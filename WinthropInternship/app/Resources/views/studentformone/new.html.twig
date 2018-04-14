@@ -6,19 +6,38 @@
 
 {% block body %}
     <h1 class="header center">Your Information</h1>
+    <div class="section" id="nav-backBtn">
+        <ul>
+            <li>
+                <a href="{{ path('studentformone_index') }}" class="btn waves-effect waves-light button-back">Back to the list</a>
+            </li>
+        </ul>
+    </div>
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
             <div class="card-panel">
-        {{ form_start(form) }}
-            {{ form_widget(form) }}
-            <input type="submit" value="Create" />
-        {{ form_end(form) }}
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <input type="submit" class="btn-large waves-effect waves-light landing-btn-color button-resize" value="Submit" />
+            {{ form_end(form) }}
             </div>
         </div>
     </div>
-    <ul>
-        <li>
-            <a href="{{ path('studentformone_index') }}">Back to the list</a>
-        </li>
-    </ul>
+    
 {% endblock %}
+{#    <div class="section no-pad-bot" id="index-banner">#}
+{#        <div class="container">#}
+{#            <div class="card-panel">#}
+{#        {{ form_start(form) }}#}
+{#            {{ form_widget(form) }}#}
+{#            <input type="submit" value="Create" />#}
+{#        {{ form_end(form) }}#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#    <ul>#}
+{#        <li>#}
+{#            <a href="{{ path('studentformone_index') }}">Back to the list</a>#}
+{#        </li>#}
+{#    </ul>#}
+{#{% endblock %}#}

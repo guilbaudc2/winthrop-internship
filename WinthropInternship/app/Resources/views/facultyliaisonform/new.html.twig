@@ -1,7 +1,7 @@
 {% extends 'innerbase.html.twig' %}
 
 {% block body %}
-    <h1>Internationalofficeform creation</h1>
+    <h1>Facultyliaisonform creation</h1>
     
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
@@ -202,23 +202,62 @@
             </div>
         </div>
     </div>
-
     
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
             <div class="card-panel">
-
-                {{ form_start(form) }}
-                    {{ form_widget(form) }}
-                    <input type="submit" value="Approve Application" />
-                {{ form_end(form) }}
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Id</th>
+                            <td>{{ hRForm.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Completedtitleix</th>
+                            <td>{% if hRForm.completedTitleIX %}Yes{% else %}No{% endif %}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <div class="card-panel">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Id</th>
+                            <td>{{ studentFormTwo.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Educationalexperience</th>
+                            <td>{{ studentFormTwo.educationalExperience }}</td>
+                        </tr>
+                        <tr>
+                            <th>Goals</th>
+                            <td>{{ studentFormTwo.goals }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+  
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <div class="card-panel">
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <input type="submit" value="Submit" />
+            {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
     <ul>
         <li>
-            <a href="{{ path('internationalofficeform_index') }}">Back to the list</a>
+            <a href="{{ path('facultyliaisonform_index') }}">Back to the list</a>
         </li>
     </ul>
 {% endblock %}

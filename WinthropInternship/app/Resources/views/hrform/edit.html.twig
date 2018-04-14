@@ -1,13 +1,17 @@
-{% extends 'base.html.twig' %}
+{% extends 'innerbase.html.twig' %}
 
 {% block body %}
     <h1>Hrform edit</h1>
-
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
-
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <div class="card-panel">
+            {{ form_start(edit_form) }}
+                {{ form_widget(edit_form) }}
+                <input type="submit" value="Edit" />
+            {{ form_end(edit_form) }}
+            </div>
+        </div>
+    </div>
     <ul>
         <li>
             <a href="{{ path('hrform_index') }}">Back to the list</a>
