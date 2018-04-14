@@ -14,11 +14,7 @@ class StudentFormOneType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-<<<<<<< HEAD
-        $builder->add('firstName')->add('lastName')->add('userName')->add('cWID')->add('emailAddress')->add('classEnrolled')->add('numCredits')->add('phoneNumber')->add('legallyAuthorized')->add('futureWorkAuthorization')->add('major')->add('minor')->add('facultyLiaison')->add('semesterEnrolled')->add('yearEnrolled', DateType::class, array('widget' => 'single_text'))->add('semesterGrad')->add('yearGrad', DateType::class, array('widget' => 'single_text'))->add('date', DateType::class, array('widget' => 'single_text'))->add('siteSuperName')->add('siteSuperEmail');
-=======
         $builder->add('firstName')->add('lastName')->add('userName')->add('cWID')->add('emailAddress')->add('classEnrolled')->add('numCredits')->add('phoneNumber')->add('legallyAuthorized')->add('futureWorkAuthorization')->add('major')->add('minor')->add('facultyLiaison')->add('semesterEnrolled')->add('yearEnrolled', DateType::class, array('widget' => 'single_text'))->add('semesterGrad')->add('yearGrad', DateType::class, array('widget' => 'single_text'))->add('siteSuperName')->add('siteSuperEmail');
->>>>>>> 208698d3de4018b25ac7a739a8efa9cf1440693d
     }/**
      * {@inheritdoc}
      */

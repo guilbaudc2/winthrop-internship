@@ -22,29 +22,29 @@ class __TwigTemplate_2edb82cd91a4eee7b484126b980ec47217f37d226d759605454359291cc
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_85f29051c380cf26b5b67d344f51f1c041a6b329c4d9a07a6ec4a6b542021e5a = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
-        $__internal_85f29051c380cf26b5b67d344f51f1c041a6b329c4d9a07a6ec4a6b542021e5a->enter($__internal_85f29051c380cf26b5b67d344f51f1c041a6b329c4d9a07a6ec4a6b542021e5a_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "studentformone/show.html.twig"));
+        $__internal_a1d1325fc64cd5f611a0611f96b7950226c08ec7670b767900e542aec8137140 = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
+        $__internal_a1d1325fc64cd5f611a0611f96b7950226c08ec7670b767900e542aec8137140->enter($__internal_a1d1325fc64cd5f611a0611f96b7950226c08ec7670b767900e542aec8137140_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "studentformone/show.html.twig"));
 
-        $__internal_e1d4d18346fc645cb87b76e7dc3cf6a6d86730c6e67ca9563a03130e363e34df = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_e1d4d18346fc645cb87b76e7dc3cf6a6d86730c6e67ca9563a03130e363e34df->enter($__internal_e1d4d18346fc645cb87b76e7dc3cf6a6d86730c6e67ca9563a03130e363e34df_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "studentformone/show.html.twig"));
+        $__internal_2d8541044a4cf3107531c83a6fc7e1c80263b765dc5625d55e23803d7724256a = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_2d8541044a4cf3107531c83a6fc7e1c80263b765dc5625d55e23803d7724256a->enter($__internal_2d8541044a4cf3107531c83a6fc7e1c80263b765dc5625d55e23803d7724256a_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "studentformone/show.html.twig"));
 
         $this->parent->display($context, array_merge($this->blocks, $blocks));
         
-        $__internal_85f29051c380cf26b5b67d344f51f1c041a6b329c4d9a07a6ec4a6b542021e5a->leave($__internal_85f29051c380cf26b5b67d344f51f1c041a6b329c4d9a07a6ec4a6b542021e5a_prof);
+        $__internal_a1d1325fc64cd5f611a0611f96b7950226c08ec7670b767900e542aec8137140->leave($__internal_a1d1325fc64cd5f611a0611f96b7950226c08ec7670b767900e542aec8137140_prof);
 
         
-        $__internal_e1d4d18346fc645cb87b76e7dc3cf6a6d86730c6e67ca9563a03130e363e34df->leave($__internal_e1d4d18346fc645cb87b76e7dc3cf6a6d86730c6e67ca9563a03130e363e34df_prof);
+        $__internal_2d8541044a4cf3107531c83a6fc7e1c80263b765dc5625d55e23803d7724256a->leave($__internal_2d8541044a4cf3107531c83a6fc7e1c80263b765dc5625d55e23803d7724256a_prof);
 
     }
 
     // line 4
     public function block_javascripts($context, array $blocks = array())
     {
-        $__internal_75c84af944c337d850a303fda6209fd8d1f8ba7f9d7f25b0aa2f356fd43244fc = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
-        $__internal_75c84af944c337d850a303fda6209fd8d1f8ba7f9d7f25b0aa2f356fd43244fc->enter($__internal_75c84af944c337d850a303fda6209fd8d1f8ba7f9d7f25b0aa2f356fd43244fc_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "javascripts"));
+        $__internal_1eb7849c8e30b664a970f04c8d05757eae67520b3977b8d4a8850d7702cf7aca = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
+        $__internal_1eb7849c8e30b664a970f04c8d05757eae67520b3977b8d4a8850d7702cf7aca->enter($__internal_1eb7849c8e30b664a970f04c8d05757eae67520b3977b8d4a8850d7702cf7aca_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "javascripts"));
 
-        $__internal_69d2de081e0276dbd966015c7310e1be8c6e6b32b3bed9b177f4b7ae2aa74d03 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_69d2de081e0276dbd966015c7310e1be8c6e6b32b3bed9b177f4b7ae2aa74d03->enter($__internal_69d2de081e0276dbd966015c7310e1be8c6e6b32b3bed9b177f4b7ae2aa74d03_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "javascripts"));
+        $__internal_ba546f9470a4e7d93ba73fdcd3951eee5492e70b2e2d030967f9e8542ea11700 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_ba546f9470a4e7d93ba73fdcd3951eee5492e70b2e2d030967f9e8542ea11700->enter($__internal_ba546f9470a4e7d93ba73fdcd3951eee5492e70b2e2d030967f9e8542ea11700_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "javascripts"));
 
         echo " 
     <script>
@@ -86,21 +86,21 @@ class __TwigTemplate_2edb82cd91a4eee7b484126b980ec47217f37d226d759605454359291cc
     </script>
 ";
         
-        $__internal_69d2de081e0276dbd966015c7310e1be8c6e6b32b3bed9b177f4b7ae2aa74d03->leave($__internal_69d2de081e0276dbd966015c7310e1be8c6e6b32b3bed9b177f4b7ae2aa74d03_prof);
+        $__internal_ba546f9470a4e7d93ba73fdcd3951eee5492e70b2e2d030967f9e8542ea11700->leave($__internal_ba546f9470a4e7d93ba73fdcd3951eee5492e70b2e2d030967f9e8542ea11700_prof);
 
         
-        $__internal_75c84af944c337d850a303fda6209fd8d1f8ba7f9d7f25b0aa2f356fd43244fc->leave($__internal_75c84af944c337d850a303fda6209fd8d1f8ba7f9d7f25b0aa2f356fd43244fc_prof);
+        $__internal_1eb7849c8e30b664a970f04c8d05757eae67520b3977b8d4a8850d7702cf7aca->leave($__internal_1eb7849c8e30b664a970f04c8d05757eae67520b3977b8d4a8850d7702cf7aca_prof);
 
     }
 
     // line 35
     public function block_body($context, array $blocks = array())
     {
-        $__internal_a34508c563281d4a603e9fb926c07a095fc4e698188d5701f2b5b7cfc3ab6da4 = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
-        $__internal_a34508c563281d4a603e9fb926c07a095fc4e698188d5701f2b5b7cfc3ab6da4->enter($__internal_a34508c563281d4a603e9fb926c07a095fc4e698188d5701f2b5b7cfc3ab6da4_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "body"));
+        $__internal_2d5cb77dd6acf4c931ad0844eb1467301c8b000d12de0982e952a80a3955bc02 = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
+        $__internal_2d5cb77dd6acf4c931ad0844eb1467301c8b000d12de0982e952a80a3955bc02->enter($__internal_2d5cb77dd6acf4c931ad0844eb1467301c8b000d12de0982e952a80a3955bc02_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "body"));
 
-        $__internal_392c81f5d604060e05319e51a641d426a716e30312ca6c0046822498d4e4c6c2 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_392c81f5d604060e05319e51a641d426a716e30312ca6c0046822498d4e4c6c2->enter($__internal_392c81f5d604060e05319e51a641d426a716e30312ca6c0046822498d4e4c6c2_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "body"));
+        $__internal_78c40f8ab351e9356718ae17475a96450666665055488a70a95ba333afaad2c3 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_78c40f8ab351e9356718ae17475a96450666665055488a70a95ba333afaad2c3->enter($__internal_78c40f8ab351e9356718ae17475a96450666665055488a70a95ba333afaad2c3_prof = new Twig_Profiler_Profile($this->getTemplateName(), "block", "body"));
 
         // line 36
         echo "    <h1 class=\"header center\">Studentformone</h1>
@@ -262,11 +262,11 @@ class __TwigTemplate_2edb82cd91a4eee7b484126b980ec47217f37d226d759605454359291cc
         echo "</td>
                         </tr>
                         <tr>
-                            <th>Date</th>
+                            <th>Submit Date</th>
                             <td>";
         // line 126
-        if ($this->getAttribute(($context["studentFormOne"] ?? $this->getContext($context, "studentFormOne")), "date", array())) {
-            echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute(($context["studentFormOne"] ?? $this->getContext($context, "studentFormOne")), "date", array()), "Y-m-d"), "html", null, true);
+        if ($this->getAttribute(($context["studentFormOne"] ?? $this->getContext($context, "studentFormOne")), "submitDate", array())) {
+            echo twig_escape_filter($this->env, twig_date_format_filter($this->env, $this->getAttribute(($context["studentFormOne"] ?? $this->getContext($context, "studentFormOne")), "submitDate", array()), "Y-m-d"), "html", null, true);
         }
         echo "</td>
                         </tr>
@@ -284,7 +284,16 @@ class __TwigTemplate_2edb82cd91a4eee7b484126b980ec47217f37d226d759605454359291cc
         echo twig_escape_filter($this->env, $this->getAttribute(($context["studentFormOne"] ?? $this->getContext($context, "studentFormOne")), "siteSuperEmail", array()), "html", null, true);
         echo "</td>
                         </tr>
-                    </tbody>
+
+                        ";
+        // line 138
+        echo "                        ";
+        // line 139
+        echo "                        ";
+        // line 140
+        echo "                        ";
+        // line 160
+        echo "                    </tbody>
                 </table>
             </div>
         </div>
@@ -293,22 +302,22 @@ class __TwigTemplate_2edb82cd91a4eee7b484126b980ec47217f37d226d759605454359291cc
     <ul>
         <li>
             ";
-        // line 144
+        // line 168
         echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock(($context["delete_form"] ?? $this->getContext($context, "delete_form")), 'form_start');
         echo "
                 <input type=\"submit\" class=\"btn-large waves-effect waves-light landing-btn-color button-resize\" value=\"Delete\">
             ";
-        // line 146
+        // line 170
         echo         $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderBlock(($context["delete_form"] ?? $this->getContext($context, "delete_form")), 'form_end');
         echo "
         </li>
     </ul>
 ";
         
-        $__internal_392c81f5d604060e05319e51a641d426a716e30312ca6c0046822498d4e4c6c2->leave($__internal_392c81f5d604060e05319e51a641d426a716e30312ca6c0046822498d4e4c6c2_prof);
+        $__internal_78c40f8ab351e9356718ae17475a96450666665055488a70a95ba333afaad2c3->leave($__internal_78c40f8ab351e9356718ae17475a96450666665055488a70a95ba333afaad2c3_prof);
 
         
-        $__internal_a34508c563281d4a603e9fb926c07a095fc4e698188d5701f2b5b7cfc3ab6da4->leave($__internal_a34508c563281d4a603e9fb926c07a095fc4e698188d5701f2b5b7cfc3ab6da4_prof);
+        $__internal_2d5cb77dd6acf4c931ad0844eb1467301c8b000d12de0982e952a80a3955bc02->leave($__internal_2d5cb77dd6acf4c931ad0844eb1467301c8b000d12de0982e952a80a3955bc02_prof);
 
     }
 
@@ -324,7 +333,7 @@ class __TwigTemplate_2edb82cd91a4eee7b484126b980ec47217f37d226d759605454359291cc
 
     public function getDebugInfo()
     {
-        return array (  302 => 146,  297 => 144,  284 => 134,  277 => 130,  268 => 126,  259 => 122,  252 => 118,  243 => 114,  236 => 110,  229 => 106,  222 => 102,  215 => 98,  204 => 94,  193 => 90,  186 => 86,  179 => 82,  172 => 78,  165 => 74,  158 => 70,  151 => 66,  144 => 62,  137 => 58,  123 => 47,  119 => 45,  112 => 40,  106 => 36,  97 => 35,  55 => 8,  41 => 4,  11 => 1,);
+        return array (  311 => 170,  306 => 168,  296 => 160,  294 => 140,  292 => 139,  290 => 138,  284 => 134,  277 => 130,  268 => 126,  259 => 122,  252 => 118,  243 => 114,  236 => 110,  229 => 106,  222 => 102,  215 => 98,  204 => 94,  193 => 90,  186 => 86,  179 => 82,  172 => 78,  165 => 74,  158 => 70,  151 => 66,  144 => 62,  137 => 58,  123 => 47,  119 => 45,  112 => 40,  106 => 36,  97 => 35,  55 => 8,  41 => 4,  11 => 1,);
     }
 
     /** @deprecated since 1.27 (to be removed in 2.0). Use getSourceContext() instead */
@@ -461,8 +470,8 @@ class __TwigTemplate_2edb82cd91a4eee7b484126b980ec47217f37d226d759605454359291cc
                             <td>{% if studentFormOne.yearGrad %}{{ studentFormOne.yearGrad|date('Y-m-d') }}{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Date</th>
-                            <td>{% if studentFormOne.date %}{{ studentFormOne.date|date('Y-m-d') }}{% endif %}</td>
+                            <th>Submit Date</th>
+                            <td>{% if studentFormOne.submitDate %}{{ studentFormOne.submitDate|date('Y-m-d') }}{% endif %}</td>
                         </tr>
                         <tr>
                             <th>Sitesupername</th>
@@ -472,6 +481,30 @@ class __TwigTemplate_2edb82cd91a4eee7b484126b980ec47217f37d226d759605454359291cc
                             <th>Sitesuperemail</th>
                             <td>{{ studentFormOne.siteSuperEmail }}</td>
                         </tr>
+
+                        {#<tr>#}
+                        {#    <th>Sitesuperaccesscode</th>#}
+                        {#    <td>{{ studentFormOne.siteSuperAccessCode }}</td>#}
+                        {#</tr>#}
+{#                    </tbody>#}
+{#                </table>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#    <ul>#}
+{#        <li>#}
+{#            <a href=\"{{ path('studentformone_index') }}\">Back to the list</a>#}
+{#        </li>#}
+{#        <li>#}
+{#            <a href=\"{{ path('studentformone_edit', { 'id': studentFormOne.id }) }}\">Edit</a>#}
+{#        </li>#}
+{#        <li>#}
+{#            {{ form_start(delete_form) }}#}
+{#                <input type=\"submit\" value=\"Delete\">#}
+{#            {{ form_end(delete_form) }}#}
+{#        </li>#}
+{#    </ul>#}
+{#{% endblock %}#}
                     </tbody>
                 </table>
             </div>

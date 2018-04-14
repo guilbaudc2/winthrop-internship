@@ -27,8 +27,6 @@ class StudentFormOne
      * @ORM\OneToOne(targetEntity="SiteSupervisorForm", mappedBy="student_form_one")
      */
     private $site_supervisor_form;
-<<<<<<< HEAD
-=======
     
     /**
      * One StudentFormOne has One StudentFormTwo.
@@ -47,8 +45,7 @@ class StudentFormOne
      * @ORM\OneToOne(targetEntity="InternationalOfficeForm", mappedBy="student_form_one")
      */
     private $io_form;
-    
-        
+
     /**
      * One StudentFormOne has One FacultyLiaisonForm.
      * @ORM\OneToOne(targetEntity="FacultyLiaisonForm", mappedBy="student_form_one")
@@ -61,7 +58,6 @@ class StudentFormOne
      * @ORM\OneToOne(targetEntity="CareerConsultantForm", mappedBy="student_form_one")
      */
     private $cc_form;
->>>>>>> 208698d3de4018b25ac7a739a8efa9cf1440693d
 
     /**
      * @var string
@@ -80,21 +76,21 @@ class StudentFormOne
     /**
      * @var string
      *
-     * @ORM\Column(name="userName", type="string", length=50, unique=true)
+     * @ORM\Column(name="userName", type="string", length=50)
      */
     private $userName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="CWID", type="string", length=9, unique=true)
+     * @ORM\Column(name="CWID", type="string", length=9)
      */
     private $cWID;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="emailAddress", type="string", length=150, unique=true)
+     * @ORM\Column(name="emailAddress", type="string", length=150)
      */
     private $emailAddress;
 

@@ -160,14 +160,20 @@
     <parameter key="security.authentication.trust_resolver.anonymous_class">Symfony\Component\Security\Core\Authentication\Token\AnonymousToken</parameter>
     <parameter key="security.authentication.trust_resolver.rememberme_class">Symfony\Component\Security\Core\Authentication\Token\RememberMeToken</parameter>
     <parameter key="security.role_hierarchy.roles" type="collection">
-      <parameter key="ROLE_ADMIN" type="collection">
+      <parameter key="ROLE_STUDENT" type="collection">
         <parameter>ROLE_USER</parameter>
       </parameter>
-      <parameter key="ROLE_SUPER_ADMIN" type="collection">
-        <parameter>ROLE_ADMIN</parameter>
+      <parameter key="ROLE_HR_ADMIN" type="collection">
+        <parameter>ROLE_STUDENT</parameter>
       </parameter>
-      <parameter key="ROLE_SUPER_MOD_ADMIN" type="collection">
-        <parameter>ROLE_SUPER_ADMIN</parameter>
+      <parameter key="ROLE_IO_ADMIN" type="collection">
+        <parameter>ROLE_STUDENT</parameter>
+      </parameter>
+      <parameter key="ROLE_FL_ADMIN" type="collection">
+        <parameter>ROLE_STUDENT</parameter>
+      </parameter>
+      <parameter key="ROLE_SUPER_ADMIN" type="collection">
+        <parameter>ROLE_FL_ADMIN</parameter>
       </parameter>
     </parameter>
     <parameter key="security.access.denied_url">null</parameter>
@@ -227,6 +233,8 @@
     <parameter key="swiftmailer.spool.default.memory.path">/home/ubuntu/winthrop-internship/WinthropInternship/var/cache/dev/swiftmailer/spool/default</parameter>
     <parameter key="swiftmailer.mailer.default.spool.enabled">true</parameter>
     <parameter key="swiftmailer.mailer.default.plugin.impersonate">null</parameter>
+    <parameter key="swiftmailer.mailer.default.antiflood.threshold">1</parameter>
+    <parameter key="swiftmailer.mailer.default.antiflood.sleep">1</parameter>
     <parameter key="swiftmailer.mailer.default.single_address">null</parameter>
     <parameter key="swiftmailer.mailer.default.delivery.enabled">true</parameter>
     <parameter key="swiftmailer.spool.enabled">true</parameter>
@@ -562,7 +570,19 @@
   <services>
     <service id="service_container" class="Symfony\Component\DependencyInjection\ContainerInterface" public="true" synthetic="true"/>
     <service id="AppBundle\AppBundle" class="AppBundle\AppBundle" public="false" autowire="true" autoconfigure="true"/>
+    <service id="AppBundle\Controller\CareerConsultantFormController" class="AppBundle\Controller\CareerConsultantFormController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+    </service>
     <service id="AppBundle\Controller\DefaultController" class="AppBundle\Controller\DefaultController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+    </service>
+    <service id="AppBundle\Controller\FacultyLiaisonFormController" class="AppBundle\Controller\FacultyLiaisonFormController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+    </service>
+    <service id="AppBundle\Controller\HRFormController" class="AppBundle\Controller\HRFormController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+    </service>
+    <service id="AppBundle\Controller\InternationalOfficeFormController" class="AppBundle\Controller\InternationalOfficeFormController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
     </service>
     <service id="AppBundle\Controller\SiteSupervisorFormController" class="AppBundle\Controller\SiteSupervisorFormController" public="true" autowire="true" autoconfigure="true">
@@ -571,8 +591,20 @@
     <service id="AppBundle\Controller\StudentFormOneController" class="AppBundle\Controller\StudentFormOneController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
     </service>
+    <service id="AppBundle\Controller\StudentFormTwoController" class="AppBundle\Controller\StudentFormTwoController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+    </service>
     <service id="AppBundle\Controller\UserController" class="AppBundle\Controller\UserController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
+    </service>
+    <service id="AppBundle\Form\CareerConsultantFormType" class="AppBundle\Form\CareerConsultantFormType" public="false" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
+    <service id="AppBundle\Form\FacultyLiaisonFormType" class="AppBundle\Form\FacultyLiaisonFormType" public="false" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
+    <service id="AppBundle\Form\InternationalOfficeFormType" class="AppBundle\Form\InternationalOfficeFormType" public="false" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
     </service>
     <service id="AppBundle\Form\SiteSupervisorFormType" class="AppBundle\Form\SiteSupervisorFormType" public="false" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
@@ -596,7 +628,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
       <tag name="controller.argument_value_resolver" priority="-50"/>
-      <argument type="service" id="service_locator.iepbjig"/>
+      <argument type="service" id="service_locator.gy.rgyh"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false">
       <tag name="controller.argument_value_resolver" priority="-100"/>
@@ -829,6 +861,9 @@
         <argument>FOS\UserBundle\Form\Type</argument>
       </argument>
       <argument type="collection">
+        <argument>AppBundle\Form\CareerConsultantFormType</argument>
+        <argument>AppBundle\Form\FacultyLiaisonFormType</argument>
+        <argument>AppBundle\Form\InternationalOfficeFormType</argument>
         <argument>AppBundle\Form\SiteSupervisorFormType</argument>
         <argument>AppBundle\Form\StudentFormOneType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FormType</argument>
@@ -1047,7 +1082,7 @@
       <argument type="service" id="form.resolved_type_factory"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension" public="false">
-      <argument type="service" id="service_locator.btreyiv"/>
+      <argument type="service" id="service_locator.heyywyj"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.http_foundation"/>
@@ -1676,6 +1711,14 @@
         <argument>2048</argument>
       </call>
       <call method="addListener">
+        <argument>console.command</argument>
+        <argument type="collection">
+          <argument type="service" id="debug.debug_handlers_listener"/>
+          <argument>configure</argument>
+        </argument>
+        <argument>2048</argument>
+      </call>
+      <call method="addListener">
         <argument>kernel.request</argument>
         <argument type="collection">
           <argument type="service" id="router_listener"/>
@@ -2214,12 +2257,6 @@
           <argument key="class">Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder</argument>
           <argument key="arguments" type="collection">
             <argument>13</argument>
-          </argument>
-        </argument>
-        <argument key="Symfony\Component\Security\Core\User\User" type="collection">
-          <argument key="class">Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder</argument>
-          <argument key="arguments" type="collection">
-            <argument>false</argument>
           </argument>
         </argument>
       </argument>
@@ -2838,7 +2875,6 @@
       <argument type="service" id="security.encoder_factory.generic"/>
       <argument type="collection">
         <argument>FOS\UserBundle\Model\UserInterface</argument>
-        <argument>Symfony\Component\Security\Core\User\User</argument>
       </argument>
       <call method="setName">
         <argument>security:encode-password</argument>
@@ -3325,8 +3361,16 @@
       <argument type="service" id="swiftmailer.mailer.default.transport.eventdispatcher"/>
       <argument type="service" id="swiftmailer.mailer.default.spool.memory"/>
       <call method="registerPlugin">
+        <argument type="service" id="swiftmailer.mailer.default.plugin.antiflood"/>
+      </call>
+      <call method="registerPlugin">
         <argument type="service" id="swiftmailer.mailer.default.plugin.messagelogger"/>
       </call>
+    </service>
+    <service id="swiftmailer.mailer.default.plugin.antiflood" class="Swift_Plugins_AntiFloodPlugin" public="false">
+      <tag name="swiftmailer.default.plugin"/>
+      <argument>1</argument>
+      <argument>1</argument>
     </service>
     <service id="swiftmailer.mailer.default.plugin.messagelogger" class="Swift_Plugins_MessageLogger" public="true">
       <tag name="swiftmailer.default.plugin"/>
@@ -4079,19 +4123,83 @@
         <argument>server:log</argument>
       </call>
     </service>
+    <service id="instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.AppBundle\Controller\CareerConsultantFormController" class="AppBundle\Controller\CareerConsultantFormController" public="true" autowire="true" abstract="true"/>
+    <service id="abstract.instanceof.AppBundle\Controller\CareerConsultantFormController" class="AppBundle\Controller\CareerConsultantFormController" public="true" autowire="true" autoconfigure="true" abstract="true"/>
     <service id="instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.AppBundle\Controller\DefaultController" class="AppBundle\Controller\DefaultController" public="true" autowire="true" abstract="true"/>
     <service id="abstract.instanceof.AppBundle\Controller\DefaultController" class="AppBundle\Controller\DefaultController" public="true" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id="instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.AppBundle\Controller\FacultyLiaisonFormController" class="AppBundle\Controller\FacultyLiaisonFormController" public="true" autowire="true" abstract="true"/>
+    <service id="abstract.instanceof.AppBundle\Controller\FacultyLiaisonFormController" class="AppBundle\Controller\FacultyLiaisonFormController" public="true" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id="instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.AppBundle\Controller\HRFormController" class="AppBundle\Controller\HRFormController" public="true" autowire="true" abstract="true"/>
+    <service id="abstract.instanceof.AppBundle\Controller\HRFormController" class="AppBundle\Controller\HRFormController" public="true" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id="instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.AppBundle\Controller\InternationalOfficeFormController" class="AppBundle\Controller\InternationalOfficeFormController" public="true" autowire="true" abstract="true"/>
+    <service id="abstract.instanceof.AppBundle\Controller\InternationalOfficeFormController" class="AppBundle\Controller\InternationalOfficeFormController" public="true" autowire="true" autoconfigure="true" abstract="true"/>
     <service id="instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.AppBundle\Controller\SiteSupervisorFormController" class="AppBundle\Controller\SiteSupervisorFormController" public="true" autowire="true" abstract="true"/>
     <service id="abstract.instanceof.AppBundle\Controller\SiteSupervisorFormController" class="AppBundle\Controller\SiteSupervisorFormController" public="true" autowire="true" autoconfigure="true" abstract="true"/>
     <service id="instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.AppBundle\Controller\StudentFormOneController" class="AppBundle\Controller\StudentFormOneController" public="true" autowire="true" abstract="true"/>
     <service id="abstract.instanceof.AppBundle\Controller\StudentFormOneController" class="AppBundle\Controller\StudentFormOneController" public="true" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id="instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.AppBundle\Controller\StudentFormTwoController" class="AppBundle\Controller\StudentFormTwoController" public="true" autowire="true" abstract="true"/>
+    <service id="abstract.instanceof.AppBundle\Controller\StudentFormTwoController" class="AppBundle\Controller\StudentFormTwoController" public="true" autowire="true" autoconfigure="true" abstract="true"/>
     <service id="instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.AppBundle\Controller\UserController" class="AppBundle\Controller\UserController" public="true" autowire="true" abstract="true"/>
     <service id="abstract.instanceof.AppBundle\Controller\UserController" class="AppBundle\Controller\UserController" public="true" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id="instanceof.Symfony\Component\Form\FormTypeInterface.0.AppBundle\Form\CareerConsultantFormType" class="AppBundle\Form\CareerConsultantFormType" public="false" autowire="true" abstract="true"/>
+    <service id="abstract.instanceof.AppBundle\Form\CareerConsultantFormType" class="AppBundle\Form\CareerConsultantFormType" public="false" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id="instanceof.Symfony\Component\Form\FormTypeInterface.0.AppBundle\Form\FacultyLiaisonFormType" class="AppBundle\Form\FacultyLiaisonFormType" public="false" autowire="true" abstract="true"/>
+    <service id="abstract.instanceof.AppBundle\Form\FacultyLiaisonFormType" class="AppBundle\Form\FacultyLiaisonFormType" public="false" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id="instanceof.Symfony\Component\Form\FormTypeInterface.0.AppBundle\Form\InternationalOfficeFormType" class="AppBundle\Form\InternationalOfficeFormType" public="false" autowire="true" abstract="true"/>
+    <service id="abstract.instanceof.AppBundle\Form\InternationalOfficeFormType" class="AppBundle\Form\InternationalOfficeFormType" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id="instanceof.Symfony\Component\Form\FormTypeInterface.0.AppBundle\Form\SiteSupervisorFormType" class="AppBundle\Form\SiteSupervisorFormType" public="false" autowire="true" abstract="true"/>
     <service id="abstract.instanceof.AppBundle\Form\SiteSupervisorFormType" class="AppBundle\Form\SiteSupervisorFormType" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id="instanceof.Symfony\Component\Form\FormTypeInterface.0.AppBundle\Form\StudentFormOneType" class="AppBundle\Form\StudentFormOneType" public="false" autowire="true" abstract="true"/>
     <service id="abstract.instanceof.AppBundle\Form\StudentFormOneType" class="AppBundle\Form\StudentFormOneType" public="false" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id="service_locator.wa3urhg" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection"/>
+    </service>
+    <service id="service_locator.zelievu" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection"/>
+    </service>
+    <service id="service_locator.yeecc_z" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection"/>
+    </service>
     <service id="service_locator.f4ewnep" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection"/>
+    </service>
+    <service id="service_locator.8ffj7xs" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection"/>
+    </service>
+    <service id="service_locator.cc.et5_" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection"/>
+    </service>
+    <service id="service_locator.u1ab28k" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection"/>
+    </service>
+    <service id="service_locator.nophhpq" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection"/>
+    </service>
+    <service id="service_locator.vik5dxa" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection"/>
+    </service>
+    <service id="service_locator.kmddww4" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection"/>
+    </service>
+    <service id="service_locator.uugdscb" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection"/>
+    </service>
+    <service id="service_locator.2mtnle6" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection"/>
+    </service>
+    <service id="service_locator.0zgzfgy" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection"/>
     </service>
@@ -4121,11 +4229,23 @@
       <tag name="container.service_locator"/>
       <argument type="collection"/>
     </service>
+    <service id="service_locator.avcrq3f" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection"/>
+    </service>
+    <service id="service_locator.7pdkcda" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection"/>
+    </service>
+    <service id="service_locator..ymyeun" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection"/>
+    </service>
     <service id="service_locator.lgrnv4t" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection"/>
     </service>
-    <service id="service_locator.iepbjig" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id="service_locator.gy.rgyh" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="AppBundle\Controller\StudentFormOneController:newAction" type="service" id="service_locator.e6dvaok"/>
@@ -4238,9 +4358,12 @@
         <argument key="inline" type="service" id="fragment.renderer.inline"/>
       </argument>
     </service>
-    <service id="service_locator.btreyiv" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id="service_locator.heyywyj" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="AppBundle\Form\CareerConsultantFormType" type="service" id="AppBundle\Form\CareerConsultantFormType"/>
+        <argument key="AppBundle\Form\FacultyLiaisonFormType" type="service" id="AppBundle\Form\FacultyLiaisonFormType"/>
+        <argument key="AppBundle\Form\InternationalOfficeFormType" type="service" id="AppBundle\Form\InternationalOfficeFormType"/>
         <argument key="AppBundle\Form\SiteSupervisorFormType" type="service" id="AppBundle\Form\SiteSupervisorFormType"/>
         <argument key="AppBundle\Form\StudentFormOneType" type="service" id="AppBundle\Form\StudentFormOneType"/>
         <argument key="FOS\UserBundle\Form\Type\ChangePasswordFormType" type="service" id="fos_user.change_password.form.type"/>
@@ -4561,6 +4684,7 @@
     <service id="swiftmailer.spool" alias="swiftmailer.mailer.default.spool.memory"/>
     <service id="swiftmailer.transport.real" alias="swiftmailer.mailer.default.transport.smtp"/>
     <service id="Swift_Spool" alias="swiftmailer.mailer.default.spool.memory" public="false"/>
+    <service id="swiftmailer.mailer.plugin.antiflood" alias="swiftmailer.mailer.default.plugin.antiflood"/>
     <service id="swiftmailer.plugin.messagelogger" alias="swiftmailer.mailer.default.plugin.messagelogger"/>
     <service id="swiftmailer.mailer" alias="swiftmailer.mailer.default"/>
     <service id="swiftmailer.transport" alias="swiftmailer.mailer.default.transport.spool"/>
