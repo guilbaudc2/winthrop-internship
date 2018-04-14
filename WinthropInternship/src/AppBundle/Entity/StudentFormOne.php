@@ -41,10 +41,24 @@ class StudentFormOne
     private $hr_form;
     
     /**
-     * One StudentFormOne has One Internationl Office Form.
+     * One StudentFormOne has One InternationlOfficeForm.
      * @ORM\OneToOne(targetEntity="InternationalOfficeForm", mappedBy="student_form_one")
      */
     private $io_form;
+    
+        
+    /**
+     * One StudentFormOne has One FacultyLiaisonForm.
+     * @ORM\OneToOne(targetEntity="FacultyLiaisonForm", mappedBy="student_form_one")
+     */
+    private $fl_form;
+    
+        
+    /**
+     * One StudentFormOne has One CareerConsultantForm.
+     * @ORM\OneToOne(targetEntity="CareerConsultantForm", mappedBy="student_form_one")
+     */
+    private $cc_form;
 
     /**
      * @var string
@@ -166,13 +180,6 @@ class StudentFormOne
     private $yearGrad;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date", type="date")
-     */
-    private $date;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="siteSuperName", type="string", length=150)
@@ -196,7 +203,7 @@ class StudentFormOne
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="submitDate", type="datetime", nullable=true)
+     * @ORM\Column(name="submitDate", type="datetime", options={"default": "CURRENT_TIMESTAMP"}, nullable=true)
      */
     private $submitDate;
     
@@ -629,30 +636,6 @@ class StudentFormOne
     }
 
     /**
-     * Set date
-     *
-     * @param \DateTime $date
-     *
-     * @return StudentFormOne
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-
-    /**
-     * Get date
-     *
-     * @return \DateTime
-     */
-    public function getDate()
-    {
-        return $this->date;
-    }
-
-    /**
      * Set siteSuperName
      *
      * @param string $siteSuperName
@@ -717,8 +700,20 @@ class StudentFormOne
         return $this->siteSuperAccessCode;
     }
     
+    /**
+     * Get submitDate
+     *
+     * @return \DateTime
+     */
+    public function getSubmitDate()
+    {
+        return $this->submitDate;
+    }
+    
     public function __toString() {
         return "{$this->id}";
     }
+    
+    
 }
 

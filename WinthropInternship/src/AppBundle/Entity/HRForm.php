@@ -22,7 +22,7 @@ class HRForm
     private $id;
     
     /**
-     * One StudentFormTwo has One HRForm.
+     * One StudentFormOne has One HRForm.
      * @ORM\OneToOne(targetEntity="StudentFormOne", inversedBy="hr_form")
      * @ORM\JoinColumn(name="student_form_one_id", referencedColumnName="id")
      */

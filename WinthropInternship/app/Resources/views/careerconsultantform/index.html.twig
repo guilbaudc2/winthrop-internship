@@ -1,0 +1,127 @@
+{% extends 'innerbase.html.twig' %}
+
+{% block body %}
+    <h1>Careerconsultantforms list</h1>
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <div class="card-panel">
+                <h2 class="header">Student Applications to Approve</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <td>
+                                <table>
+                                    <th>Student First Name</th>
+                                    <th>Student Last Name</th>
+                                    <th>Student Email Address</th>
+                                    <th>Student CWID</th>
+                                    <th>Organization Name</th>
+                                    <th>View Application</th>
+                                </table>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for studentFormOne in studentFormOnesReady %}
+                        <tr>
+                            <td>
+                                <form action="{{ path('careerconsultantform_new') }}" method="GET">
+                                    <input type="hidden" name="studentInfo" value="{{ studentFormOne.id }}" />
+                                    <table>
+                                        {#<td class="mdl-data-table__cell--non-numeric"><label><input type="checkbox" class="filled-in"/><span>{{ studentFormOne.firstName }}</span></label></td>#}
+                                        <td>{{ studentFormOne.firstName }}</td>
+                                        <td>{{ studentFormOne.lastName }}</td>
+                                        <td>{{ studentFormOne.emailAddress}}</td>
+                                        <td>{{ studentFormOne.cWID }}</td>
+                                        <td>{{ studentFormOne.organizationName }}</td>
+                                        {#<td>#}
+                                        {#    <ul>#}
+                                        {#        <li>#}
+                                        {#            <a href="{{ path('studentformone_show', { 'id': studentFormOne.id }) }}">show</a>#}
+                                        {#        </li>#}
+                                        {#        <li>#}
+                                        {#            <a href="{{ path('studentformone_edit', { 'id': studentFormOne.id }) }}">edit</a>#}
+                                        {#        </li>#}
+                                        {#    </ul>#}
+                                        {#</td>#}
+                                        <td>
+                                            {#<ul>#}
+                                            {#    <li>#}
+                                            {#        <a href="{{ path('internationalofficeform_new') }}">Create a new internationalOfficeForm</a>#}
+                                            {#    </li>#}
+                                            {#</ul>#}
+                                            <input type="submit" name="submit" value="View Application">
+                                        </td>
+                                    </table>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>                
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <div class="card-panel">
+                <h2 class="header">Approved Student Applications</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Student First Name</th>
+                            <th>Student Last Name</th>
+                            <th>Student Email Address</th>
+                            <th>Student CWID</th>
+                            <th>Organization Name</th>
+                            <th>Application Actions</th>
+                        </tr>
+                    </thead>
+                    </tbody>
+                    {#{% for careerConsultantForm in careerConsultantForms %}#}
+                    {#    <tr>#}
+                    {#        <td><a href="{{ path('careerconsultantform_show', { 'id': careerConsultantForm.id }) }}">{{ careerConsultantForm.id }}</a></td>#}
+                    {#        <td>{{ careerConsultantForm.legalName }}</td>#}
+                    {#        <td>{% if careerConsultantForm.approve %}Yes{% else %}No{% endif %}</td>#}
+                    {#        <td>{% if careerConsultantForm.approveDate %}{{ careerConsultantForm.approveDate|date('Y-m-d H:i:s') }}{% endif %}</td>#}
+                    {#        <td>#}
+                    {#            <ul>#}
+                    {#                <li>#}
+                    {#                    <a href="{{ path('careerconsultantform_show', { 'id': careerConsultantForm.id }) }}">show</a>#}
+                    {#                </li>#}
+                    {#                <li>#}
+                    {#                    <a href="{{ path('careerconsultantform_edit', { 'id': careerConsultantForm.id }) }}">edit</a>#}
+                    {#                </li>#}
+                    {#            </ul>#}
+                    {#        </td>#}
+                    {#    </tr>#}
+                    {#{% endfor %}#}
+                    
+                    {% for careerConsultantForm in careerConsultantForms %}
+                        <tr>
+                            <td>{{ careerConsultantForm.firstName }}</td>
+                            <td>{{ careerConsultantForm.lastName }}</td>
+                            <td>{{ careerConsultantForm.emailAddress}}</td>
+                            <td>{{ careerConsultantForm.cWID }}</td>
+                            <td>{{ careerConsultantForm.organizationName }}</td>
+                            <td>
+                                <ul>
+                                    <li>
+                                        <a href="{{ path('careerconsultantform_show', { 'id': careerConsultantForm.id }) }}">show</a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>              
+
+    <ul>
+        <li>
+            <a href="{{ path('careerconsultantform_new') }}">Create a new careerConsultantForm</a>
+        </li>
+    </ul>
+{% endblock %}
