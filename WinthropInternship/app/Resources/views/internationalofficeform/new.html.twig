@@ -1,0 +1,224 @@
+{% extends 'innerbase.html.twig' %}
+
+{% block body %}
+    <h1>Internationalofficeform creation</h1>
+    
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <div class="card-panel">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Firstname</th>
+                            <td>{{ studentFormOne.firstName }}</td>
+                        </tr>
+                        <tr>
+                            <th>Lastname</th>
+                            <td>{{ studentFormOne.lastName }}</td>
+                        </tr>
+                        <tr>
+                            <th>Username</th>
+                            <td>{{ studentFormOne.userName }}</td>
+                        </tr>
+                        <tr>
+                            <th>Cwid</th>
+                            <td>{{ studentFormOne.cWID }}</td>
+                        </tr>
+                        <tr>
+                            <th>Emailaddress</th>
+                            <td>{{ studentFormOne.emailAddress }}</td>
+                        </tr>
+                        <tr>
+                            <th>Classenrolled</th>
+                            <td>{{ studentFormOne.classEnrolled }}</td>
+                        </tr>
+                        <tr>
+                            <th>Numcredits</th>
+                            <td>{{ studentFormOne.numCredits }}</td>
+                        </tr>
+                        <tr>
+                            <th>Phonenumber</th>
+                            <td>{{ studentFormOne.phoneNumber }}</td>
+                        </tr>
+                        <tr>
+                            <th>Legallyauthorized</th>
+                            <td>{% if studentFormOne.legallyAuthorized %}Yes{% else %}No{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Futureworkauthorization</th>
+                            <td>{% if studentFormOne.futureWorkAuthorization %}Yes{% else %}No{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Major</th>
+                            <td>{{ studentFormOne.major }}</td>
+                        </tr>
+                        <tr>
+                            <th>Minor</th>
+                            <td>{{ studentFormOne.minor }}</td>
+                        </tr>
+                        <tr>
+                            <th>Facultyliaison</th>
+                            <td>{{ studentFormOne.facultyLiaison }}</td>
+                        </tr>
+                        <tr>
+                            <th>Semesterenrolled</th>
+                            <td>{{ studentFormOne.semesterEnrolled }}</td>
+                        </tr>
+                        <tr>
+                            <th>Yearenrolled</th>
+                            <td>{% if studentFormOne.yearEnrolled %}{{ studentFormOne.yearEnrolled|date('Y-m-d') }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Semestergrad</th>
+                            <td>{{ studentFormOne.semesterGrad }}</td>
+                        </tr>
+                        <tr>
+                            <th>Yeargrad</th>
+                            <td>{% if studentFormOne.yearGrad %}{{ studentFormOne.yearGrad|date('Y-m-d') }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Sitesupername</th>
+                            <td>{{ studentFormOne.siteSuperName }}</td>
+                        </tr>
+                        <tr>
+                            <th>Sitesuperemail</th>
+                            <td>{{ studentFormOne.siteSuperEmail }}</td>
+                        </tr>
+                        <tr>
+                            <th>Submitted Date</th>
+                            <td>{% if studentFormOne.submitDate %}{{ studentFormOne.submitDate|date('Y-m-d') }}{% endif %}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <div class="card-panel">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Forprofit</th>
+                            <td>{% if siteSupervisorForm.forProfit %}Yes{% else %}No{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Organizationname</th>
+                            <td>{{ siteSupervisorForm.organizationName }}</td>
+                        </tr>
+                        <tr>
+                            <th>Businesslicensenum</th>
+                            <td>{{ siteSupervisorForm.businessLicenseNum }}</td>
+                        </tr>
+                        <tr>
+                            <th>Stateissued</th>
+                            <td>{{ siteSupervisorForm.stateIssued }}</td>
+                        </tr>
+                        <tr>
+                            <th>Directinternshipsupervisor</th>
+                            <td>{{ siteSupervisorForm.directInternshipSupervisor }}</td>
+                        </tr>
+                        <tr>
+                            <th>Supervisorstitle</th>
+                            <td>{{ siteSupervisorForm.supervisorsTitle }}</td>
+                        </tr>
+                        <tr>
+                            <th>Physicaladdress</th>
+                            <td>{{ siteSupervisorForm.physicalAddress }}</td>
+                        </tr>
+                        <tr>
+                            <th>Availableforsitevisit</th>
+                            <td>{% if siteSupervisorForm.availableForSiteVisit %}Yes{% else %}No{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Supervisorphone</th>
+                            <td>{{ siteSupervisorForm.supervisorPhone }}</td>
+                        </tr>
+                        <tr>
+                            <th>Supervisoremail</th>
+                            <td>{{ siteSupervisorForm.supervisorEmail }}</td>
+                        </tr>
+                        <tr>
+                            <th>Internshipprojectedstartdate</th>
+                            <td>{% if siteSupervisorForm.internshipProjectedStartDate %}{{ siteSupervisorForm.internshipProjectedStartDate|date('Y-m-d') }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Internshipprojectedenddate</th>
+                            <td>{% if siteSupervisorForm.internshipProjectedEndDate %}{{ siteSupervisorForm.internshipProjectedEndDate|date('Y-m-d') }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Totalweeks</th>
+                            <td>{{ siteSupervisorForm.totalWeeks }}</td>
+                        </tr>
+                        <tr>
+                            <th>Estimatedhours</th>
+                            <td>{{ siteSupervisorForm.estimatedHours }}</td>
+                        </tr>
+                        <tr>
+                            <th>Paid</th>
+                            <td>{% if siteSupervisorForm.paid %}Yes{% else %}No{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Salary</th>
+                            <td>{{ siteSupervisorForm.salary }}</td>
+                        </tr>
+                        <tr>
+                            <th>Salaryorstipend</th>
+                            <td>{% if siteSupervisorForm.salaryOrStipend %}{{ siteSupervisorForm.salaryOrStipend|join(', ') }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Stipend</th>
+                            <td>{{ siteSupervisorForm.stipend }}</td>
+                        </tr>
+                        <tr>
+                            <th>Task</th>
+                            <td>{{ siteSupervisorForm.task }}</td>
+                        </tr>
+                        <tr>
+                            <th>Projects</th>
+                            <td>{{ siteSupervisorForm.projects }}</td>
+                        </tr>
+                        <tr>
+                            <th>Outcomes</th>
+                            <td>{{ siteSupervisorForm.outcomes }}</td>
+                        </tr>
+                        <tr>
+                            <th>Additionalcomments</th>
+                            <td>{{ siteSupervisorForm.additionalComments }}</td>
+                        </tr>
+                        <tr>
+                            <th>Date Submitted</th>
+                            <td>{{ siteSupervisorForm.submitDate }}</td>
+                        </tr>
+                        <tr>
+                            <th>Signature</th>
+                            <td>{{ siteSupervisorForm.digitalSignature }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <div class="card-panel">
+
+                {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <input type="submit" value="Approve Application" />
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+    <ul>
+        <li>
+            <a href="{{ path('internationalofficeform_index') }}">Back to the list</a>
+        </li>
+    </ul>
+{% endblock %}

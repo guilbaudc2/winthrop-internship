@@ -2,11 +2,25 @@
 
 {% block body %}
     <h1>Sitesupervisorform edit</h1>
+<<<<<<< HEAD
 
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
         <input type="submit" class="btn-large waves-effect waves-light landing-btn-color button-resize" value="Edit" />
     {{ form_end(edit_form) }}
+=======
+        <div class="section no-pad-bot" id="index-banner">
+            <div class="container">
+                <div class="card-panel">
+            {{ form_start(edit_form) }}
+                {{ form_widget(edit_form) }}
+                {#<input type="submit" value="Edit" />#}
+                <input type="submit" class="btn-large waves-effect waves-light landing-btn-color button-resize" value="Edit" />
+            {{ form_end(edit_form) }}
+            </div>
+        </div>
+    </div>
+>>>>>>> 208698d3de4018b25ac7a739a8efa9cf1440693d
 
     <ul>
         <li>
@@ -14,6 +28,10 @@
         </li>
         <li>
             {{ form_start(delete_form) }}
+<<<<<<< HEAD
+=======
+                {#<input type="submit" value="Delete">#}
+>>>>>>> 208698d3de4018b25ac7a739a8efa9cf1440693d
                 <input type="submit" class="btn-large waves-effect waves-light landing-btn-color button-resize" value="Delete">
             {{ form_end(delete_form) }}
         </li>

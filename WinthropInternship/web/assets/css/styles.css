@@ -68,9 +68,6 @@ h1, h2, button, input {
     margin: 4px 0;
 }
 
-
-
-
 h2#reset-button {
     background-color: rgba(235,111, 93, 0.54);
 }
@@ -143,6 +140,13 @@ input[type=date]:not(.browser-default) {
     margin-top: 20px;
 }
 
+<<<<<<< HEAD
+=======
+input[type=date]:not(.browser-default) {
+    margin-top: 20px;
+}
+
+>>>>>>> 208698d3de4018b25ac7a739a8efa9cf1440693d
 input[type=submit]{
     /*margin-top:20px;*/
     
@@ -152,6 +156,7 @@ input[type=submit]{
     padding-bottom: 0px;
     padding-left: 1rem;
     color: #fff;
+<<<<<<< HEAD
 }
 
 .button-resize{
@@ -182,3 +187,40 @@ input[type=submit]{
     display: inline;
     padding: 5px;
 }
+=======
+}
+
+.button-resize{
+    font-size: 18px;
+}
+
+.button-back{
+    color: #222;
+    background-color: #ffffff;
+}
+#nav-backBtn ul{
+    position: absolute;
+    left: 50%;
+    transform: translatex(-50%);
+    padding-bottom:10px;
+}
+#nav-backBtn .btn:hover, #nav-backBtn .btn-large:hover, #nav-backBtn .btn-small:hover{
+    background-color: #103a55;
+    color: #ffffff;
+}
+#nav-backBtn:after {
+  content: "";
+  display: block;
+  height: 20px;
+  width: 100%;
+}
+#nav-backBtn li{
+    display: inline;
+    padding: 5px;
+}
+
+.sidenav li>a{
+    height: auto;
+}
+
+>>>>>>> 208698d3de4018b25ac7a739a8efa9cf1440693d

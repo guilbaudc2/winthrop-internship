@@ -1,0 +1,46 @@
+{% extends 'innerbase.html.twig' %}
+
+{% block body %}
+    <h1>Studentformtwos list</h1>
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <div class="card-panel">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Educationalexperience</th>
+                            <th>Goals</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for studentFormTwo in studentFormTwos %}
+                        <tr>
+                            <td><a href="{{ path('studentformtwo_show', { 'id': studentFormTwo.id }) }}">{{ studentFormTwo.id }}</a></td>
+                            <td>{{ studentFormTwo.educationalExperience }}</td>
+                            <td>{{ studentFormTwo.goals }}</td>
+                            <td>
+                                <ul>
+                                    <li>
+                                        <a href="{{ path('studentformtwo_show', { 'id': studentFormTwo.id }) }}">show</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('studentformtwo_edit', { 'id': studentFormTwo.id }) }}">edit</a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <ul>
+        <li>
+            <a href="{{ path('studentformtwo_new') }}">Create a new studentFormTwo</a>
+        </li>
+    </ul>
+{% endblock %}

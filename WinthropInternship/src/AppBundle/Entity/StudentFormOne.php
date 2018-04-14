@@ -27,6 +27,41 @@ class StudentFormOne
      * @ORM\OneToOne(targetEntity="SiteSupervisorForm", mappedBy="student_form_one")
      */
     private $site_supervisor_form;
+<<<<<<< HEAD
+=======
+    
+    /**
+     * One StudentFormOne has One StudentFormTwo.
+     * @ORM\OneToOne(targetEntity="StudentFormTwo", mappedBy="student_form_one")
+     */
+    private $student_form_two;
+    
+    /**
+     * One StudentFormOne has One HRForm.
+     * @ORM\OneToOne(targetEntity="HRForm", mappedBy="student_form_one")
+     */
+    private $hr_form;
+    
+    /**
+     * One StudentFormOne has One InternationlOfficeForm.
+     * @ORM\OneToOne(targetEntity="InternationalOfficeForm", mappedBy="student_form_one")
+     */
+    private $io_form;
+    
+        
+    /**
+     * One StudentFormOne has One FacultyLiaisonForm.
+     * @ORM\OneToOne(targetEntity="FacultyLiaisonForm", mappedBy="student_form_one")
+     */
+    private $fl_form;
+    
+        
+    /**
+     * One StudentFormOne has One CareerConsultantForm.
+     * @ORM\OneToOne(targetEntity="CareerConsultantForm", mappedBy="student_form_one")
+     */
+    private $cc_form;
+>>>>>>> 208698d3de4018b25ac7a739a8efa9cf1440693d
 
     /**
      * @var string
@@ -148,13 +183,6 @@ class StudentFormOne
     private $yearGrad;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date", type="date")
-     */
-    private $date;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="siteSuperName", type="string", length=150)
@@ -175,12 +203,21 @@ class StudentFormOne
      */
     private $siteSuperAccessCode;
     
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="submitDate", type="datetime", options={"default": "CURRENT_TIMESTAMP"}, nullable=true)
+     */
+    private $submitDate;
+    
     
     public function __construct() {
         
         $random = new \chriskacerguis\Randomstring\Randomstring();
         
         $this->siteSuperAccessCode = $random->generate(15, true);
+        
+        $this->submitDate = new \DateTime("now");
     }
     
     /**
@@ -602,30 +639,6 @@ class StudentFormOne
     }
 
     /**
-     * Set date
-     *
-     * @param \DateTime $date
-     *
-     * @return StudentFormOne
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-
-    /**
-     * Get date
-     *
-     * @return \DateTime
-     */
-    public function getDate()
-    {
-        return $this->date;
-    }
-
-    /**
      * Set siteSuperName
      *
      * @param string $siteSuperName
@@ -689,5 +702,21 @@ class StudentFormOne
     {
         return $this->siteSuperAccessCode;
     }
+    
+    /**
+     * Get submitDate
+     *
+     * @return \DateTime
+     */
+    public function getSubmitDate()
+    {
+        return $this->submitDate;
+    }
+    
+    public function __toString() {
+        return "{$this->id}";
+    }
+    
+    
 }
 

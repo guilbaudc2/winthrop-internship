@@ -14,6 +14,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
  */
 class SiteSupervisorFormController extends Controller
 {
+<<<<<<< HEAD
+=======
+    private $accessCode;
+    private $studentFormOneData;
+    private $studentFormOne;
+    private $studentFormOneID;
+>>>>>>> 208698d3de4018b25ac7a739a8efa9cf1440693d
     /**
      * Lists all siteSupervisorForm entities.
      *
@@ -39,7 +46,30 @@ class SiteSupervisorFormController extends Controller
      */
     public function newAction(Request $request)
     {
+<<<<<<< HEAD
         $siteSupervisorForm = new Sitesupervisorform();
+=======
+        if(isset($_GET["accessCodeSS"])){
+    
+            $this->accessCode = $_GET["accessCodeSS"];
+    
+            $accessCode = $this->accessCode;
+            $em = $this->getDoctrine()->getManager();
+                
+            $query = $em->createQuery('SELECT u FROM AppBundle:StudentFormOne u WHERE u.siteSuperAccessCode = :accessCode')
+                ->setParameter('accessCode', $accessCode);
+            $studentFormOneID = $query->getResult();
+            
+            $this->studentFormOneData = $studentFormOneID;
+
+            $this->studentFormOne = $studentFormOneID[0];
+            
+        }
+        var_dump($this->studentFormOneData);
+        
+        $siteSupervisorForm = new SiteSupervisorForm($this->studentFormOne);
+
+>>>>>>> 208698d3de4018b25ac7a739a8efa9cf1440693d
         $form = $this->createForm('AppBundle\Form\SiteSupervisorFormType', $siteSupervisorForm);
         $form->handleRequest($request);
 
