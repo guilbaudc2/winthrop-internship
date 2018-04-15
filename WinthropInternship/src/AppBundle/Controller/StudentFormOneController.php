@@ -120,7 +120,7 @@ class StudentFormOneController extends Controller
             $siteSuperFormURL = "http://18.233.91.151:8080/WinthropInternship/web/app_dev.php/sitesupervisorform";
             $studentFormTwoURL = "http://18.233.91.151:8080/WinthropInternship/web/app_dev.php/studentformtwo";
             
-            $message = (new \Swift_Message('Success Submission of Winthrop Internship Form Part 1'))
+            $message = (new \Swift_Message('Successful Submission of Winthrop Internship Form Part 1'))
                 ->setFrom('cce@winthrop.edu')
                 ->setTo($studentEmail)
                 ->setBody(
@@ -143,7 +143,7 @@ class StudentFormOneController extends Controller
                 );
             $mailer->send($message);
             
-            $message = (new \Swift_Message('Access Code for Winthrop Internship Form'))
+            $message = (new \Swift_Message('Action Required for Winthrop Internship Form'))
                 ->setFrom('cce@winthrop.edu')
                 ->setTo($siteSuperEmail)
            ->setBody(
@@ -170,7 +170,7 @@ class StudentFormOneController extends Controller
                 );
             $mailer->send($message);
             
-            $message = (new \Swift_Message('Action Required for Winthrop Internship Form'))
+            $message = (new \Swift_Message('Access Code for Winthrop Internship Form'))
                 ->setFrom('cce@winthrop.edu')
                 ->setTo($siteSuperEmail)
            ->setBody(

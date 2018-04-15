@@ -92,8 +92,13 @@ class SiteSupervisorFormController extends Controller
 
             $this->studentFormOne = $studentFormOneID[0];
             
+            $query = $em->createQuery('SELECT u.firstName, u.lastName FROM AppBundle:StudentFormOne u WHERE u.siteSuperAccessCode = :accessCode')
+                ->setParameter('accessCode', $accessCode);
+            $studentData = $query->getResult();
+            
+            $studentFormOne = $studentData[0];
+            
         }
-        var_dump($this->studentFormOneData);
         
         $siteSupervisorForm = new SiteSupervisorForm($this->studentFormOne);
 
@@ -109,6 +114,7 @@ class SiteSupervisorFormController extends Controller
         }
     
             return $this->render('sitesupervisorform/new.html.twig', array(
+                'studentFormOne' => $studentFormOne,
                 'siteSupervisorForm' => $siteSupervisorForm,
                 'form' => $form->createView(),
             ));

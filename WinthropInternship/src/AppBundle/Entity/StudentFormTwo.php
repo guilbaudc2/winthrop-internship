@@ -31,22 +31,29 @@ class StudentFormTwo
     /**
      * @var string
      *
-     * @ORM\Column(name="educationalExperience", type="text")
+     * @ORM\Column(name="educationalExperience", type="blob")
      */
     private $educationalExperience;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="goals", type="text")
+     * @ORM\Column(name="goals", type="blob")
      */
     private $goals;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="submitDate", type="datetime", options={"default": "CURRENT_TIMESTAMP"}, nullable=true)
+     */
+    private $submitDate;
 
 
     public function __construct($student_form_one) {
         
         $this->student_form_one = $student_form_one;    
-    
+        $this->submitDate = new \DateTime("now");
     }
 
 
@@ -118,6 +125,16 @@ class StudentFormTwo
     public function getGoals()
     {
         return $this->goals;
+    }
+    
+    /**
+     * Get submitDate
+     *
+     * @return \DateTime
+     */
+    public function getSubmitDate()
+    {
+        return $this->submitDate;
     }
 }
 

@@ -1,0 +1,20 @@
+{% extends 'innerbase.html.twig' %}
+
+{% block title %}Manage Lists{% endblock %}
+
+{% block body %}
+    
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <div class="card-panel">
+                <div class="row center">
+                    <a href="{{ path('facultyliaisonlist_index') }}" id="download-button" class="btn-large waves-effect waves-light landing-btn-color">Manage Faculty Liaison List</a>
+                </div>
+                <div class="row center">
+                    <a href="{{ path('classlist_index') }}" id="download-button" class="btn-large waves-effect waves-light landing-btn-color">Manage Internship Class List</a>
+                </div>                
+            </div>
+        </div>
+    </div>
+            
+{% endblock %}

@@ -68,6 +68,13 @@ class FacultyLiaisonForm
      * @ORM\Column(name="finalEvaluation", type="boolean")
      */
     private $finalEvaluation;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="internshipIndustry", type="string", length=255)
+     */
+    private $internshipIndustry;
 
     /**
      * @var bool
@@ -255,6 +262,31 @@ class FacultyLiaisonForm
     {
         return $this->finalEvaluation;
     }
+    
+    /**
+     * Set internshipIndustry
+     *
+     * @param string $internshipIndustry
+     *
+     * @return FacultyLiaisonForm
+     */
+    public function setInternshipIndustry($internshipIndustry)
+    {
+        $this->internshipIndustry = $internshipIndustry;
+
+        return $this;
+    }
+    
+    /**
+     * Get internshipIndustry
+     *
+     * @return string
+     */
+    public function getInternshipIndustry()
+    {
+        return $this->internshipIndustry;
+    }
+    
 
     /**
      * Set approve

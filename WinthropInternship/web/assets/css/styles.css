@@ -191,3 +191,10 @@ input[type=submit]{
     height: auto;
 }
 
+label.required:before {
+    content: "* ";
+}
+
+#user_roles{
+    margin-top: 50px;
+}
