@@ -15,6 +15,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
  */
 class StudentFormOneController extends Controller
 {
+    private $studentFormOnes;
+    
     /**
      * Lists all studentFormOne entities.
      *
@@ -23,35 +25,56 @@ class StudentFormOneController extends Controller
      */
     public function indexAction()
     {
-        $user = $this->getUser();
-        
-        $username = $user->getUsername();
-        
-        $emailAddress = $username . "@winthrop.edu";
-        
-        $em = $this->getDoctrine()->getManager();
-        
-        $studentFormOnes = $em->getRepository('AppBundle:StudentFormOne')->findBy(array('emailAddress' => $emailAddress));
 
-        if ($this->get('security.authorization_checker')->isGranted('ROLE_HR_ADMIN')) {
-            return $this->redirectToRoute('hrform_index');
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {   
+            if ($this->get('security.authorization_checker')->isGranted('ROLE_HR_ADMIN')) {
+                return $this->redirectToRoute('hrform_index');
+            }elseif ($this->get('security.authorization_checker')->isGranted('ROLE_IO_ADMIN')) {
+                return $this->redirectToRoute('internationalofficeform_index');
+            }elseif($this->get('security.authorization_checker')->isGranted('ROLE_FL_ADMIN')) {
+                return $this->redirectToRoute('facultyliaisonform_index');
+            }else{
+                $user = $this->getUser();
+                
+                $username = $user->getUsername();
+                
+                $emailAddress = $username . "@winthrop.edu";
+                
+                $em = $this->getDoctrine()->getManager();
+                
+                $this->studentFormOnes = $em->getRepository('AppBundle:StudentFormOne')->findBy(array('emailAddress' => $emailAddress));
+            }
+            
         }
-        
-        if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
-
-                $studentFormOnes = $em->getRepository('AppBundle:StudentFormOne')->findAll();
+            else{
+            // $user = $this->getUser();
+            
+            // $username = $user->getUsername();
+            
+            // $emailAddress = $username . "@winthrop.edu";
+            
+            $em = $this->getDoctrine()->getManager();
+            
+            // $studentFormOnes = $em->getRepository('AppBundle:StudentFormOne')->findBy(array('emailAddress' => $emailAddress));
+            
+            // if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
+    
+                $this->studentFormOnes = $em->getRepository('AppBundle:StudentFormOne')->findAll();
                 
                 return $this->render('studentformone/index.html.twig', array(
-                    'studentFormOnes' => $studentFormOnes,
-            ));
-        }
+                    'studentFormOnes' => $this->studentFormOnes,
+                ));
+            }
+            
+            if ($this->getUser()) {
+                return $this->render('studentformone/index.html.twig', array(
+                    'studentFormOnes' => $this->studentFormOnes,
+                ));
+            }else{
+                return $this->redirectToRoute('homepage');
+            }
+            return $this->render('studentformone/index.html.twig');
         
-        if ($this->getUser()) {
-        return $this->render('studentformone/index.html.twig', array(
-            'studentFormOnes' => $studentFormOnes,
-        ));
-        }
-        return $this->render('studentformone/index.html.twig');
     }
     
     //     public function indexAction()

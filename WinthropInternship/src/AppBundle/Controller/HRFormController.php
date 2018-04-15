@@ -30,27 +30,27 @@ class HRFormController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        
-        $repo =  $this->getDoctrine()->getRepository('AppBundle:StudentFormOne');
-        
-        $query = $em->createQuery("SELECT DISTINCT sfo.id, sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName FROM AppBundle:StudentFormOne sfo INNER JOIN AppBundle:SiteSupervisorForm ssf WITH sfo.id = ssf.student_form_one LEFT JOIN AppBundle:HRform h WITH sfo.id = h.student_form_one WHERE h.student_form_one IS NULL");
-        
-        $studentFormOnes = $query->getResult();
-
-         
-        
-        $query = $em->createQuery("SELECT sfo.id, sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf WHERE sfo.id = ssf.student_form_one JOIN AppBundle:HRform h WHERE sfo.id = h.student_form_one"); 
-        $hRForms = $query->getResult();
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_HR_ADMIN') || $this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
+           
+            $em = $this->getDoctrine()->getManager();
             
-        
-        if ($this->getUser()) {
+            $repo =  $this->getDoctrine()->getRepository('AppBundle:StudentFormOne');
+            
+            $query = $em->createQuery("SELECT DISTINCT sfo.id, sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName FROM AppBundle:StudentFormOne sfo INNER JOIN AppBundle:SiteSupervisorForm ssf WITH sfo.id = ssf.student_form_one LEFT JOIN AppBundle:HRform h WITH sfo.id = h.student_form_one WHERE h.student_form_one IS NULL");
+            
+            $studentFormOnes = $query->getResult();
+    
+            
+            $query = $em->createQuery("SELECT sfo.id, sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf WHERE sfo.id = ssf.student_form_one JOIN AppBundle:HRform h WHERE sfo.id = h.student_form_one"); 
+            $hRForms = $query->getResult();
+                
+            
             return $this->render('hrform/index.html.twig', array(
                 'studentFormOnes' => $studentFormOnes,
                 'hRForms' => $hRForms,
             ));
         }else{
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('studentformone_index');
         }
     }
 

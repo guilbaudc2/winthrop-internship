@@ -26,36 +26,37 @@ class InternationalOfficeFormController extends Controller
      */
     public function indexAction()
     {
-
-       $em = $this->getDoctrine()->getManager();
         
-        $repo =  $this->getDoctrine()->getRepository('AppBundle:StudentFormOne');
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_IO_ADMIN') || $this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {        
+
+            $em = $this->getDoctrine()->getManager();
+            
+            $repo =  $this->getDoctrine()->getRepository('AppBundle:StudentFormOne');
         
 // Initial Query - Inner Joins Student Form One and Site Supervisor Form where there exists a site supervisor form that matches a student form. Left Join that with the international office form. If there is no id that connects the
 // student form one with the io form, it is added to the $studentFormOnes array
         // $query = $em->createQuery("SELECT DISTINCT sfo.id, sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf WHERE sfo.id = ssf.student_form_one AND NOT (sfo.legallyAuthorized = 1 AND sfo.futureWorkAuthorization = 0) INNER JOIN AppBundle:InternationalOfficeForm io WHERE sfo.id != io.student_form_one");
 // Modified query to match below's working query
-    $query = $em->createQuery("SELECT DISTINCT sfo.id, sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName FROM AppBundle:StudentFormOne sfo INNER JOIN AppBundle:SiteSupervisorForm ssf WITH sfo.id = ssf.student_form_one AND NOT (sfo.legallyAuthorized = 1 AND sfo.futureWorkAuthorization = 0) LEFT JOIN AppBundle:InternationalOfficeForm io WITH sfo.id = io.student_form_one WHERE io.student_form_one IS NULL");
+            $query = $em->createQuery("SELECT DISTINCT sfo.id, sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName FROM AppBundle:StudentFormOne sfo INNER JOIN AppBundle:SiteSupervisorForm ssf WITH sfo.id = ssf.student_form_one AND NOT (sfo.workAuthorization = 1) LEFT JOIN AppBundle:InternationalOfficeForm io WITH sfo.id = io.student_form_one WHERE io.student_form_one IS NULL");
 
 // Below is working MySQL query to get entries that do not exist already in the table.        
 //SELECT DISTINCT sfo.id, sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName FROM student_form_one sfo INNER JOIN site_supervisor_form ssf ON sfo.id = ssf.student_form_one_id AND NOT (sfo.legallyAuthorized = 1 AND sfo.futureWorkAuthorization = 0) LEFT JOIN international_office_form io ON sfo.id = io.student_form_one_id WHERE io.student_form_one_id IS NULL
         
-        $studentFormOnes = $query->getResult();
+            $studentFormOnes = $query->getResult();
 
 // Second Query - Inner Joins Student Form One and Site Supervisor Form where there exists a site supervisor form that matches a student form. Inner Join that with the international office form, where if an id exists, it will
 // be added to the "completed" international office forms.
-        $ioQuery = $em->createQuery("SELECT io.id, sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf WHERE sfo.id = ssf.student_form_one JOIN AppBundle:InternationalOfficeForm io WHERE sfo.id = io.student_form_one"); 
-    
-        $internationalOfficeForms = $ioQuery->getResult();
+            $ioQuery = $em->createQuery("SELECT io.id, sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf WHERE sfo.id = ssf.student_form_one JOIN AppBundle:InternationalOfficeForm io WHERE sfo.id = io.student_form_one"); 
+        
+            $internationalOfficeForms = $ioQuery->getResult();
         
         
-        if ($this->getUser()) {
             return $this->render('internationalofficeform/index.html.twig', array(
                 'studentFormOnes' => $studentFormOnes,
                 'internationalOfficeForms' => $internationalOfficeForms,
             ));
         }else{
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('studentformone_index');
         
         }
     }
@@ -132,7 +133,7 @@ class InternationalOfficeFormController extends Controller
         $user = $this->getUser();
         
         $username = $user->getUsername();
-        if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') || $username == $studentFormOne->getUserName() || $this->get('security.authorization_checker')->isGranted('ROLE_IO_ADMIN')){
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') || $this->get('security.authorization_checker')->isGranted('ROLE_IO_ADMIN')){
             
             $em = $this->getDoctrine()->getManager();
         

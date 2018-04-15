@@ -92,12 +92,8 @@
                             <td>{{ studentFormOne.phoneNumber }}</td>
                         </tr>
                         <tr>
-                            <th>Legallyauthorized</th>
-                            <td>{% if studentFormOne.legallyAuthorized %}Yes{% else %}No{% endif %}</td>
-                        </tr>
-                        <tr>
-                            <th>Futureworkauthorization</th>
-                            <td>{% if studentFormOne.futureWorkAuthorization %}Yes{% else %}No{% endif %}</td>
+                            <th>Workauthorization</th>
+                            <td>{% if studentFormOne.workAuthorization %}Yes{% else %}No{% endif %}</td>
                         </tr>
                         <tr>
                             <th>Major</th>
@@ -128,10 +124,6 @@
                             <td>{% if studentFormOne.yearGrad %}{{ studentFormOne.yearGrad|date('Y-m-d') }}{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Date</th>
-                            <td>{% if studentFormOne.submitDate %}{{ studentFormOne.submitDate|date('Y-m-d') }}{% endif %}</td>
-                        </tr>
-                        <tr>
                             <th>Sitesupername</th>
                             <td>{{ studentFormOne.siteSuperName }}</td>
                         </tr>
@@ -139,6 +131,10 @@
                             <th>Sitesuperemail</th>
                             <td>{{ studentFormOne.siteSuperEmail }}</td>
                         </tr>
+                        <tr>
+                            <th>Submitted Date</th>
+                            <td>{% if studentFormOne.submitDate %}{{ studentFormOne.submitDate|date('Y-m-d') }}{% endif %}</td>
+                        </tr>                        
                         {#<tr>#}
                         {#    <th>Sitesuperaccesscode</th>#}
                         {#    <td>{{ studentFormOne.siteSuperAccessCode }}</td>#}

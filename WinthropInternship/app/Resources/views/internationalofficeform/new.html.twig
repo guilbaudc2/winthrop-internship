@@ -41,12 +41,8 @@
                             <td>{{ studentFormOne.phoneNumber }}</td>
                         </tr>
                         <tr>
-                            <th>Legallyauthorized</th>
-                            <td>{% if studentFormOne.legallyAuthorized %}Yes{% else %}No{% endif %}</td>
-                        </tr>
-                        <tr>
-                            <th>Futureworkauthorization</th>
-                            <td>{% if studentFormOne.futureWorkAuthorization %}Yes{% else %}No{% endif %}</td>
+                            <th>Workauthorization</th>
+                            <td>{% if studentFormOne.workAuthorization %}Yes{% else %}No{% endif %}</td>
                         </tr>
                         <tr>
                             <th>Major</th>
@@ -88,7 +84,6 @@
                             <th>Submitted Date</th>
                             <td>{% if studentFormOne.submitDate %}{{ studentFormOne.submitDate|date('Y-m-d') }}{% endif %}</td>
                         </tr>
-
                     </tbody>
                 </table>
             </div>

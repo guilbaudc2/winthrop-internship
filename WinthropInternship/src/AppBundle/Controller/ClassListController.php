@@ -22,13 +22,19 @@ class ClassListController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $classLists = $em->getRepository('AppBundle:ClassList')->findAll();
-
-        return $this->render('classlist/index.html.twig', array(
-            'classLists' => $classLists,
-        ));
+    
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
+            $em = $this->getDoctrine()->getManager();
+        
+            $classLists = $em->getRepository('AppBundle:ClassList')->findAll();
+        
+            return $this->render('classlist/index.html.twig', array(
+                'classLists' => $classLists,
+            ));
+            
+        }else{
+            return $this->redirectToRoute('studentformone_index');
+        }
     }
 
     /**
@@ -39,22 +45,29 @@ class ClassListController extends Controller
      */
     public function newAction(Request $request)
     {
-        $classList = new Classlist();
-        $form = $this->createForm('AppBundle\Form\ClassListType', $classList);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($classList);
-            $em->flush();
-
-            return $this->redirectToRoute('classlist_show', array('id' => $classList->getId()));
-        }
-
-        return $this->render('classlist/new.html.twig', array(
-            'classList' => $classList,
-            'form' => $form->createView(),
-        ));
+        
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {        
+        
+            $classList = new Classlist();
+            $form = $this->createForm('AppBundle\Form\ClassListType', $classList);
+            $form->handleRequest($request);
+    
+            if ($form->isSubmitted() && $form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($classList);
+                $em->flush();
+    
+                return $this->redirectToRoute('classlist_show', array('id' => $classList->getId()));
+            }
+    
+            return $this->render('classlist/new.html.twig', array(
+                'classList' => $classList,
+                'form' => $form->createView(),
+            ));
+            
+        }else{
+            return $this->redirectToRoute('studentformone_index');
+        }            
     }
 
     /**
@@ -65,12 +78,19 @@ class ClassListController extends Controller
      */
     public function showAction(ClassList $classList)
     {
-        $deleteForm = $this->createDeleteForm($classList);
-
-        return $this->render('classlist/show.html.twig', array(
-            'classList' => $classList,
-            'delete_form' => $deleteForm->createView(),
-        ));
+        
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {        
+        
+            $deleteForm = $this->createDeleteForm($classList);
+    
+            return $this->render('classlist/show.html.twig', array(
+                'classList' => $classList,
+                'delete_form' => $deleteForm->createView(),
+            ));
+            
+        }else{
+            return $this->redirectToRoute('studentformone_index');
+        }            
     }
 
     /**
@@ -81,21 +101,29 @@ class ClassListController extends Controller
      */
     public function editAction(Request $request, ClassList $classList)
     {
-        $deleteForm = $this->createDeleteForm($classList);
-        $editForm = $this->createForm('AppBundle\Form\ClassListType', $classList);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('classlist_edit', array('id' => $classList->getId()));
-        }
-
-        return $this->render('classlist/edit.html.twig', array(
-            'classList' => $classList,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
+        
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {        
+        
+            $deleteForm = $this->createDeleteForm($classList);
+            $editForm = $this->createForm('AppBundle\Form\ClassListType', $classList);
+            $editForm->handleRequest($request);
+    
+            if ($editForm->isSubmitted() && $editForm->isValid()) {
+                $this->getDoctrine()->getManager()->flush();
+    
+                return $this->redirectToRoute('classlist_edit', array('id' => $classList->getId()));
+            }
+    
+            return $this->render('classlist/edit.html.twig', array(
+                'classList' => $classList,
+                'edit_form' => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+            ));
+            
+            
+        }else{
+            return $this->redirectToRoute('studentformone_index');
+        }            
     }
 
     /**
@@ -106,16 +134,24 @@ class ClassListController extends Controller
      */
     public function deleteAction(Request $request, ClassList $classList)
     {
-        $form = $this->createDeleteForm($classList);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($classList);
-            $em->flush();
-        }
-
-        return $this->redirectToRoute('classlist_index');
+        
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {        
+        
+            $form = $this->createDeleteForm($classList);
+            $form->handleRequest($request);
+    
+            if ($form->isSubmitted() && $form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->remove($classList);
+                $em->flush();
+            }
+    
+            return $this->redirectToRoute('classlist_index');
+            
+            
+        }else{
+            return $this->redirectToRoute('studentformone_index');
+        }            
     }
 
     /**

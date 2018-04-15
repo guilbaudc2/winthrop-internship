@@ -189,6 +189,9 @@ input[type=submit]{
 
 .sidenav li>a{
     height: auto;
+    padding-top:5px;
+    padding-bottom:5px;
+    text-align:center;
 }
 
 label.required:before {
