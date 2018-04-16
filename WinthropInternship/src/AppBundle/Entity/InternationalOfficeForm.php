@@ -34,6 +34,15 @@ class InternationalOfficeForm
      * @ORM\Column(name="approve", type="boolean")
      */
     private $approve;
+    
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="additionalComments", type="text", nullable=true)
+     */
+    private $additionalComments;
+    
 
     /**
      * @var \DateTime
@@ -55,7 +64,6 @@ class InternationalOfficeForm
         
         $this->student_form_one = $student_form_one;
 
-    
         $this->approveDate = new \DateTime("now");
     }
 
@@ -79,6 +87,31 @@ class InternationalOfficeForm
     public function getStudentFormOne()
     {
         return $this->student_form_one;
+    }
+    
+    
+    /**
+     * Set additionalComments
+     *
+     * @param string $additionalComments
+     *
+     * @return SiteSupervisorForm
+     */
+    public function setAdditionalComments($additionalComments)
+    {
+        $this->additionalComments = $additionalComments;
+    
+        return $this;
+    }
+
+    /**
+     * Get additionalComments
+     *
+     * @return string
+     */
+    public function getAdditionalComments()
+    {
+        return $this->additionalComments;
     }
     
 

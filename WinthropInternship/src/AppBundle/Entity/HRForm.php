@@ -34,12 +34,20 @@ class HRForm
      * @ORM\Column(name="completedTitleIX", type="boolean")
      */
     private $completedTitleIX;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="approveDate", type="datetime", nullable=true)
+     */
+    private $approveDate;    
 
     public function __construct($student_form_one) {
         
         $this->student_form_one = $student_form_one;
         $this->completedTitleIX = true;
-    
+
+        $this->approveDate = new \DateTime("now");
     }
 
     /**
@@ -75,5 +83,16 @@ class HRForm
     {
         return $this->completedTitleIX;
     }
+    
+    /**
+     * Get approveDate
+     *
+     * @return \DateTime
+     */
+    public function getApproveDate()
+    {
+        return $this->approveDate;
+    }
+
 }
 

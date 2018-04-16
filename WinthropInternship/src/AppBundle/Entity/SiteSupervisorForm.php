@@ -136,21 +136,21 @@ class SiteSupervisorForm
     /**
      * @var string
      *
-     * @ORM\Column(name="salary", type="decimal", precision=7, scale=2)
+     * @ORM\Column(name="salary", type="decimal", precision=7, scale=2, nullable=true)
      */
     private $salary;
 
     /**
      * @var array
      *
-     * @ORM\Column(name="salaryOrStipend", type="boolean")
+     * @ORM\Column(name="salaryOrStipend", type="string", length=255, nullable=true)
      */
     private $salaryOrStipend;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="stipend", type="integer")
+     * @ORM\Column(name="stipend", type="integer", nullable=true)
      */
     private $stipend;
 
@@ -631,7 +631,7 @@ class SiteSupervisorForm
     /**
      * Set salaryOrStipend
      *
-     * @param array $salaryOrStipend
+     * @param string $salaryOrStipend
      *
      * @return SiteSupervisorForm
      */

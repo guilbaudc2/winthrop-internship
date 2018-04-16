@@ -5,7 +5,8 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\StudentFormTwo;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Studentformtwo controller.
@@ -33,48 +34,23 @@ class StudentFormTwoController extends Controller
             $username = $user->getUsername();
             
             $em = $this->getDoctrine()->getManager();
-            $query = $em->createQuery('SELECT sft FROM AppBundle:StudentFormTwo sft JOIN AppBundle:StudentFormOne sfo WHERE sfo.id = sft.student_form_one AND sfo.userName = :userName')
+            $query = $em->createQuery('SELECT sfo FROM AppBundle:StudentFormOne sfo LEFT JOIN AppBundle:StudentFormTwo sft WITH sfo.id = sft.student_form_one WHERE sfo.userName = :userName AND sft.student_form_one IS NULL')
+                ->setParameter('userName', $username);
+            $studentFormOnes = $query->getResult();
+            dump($studentFormOnes);
+            
+            $query = $em->createQuery('SELECT sft FROM AppBundle:StudentFormOne sfo JOIN AppBundle:StudentFormTwo sft WITH sfo.id = sft.student_form_one WHERE sfo.userName = :userName')
                 ->setParameter('userName', $username);
             $studentFormTwos = $query->getResult();
-            // // $query = $em->createQuery('SELECT u.id FROM AppBundle:StudentFormOne u WHERE u.userName = :userName')
-            // //     ->setParameter('userName', $username);
-            // // $studentFormOneArray = $query->getResult();
-            // // $studentFormOneID = $studentFormOneArray[0][id];
-            
-            // foreach($studentFormOneArray as $studentOneApp){
-            //     // $studentFormTwos[] = $this->getDoctrine()->getRepository('AppBundle:StudentFormOne')->findOneById($studentFormOneID);
-            //     var_dump($studentOneApp["id"]);
-                
-            //     if($studentOneApp["id"] != null || $studentOneApp["id"] != ""){
-            //     $query = $em->createQuery("SELECT sft FROM AppBundle:StudentFormTwo sft JOIN AppBundle:StudentFormOne sfo WHERE sfo.id = sft.student_form_one AND sfo.id = :id");
-            //     $query->setParameter("id", $studentOneApp["id"]);
-                
-            //     // dump($query->getResult());
-                    
-            //     // if($query->getResult() != "" ){
-            //         $studentFormTwos[] = $query->getResult();
-            //         dump($studentFormTwos);
-            //         var_dump($studentFormTwos);
-            //     }
-                
-            
-            // }   
-            } else{
-                $em = $this->getDoctrine()->getManager();        
-                $query = $em->createQuery("SELECT sft FROM AppBundle:StudentFormTwo sft JOIN AppBundle:StudentFormOne sfo WHERE sfo.id = sft.student_form_one");
-                $studentFormTwos = $query->getResult();
-            }
-            // dump($studentFormTwos);
-            
-            
+            dump($studentFormTwos);
+        } else{
+            $em = $this->getDoctrine()->getManager();        
+            $query = $em->createQuery("SELECT sft FROM AppBundle:StudentFormTwo sft JOIN AppBundle:StudentFormOne sfo WHERE sfo.id = sft.student_form_one");
+            $studentFormTwos = $query->getResult();
+        }
         
-        
-        
-        // $em = $this->getDoctrine()->getManager();
-
-        // $studentFormTwos = $em->getRepository('AppBundle:StudentFormTwo')->findAll();
-
         return $this->render('studentformtwo/index.html.twig', array(
+            'studentFormOnes' => $studentFormOnes,
             'studentFormTwos' => $studentFormTwos,
         ));
     }
@@ -87,19 +63,32 @@ class StudentFormTwoController extends Controller
      */
     public function newAction(Request $request)
     {
+
+        if(isset($_GET["studentInfo"])){
+            $studentID = $_GET["studentInfo"];
+    
+    
+            $em = $this->getDoctrine()->getManager();
+                
+            $query = $em->createQuery('SELECT u FROM AppBundle:StudentFormOne u WHERE u.id = :id')
+                ->setParameter('id', $studentID);
+            $studentFormOneID = $query->getResult();
+            
+            //$this->studentFormOneData = $studentFormOneID;
+            $this->studentFormOne = $studentFormOneID[0];        
         
-        $user = $this->getUser();
+        // $user = $this->getUser();
         
-        $username = $user->getUsername();
+        // $username = $user->getUsername();
         
-        $em = $this->getDoctrine()->getManager();
-        $query = $em->createQuery('SELECT u.id FROM AppBundle:StudentFormOne u WHERE u.userName = :userName')
-            ->setParameter('userName', $username);
-        $studentFormOneArray = $query->getResult();
-        $studentFormOneID = $studentFormOneArray[0]['id'];
+        // $em = $this->getDoctrine()->getManager();
+        // $query = $em->createQuery('SELECT u.id FROM AppBundle:StudentFormOne u WHERE u.userName = :userName')
+        //     ->setParameter('userName', $username);
+        // $studentFormOneArray = $query->getResult();
+        // $studentFormOneID = $studentFormOneArray[0]['id'];
+        }
         
-        $studentFormOne = $this->getDoctrine()->getRepository('AppBundle:StudentFormOne')->findOneById($studentFormOneID);
-        $studentFormTwo = new Studentformtwo($studentFormOne);
+        $studentFormTwo = new Studentformtwo($this->studentFormOne);
         $form = $this->createForm('AppBundle\Form\StudentFormTwoType', $studentFormTwo);
         $form->handleRequest($request);
 

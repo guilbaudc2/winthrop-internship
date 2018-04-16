@@ -1,10 +1,10 @@
 {% trans_default_domain 'FOSUserBundle' %}
-{% block subject %}
-    {%- autoescape false -%}
+{#{% block subject %}#}
+{#    {%- autoescape false -%}#}
         {#{{ 'resetting.email.subject'|trans({'%username%': user.username}) }}#}
         {% block subject %}Reset Your Password{% endblock %}
-    {%- endautoescape -%}
-{% endblock %}
+{#    {%- endautoescape -%}#}
+{#{% endblock %}#}
 
 {% block body_text %}
     {% autoescape false %}
@@ -18,6 +18,7 @@
     the App team
     {% endautoescape %}
 {% endblock %}
+
 {% block body_html %}{% endblock %}
 
 {#{% block subject %}Resetting your password{% endblock %}#}

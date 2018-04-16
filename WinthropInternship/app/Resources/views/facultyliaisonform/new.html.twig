@@ -41,12 +41,8 @@
                             <td>{{ studentFormOne.phoneNumber }}</td>
                         </tr>
                         <tr>
-                            <th>Legallyauthorized</th>
-                            <td>{% if studentFormOne.legallyAuthorized %}Yes{% else %}No{% endif %}</td>
-                        </tr>
-                        <tr>
-                            <th>Futureworkauthorization</th>
-                            <td>{% if studentFormOne.futureWorkAuthorization %}Yes{% else %}No{% endif %}</td>
+                            <th>Workauthorization</th>
+                            <td>{% if studentFormOne.workAuthorization %}Yes{% else %}No{% endif %}</td>
                         </tr>
                         <tr>
                             <th>Major</th>
@@ -88,13 +84,19 @@
                             <th>Submitted Date</th>
                             <td>{% if studentFormOne.submitDate %}{{ studentFormOne.submitDate|date('Y-m-d') }}{% endif %}</td>
                         </tr>
-
+                        <tr>
+                            <td>
+                                <a href="{{ path('studentformone_edit', { 'id': studentFormOne.id }) }}" class="btn-large waves-effect waves-light landing-btn-color">Edit</a>
+                            </td>
+                        </tr>                        
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
     
+    <h2>Internship Site Information</h2>
+  
     
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
@@ -102,91 +104,91 @@
                 <table>
                     <tbody>
                         <tr>
-                            <th>Forprofit</th>
+                            <th>For Profit?</th>
                             <td>{% if siteSupervisorForm.forProfit %}Yes{% else %}No{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Organizationname</th>
+                            <th>Organization Name</th>
                             <td>{{ siteSupervisorForm.organizationName }}</td>
                         </tr>
                         <tr>
-                            <th>Businesslicensenum</th>
+                            <th>Business License Nummber or FEIN #</th>
                             <td>{{ siteSupervisorForm.businessLicenseNum }}</td>
                         </tr>
                         <tr>
-                            <th>Stateissued</th>
+                            <th>State Issued</th>
                             <td>{{ siteSupervisorForm.stateIssued }}</td>
                         </tr>
                         <tr>
-                            <th>Directinternshipsupervisor</th>
+                            <th>Direct Internship Supervisor</th>
                             <td>{{ siteSupervisorForm.directInternshipSupervisor }}</td>
                         </tr>
                         <tr>
-                            <th>Supervisorstitle</th>
+                            <th>Supervisor's Title</th>
                             <td>{{ siteSupervisorForm.supervisorsTitle }}</td>
                         </tr>
                         <tr>
-                            <th>Physicaladdress</th>
+                            <th>Physical Aaddress</th>
                             <td>{{ siteSupervisorForm.physicalAddress }}</td>
                         </tr>
                         <tr>
-                            <th>Availableforsitevisit</th>
+                            <th>Available for Site Visit?</th>
                             <td>{% if siteSupervisorForm.availableForSiteVisit %}Yes{% else %}No{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Supervisorphone</th>
+                            <th>Supervisor Phone</th>
                             <td>{{ siteSupervisorForm.supervisorPhone }}</td>
                         </tr>
                         <tr>
-                            <th>Supervisoremail</th>
+                            <th>Supervisor Email</th>
                             <td>{{ siteSupervisorForm.supervisorEmail }}</td>
                         </tr>
                         <tr>
-                            <th>Internshipprojectedstartdate</th>
+                            <th>Internship Projected Start Date</th>
                             <td>{% if siteSupervisorForm.internshipProjectedStartDate %}{{ siteSupervisorForm.internshipProjectedStartDate|date('Y-m-d') }}{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Internshipprojectedenddate</th>
+                            <th>Internship Projected End Date</th>
                             <td>{% if siteSupervisorForm.internshipProjectedEndDate %}{{ siteSupervisorForm.internshipProjectedEndDate|date('Y-m-d') }}{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Totalweeks</th>
+                            <th>Estimated Total Weeks</th>
                             <td>{{ siteSupervisorForm.totalWeeks }}</td>
                         </tr>
                         <tr>
-                            <th>Estimatedhours</th>
+                            <th>Estimated Total Hours/Week</th>
                             <td>{{ siteSupervisorForm.estimatedHours }}</td>
                         </tr>
                         <tr>
-                            <th>Paid</th>
+                            <th>Paid?</th>
                             <td>{% if siteSupervisorForm.paid %}Yes{% else %}No{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Salary</th>
-                            <td>{{ siteSupervisorForm.salary }}</td>
-                        </tr>
-                        <tr>
-                            <th>Salaryorstipend</th>
+                            <th>Salary or Stipend</th>
                             <td>{% if siteSupervisorForm.salaryOrStipend %}{{ siteSupervisorForm.salaryOrStipend|join(', ') }}{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Stipend</th>
+                            <th>Salary Amount</th>
+                            <td>{{ siteSupervisorForm.salary }}</td>
+                        </tr>                        
+                        <tr>
+                            <th>Stipend Amount</th>
                             <td>{{ siteSupervisorForm.stipend }}</td>
                         </tr>
                         <tr>
-                            <th>Task</th>
+                            <th>Intern Tasks/Role</th>
                             <td>{{ siteSupervisorForm.task }}</td>
                         </tr>
                         <tr>
-                            <th>Projects</th>
+                            <th>Specific Projects Intern will work on/assist with</th>
                             <td>{{ siteSupervisorForm.projects }}</td>
                         </tr>
                         <tr>
-                            <th>Outcomes</th>
+                            <th>Learning Outcomes for Intern</th>
                             <td>{{ siteSupervisorForm.outcomes }}</td>
                         </tr>
                         <tr>
-                            <th>Additionalcomments</th>
+                            <th>Additional Comments Regarding Internship</th>
                             <td>{{ siteSupervisorForm.additionalComments }}</td>
                         </tr>
                         <tr>
@@ -197,6 +199,11 @@
                             <th>Signature</th>
                             <td>{{ siteSupervisorForm.digitalSignature }}</td>
                         </tr>
+                        <tr>
+                            <td>
+                                <a href="{{ path('sitesupervisorform_edit', { 'id': siteSupervisorForm.id }) }}" class="btn-large waves-effect waves-light landing-btn-color">Edit</a>
+                            </td>
+                        </tr>                          
                     </tbody>
                 </table>
             </div>

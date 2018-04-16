@@ -119,16 +119,9 @@ class StudentFormOne
     /**
      * @var bool
      *
-     * @ORM\Column(name="legallyAuthorized", type="boolean")
+     * @ORM\Column(name="workAuthorization", type="boolean")
      */
-    private $legallyAuthorized;
-
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="futureWorkAuthorization", type="boolean")
-     */
-    private $futureWorkAuthorization;
+    private $workAuthorization;
 
     /**
      * @var string
@@ -420,51 +413,27 @@ class StudentFormOne
     }
 
     /**
-     * Set legallyAuthorized
+     * Set workAuthorization
      *
-     * @param boolean $legallyAuthorized
+     * @param boolean $workAuthorization
      *
      * @return StudentFormOne
      */
-    public function setLegallyAuthorized($legallyAuthorized)
+    public function setWorkAuthorization($workAuthorization)
     {
-        $this->legallyAuthorized = $legallyAuthorized;
+        $this->workAuthorization = $workAuthorization;
 
         return $this;
     }
 
     /**
-     * Get legallyAuthorized
+     * Get workAuthorization
      *
      * @return bool
      */
-    public function getLegallyAuthorized()
+    public function getWorkAuthorization()
     {
-        return $this->legallyAuthorized;
-    }
-
-    /**
-     * Set futureWorkAuthorization
-     *
-     * @param boolean $futureWorkAuthorization
-     *
-     * @return StudentFormOne
-     */
-    public function setFutureWorkAuthorization($futureWorkAuthorization)
-    {
-        $this->futureWorkAuthorization = $futureWorkAuthorization;
-
-        return $this;
-    }
-
-    /**
-     * Get futureWorkAuthorization
-     *
-     * @return bool
-     */
-    public function getFutureWorkAuthorization()
-    {
-        return $this->futureWorkAuthorization;
+        return $this->workAuthorization;
     }
 
     /**

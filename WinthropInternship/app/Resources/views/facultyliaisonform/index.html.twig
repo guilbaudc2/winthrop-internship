@@ -1,7 +1,7 @@
 {% extends 'innerbase.html.twig' %}
 
 {% block body %}
-    <h1>Facultyliaisonforms list</h1>
+    <h1>Faculty Liaison List</h1>
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
             <div class="card-panel">
@@ -11,11 +11,14 @@
                         <tr>
                             <td>
                                 <table>
-                                    <th>Student First Name</th>
-                                    <th>Student Last Name</th>
+                                    <th>Student Name</th>
                                     <th>Student Email Address</th>
                                     <th>Student CWID</th>
                                     <th>Organization Name</th>
+                                {% if is_granted('ROLE_SUPER_ADMIN')%}
+                                    <th>Student's Internship Class</th>
+                                    <th>Faculty Liaison</th>
+                                {% endif %} 
                                     <th>View Application</th>
                                 </table>
                             </td>
@@ -28,12 +31,11 @@
                                 <form action="{{ path('facultyliaisonform_new') }}" method="GET">
                                     <input type="hidden" name="studentInfo" value="{{ studentFormOne.id }}" />
                                     <table>
-                                        {#<td class="mdl-data-table__cell--non-numeric"><label><input type="checkbox" class="filled-in"/><span>{{ studentFormOne.firstName }}</span></label></td>#}
-                                        <td>{{ studentFormOne.firstName }}</td>
-                                        <td>{{ studentFormOne.lastName }}</td>
+                                        <td>{{ studentFormOne.firstName }} {{ studentFormOne.lastName }}</td>
                                         <td>{{ studentFormOne.emailAddress}}</td>
                                         <td>{{ studentFormOne.cWID }}</td>
                                         <td>{{ studentFormOne.organizationName }}</td>
+                                    {% if is_granted('ROLE_SUPER_ADMIN')%}                                          
                                         {#<td>#}
                                         {#    <ul>#}
                                         {#        <li>#}
@@ -44,6 +46,9 @@
                                         {#        </li>#}
                                         {#    </ul>#}
                                         {#</td>#}
+                                        <td>{{ studentFormOne.classEnrolled }}</td>
+                                        <td>{{ studentFormOne.facultyLiaison }}</td>
+                                    {% endif %}   
                                         <td>
                                             {#<ul>#}
                                             {#    <li>#}
@@ -61,7 +66,46 @@
                 </table>
             </div>
         </div>
-    </div>                
+    </div>
+    
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <div class="card-panel">
+                <h2 class="header">In-Progress Student Applications</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Last Updated</th>
+                            <th>Student First Name</th>
+                            <th>Student Last Name</th>
+                            <th>Student Email Address</th>
+                            <th>Student CWID</th>
+                            <th>Organization Name</th>
+                            <th>Last User</th>
+                            <th>View Student Form One</th>
+                        </tr>
+                    </thead>
+                    </tbody>
+                    {% for incompleteStudentForm in studentFormOnes %}
+                        <tr>
+                            <td>{% if incompleteStudentForm.lastUpdated %}{{ incompleteStudentForm.lastUpdated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                            <td>{{ incompleteStudentForm.firstName }}</td>
+                            <td>{{ incompleteStudentForm.lastName }}</td>
+                            <td>{{ incompleteStudentForm.emailAddress}}</td>
+                            <td>{{ incompleteStudentForm.cWID }}</td>
+                            <td>{{ incompleteStudentForm.organizationName }}</td>
+                            <td>{{ incompleteStudentForm.lastUser }}</td>
+                            <td><a href="{{ path('studentformone_show', { 'id': incompleteStudentForm.id }) }}">show</a></td>
+                        </tr>
+                    {% endfor %}
+                    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
             <div class="card-panel">

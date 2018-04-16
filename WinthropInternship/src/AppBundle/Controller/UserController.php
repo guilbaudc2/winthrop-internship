@@ -6,6 +6,7 @@ use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * User controller.
@@ -22,7 +23,7 @@ class UserController extends Controller
      */
     public function indexAction()
     {
-        // if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
             $em = $this->getDoctrine()->getManager();
     
             $users = $em->getRepository('AppBundle:User')->findAll();
@@ -30,10 +31,39 @@ class UserController extends Controller
             return $this->render('user/index.html.twig', array(
                 'users' => $users,
             ));
-        // }else{
-        //     return $this->redirectToRoute('studentFormOne_index');
-        // }
+        }else{
+            return $this->redirectToRoute('studentFormOne_index');
+        }
     }
+
+    /**
+     * Finds and displays a user entity.
+     *
+     * @Route("/new", name="user_new")
+     * @Method({"GET", "POST"})
+     */ 
+    public function newAction(Request $request)
+    {
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
+            $user = new User();
+            $form = $this->createForm('AppBundle\Form\UserType', $user);
+            $form->handleRequest($request);
+    
+            if ($form->isSubmitted() && $form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($user);
+                $em->flush();
+    
+                return $this->redirectToRoute('user_show', array('id' => $user->getId()));
+            }
+            return $this->render('user/new.html.twig', array(
+                'new_form' => $form->createView(),
+            ));
+        }else{
+            return $this->redirectToRoute('studentFormOne_index');
+        }
+    }
+
 
     /**
      * Finds and displays a user entity.
@@ -43,9 +73,39 @@ class UserController extends Controller
      */
     public function showAction(User $user)
     {
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
+            return $this->render('user/show.html.twig', array(
+                'user' => $user,
+            ));
+        }else{
+            return $this->redirectToRoute('studentFormOne_index');
+        }
+    }
 
-        return $this->render('user/show.html.twig', array(
-            'user' => $user,
-        ));
+    /**
+     * Finds and displays a user entity.
+     *
+     * @Route("/{id}/edit", name="user_edit")
+     * @Method({"GET", "POST"})
+     */ 
+    public function editAction(Request $request, User $user)
+    {
+        
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
+            $editForm = $this->createForm('AppBundle\Form\UserType', $user);
+            $editForm->handleRequest($request);
+    
+            if ($editForm->isSubmitted() && $editForm->isValid()) {
+                $this->getDoctrine()->getManager()->flush();
+    
+                return $this->redirectToRoute('user_edit', array('id' => $user->getId()));
+            }
+            return $this->render('user/edit.html.twig', array(
+                'edit_form' => $editForm->createView(),
+                'user' => $user
+            ));
+        }else{
+            return $this->redirectToRoute('studentFormOne_index');
+        }
     }
 }

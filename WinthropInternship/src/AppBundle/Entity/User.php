@@ -20,6 +20,12 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * One UserAccount has One FacultyLiaisonListObject.
+     * @ORM\OneToOne(targetEntity="FacultyLiaisonList", mappedBy="faculty_user")
+     */
+    private $facultyListObject;
+
+    /**
      * @ORM\Column(type="string", length=255)
      *
      * @Assert\NotBlank(message="Please enter your first name.", groups={"Registration", "Profile"})
@@ -170,6 +176,10 @@ class User extends BaseUser
     public function getEmail()
     {
         return $this->email;
+    }
+    
+    public function getFullName() {
+        return $this->firstName . " " . $this->lastName;
     }
 }
 

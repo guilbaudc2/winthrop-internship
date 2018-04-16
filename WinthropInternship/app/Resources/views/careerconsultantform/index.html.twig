@@ -1,21 +1,92 @@
 {% extends 'innerbase.html.twig' %}
 
+{% block javascripts %} 
+    <script>
+        /*alert(5 + 6);*/
+        $(document).ready(function(){
+            $('#export').click(function(){
+                {#
+                var rows = [["Student Name", "Student Email", "Cwid", "Organization Name"]];
+                {% for studentFormOne in studentFormOnesReady %}
+                    var stuArray = ["{{ studentFormOne.firstName }} {{ studentFormOne.lastName }}", "{{ studentFormOne.emailAddress }}", "{{ studentFormOne.cWID }}", "{{ studentFormOne.organizationName }}"];
+                    rows.push(stuArray);
+                {% endfor %}
+                rows.push(["",""]);
+                rows.push(["Last Updated", "Student First Name", "Student Last Name", "Student Email Address", "Student CWID", "Organization Name", "Last User"]);
+                #}
+                var rows = [["Last Updated", "Student First Name", "Student Last Name", "Student Email Address", "Student CWID", "Organization Name", "Last User"]];
+                {#
+                {% for incompleteStudentForm in studentFormOnes %}
+                    var inStuArr = ["{% if incompleteStudentForm.lastUpdated %}{{ incompleteStudentForm.lastUpdated|date('Y-m-d H:i:s') }}{% endif %}"];
+                    inStuArr.push("{{ incompleteStudentForm.firstName }}", "{{ incompleteStudentForm.lastName }}", "{{ incompleteStudentForm.emailAddress}}");
+                    inStuArr.push("{{ incompleteStudentForm.cWID }}", "{{ incompleteStudentForm.organizationName }}", "{{ incompleteStudentForm.lastUser }}");
+                    rows.push(inStuArr);
+                {% endfor %}
+                #}
+                {#
+                rows.push(["",""]);
+                rows.push(["Student First Name", "Student Last Name", "Student Email Address", "Student CWID", "Organization Name"]);
+                {% for careerConsultantForm in careerConsultantForms %}
+                    var ccArray = ["{{ careerConsultantForm.firstName }}", "{{ careerConsultantForm.lastName }}", "{{ careerConsultantForm.emailAddress}}"];
+                    ccArray.push("{{ careerConsultantForm.cWID }}, "{{ careerConsultantForm.organizationName }}");
+                    rows.push(ccArray);
+                {% endfor %}
+                #}
+                let csvContent = "data:text/csv;charset=utf-8,";
+                rows.forEach(function(rowArray){
+                   let row = rowArray.join(",");
+                   csvContent += row + "\r\n";
+                });
+                var encodedUri = encodeURI(csvContent);
+                
+                var d = new Date();
+                var month = d.getMonth()+1;
+                var day = d.getDate();
+                var specDate = d.getFullYear() + '/' +
+                    (month<10 ? '0' : '') + month + '/' +
+                    (day<10 ? '0' : '') + day;
+                var csv = 'ccExport_' + specDate + '.csv';
+                
+                var link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", csv);
+                document.body.appendChild(link); // Required for FF
+                
+                link.click(); // This will download the data file
+            });
+        });
+    </script>
+{% endblock %}
+
 {% block body %}
     <h1>Careerconsultantforms list</h1>
+    {#
+    <div class="section" id="nav-backBtn">
+        <ul>
+            <li>
+                <button id="export" class="btn waves-effect waves-light button-back" >Export File</button>
+              //  <a href="{{ path('export_file', { 'id': studentFormOne.id }) }}" class="btn waves-effect waves-light button-back">Export file</a> 
+            </li>
+        </ul>
+    </div>
+    #}
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
             <div class="card-panel">
                 <h2 class="header">Student Applications to Approve</h2>
-                <table>
+               <table>
                     <thead>
                         <tr>
                             <td>
                                 <table>
-                                    <th>Student First Name</th>
-                                    <th>Student Last Name</th>
+                                    <th>Student Name</th>
                                     <th>Student Email Address</th>
                                     <th>Student CWID</th>
                                     <th>Organization Name</th>
+                                {% if is_granted('ROLE_SUPER_ADMIN')%}
+                                    {#<th>Student's Internship Class</th>#}
+                                    {#<th>Faculty Liaison</th>#}
+                                {% endif %} 
                                     <th>View Application</th>
                                 </table>
                             </td>
@@ -29,11 +100,11 @@
                                     <input type="hidden" name="studentInfo" value="{{ studentFormOne.id }}" />
                                     <table>
                                         {#<td class="mdl-data-table__cell--non-numeric"><label><input type="checkbox" class="filled-in"/><span>{{ studentFormOne.firstName }}</span></label></td>#}
-                                        <td>{{ studentFormOne.firstName }}</td>
-                                        <td>{{ studentFormOne.lastName }}</td>
+                                        <td>{{ studentFormOne.firstName }} {{ studentFormOne.lastName }}</td>
                                         <td>{{ studentFormOne.emailAddress}}</td>
                                         <td>{{ studentFormOne.cWID }}</td>
                                         <td>{{ studentFormOne.organizationName }}</td>
+                                    {% if is_granted('ROLE_SUPER_ADMIN')%}                                          
                                         {#<td>#}
                                         {#    <ul>#}
                                         {#        <li>#}
@@ -44,6 +115,9 @@
                                         {#        </li>#}
                                         {#    </ul>#}
                                         {#</td>#}
+                                        {#<td>{{ studentFormOne.classEnrolled }}</td>#}
+                                        {#<td>{{ studentFormOne.facultyLiaison }}</td>#}
+                                    {% endif %}   
                                         <td>
                                             {#<ul>#}
                                             {#    <li>#}
@@ -61,7 +135,46 @@
                 </table>
             </div>
         </div>
-    </div>                
+    </div>
+    
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <div class="card-panel">
+                <h2 class="header">In-Progress Student Applications</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Last Updated</th>
+                            <th>Student First Name</th>
+                            <th>Student Last Name</th>
+                            <th>Student Email Address</th>
+                            <th>Student CWID</th>
+                            <th>Organization Name</th>
+                            <th>Last User</th>
+                            <th>View Student Form One</th>
+                        </tr>
+                    </thead>
+                    </tbody>
+                    {% for incompleteStudentForm in studentFormOnes %}
+                        <tr>
+                            <td>{% if incompleteStudentForm.lastUpdated %}{{ incompleteStudentForm.lastUpdated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                            <td>{{ incompleteStudentForm.firstName }}</td>
+                            <td>{{ incompleteStudentForm.lastName }}</td>
+                            <td>{{ incompleteStudentForm.emailAddress}}</td>
+                            <td>{{ incompleteStudentForm.cWID }}</td>
+                            <td>{{ incompleteStudentForm.organizationName }}</td>
+                            <td>{{ incompleteStudentForm.lastUser }}</td>
+                            <td><a href="{{ path('studentformone_show', { 'id': incompleteStudentForm.id }) }}">show</a></td>
+                        </tr>
+                    {% endfor %}
+                    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+         
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
             <div class="card-panel">

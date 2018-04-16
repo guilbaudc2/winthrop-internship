@@ -1,7 +1,9 @@
 {% extends 'innerbase.html.twig' %}
 
+{% block title %}User List{% endblock %}
+
 {% block body %}
-    <h1 class="header center">Users list</h1>
+    <h1 class="header center">Users</h1>
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
             <div class="card-panel">
@@ -25,26 +27,13 @@
                                         <li>{{ item }}</li>
                                     {% endfor %}
                                 </ul>
-                                {#<a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.roles }}</a></td>#}
-                            {#<td>#}
-                            {#    {% if is_granted('ROLE_STUDENT') %}#}
-                            {#        Student#}
-                            {#    {% elseif is_granted('ROLE_HR_ADMIN') %}#}
-                            {#        HR Admin#}
-                            {#    {% elseif is_granted('ROLE_IO_ADMIN') %}#}
-                            {#        International Office Admin#}
-                            {#    {% elseif is_granted('ROLE_FL_ADMIN') %}#}
-                            {#        Faculty Liaison#}
-                            {#    {% elseif is_granted('ROLE_SUPER_ADMIN') %}#}
-                            {#        Super Admin#}
-                            {#    {% else %}#}
-                            {#        Anonymous#}
-                            {#    {% endif %}#}
-                            {#</td>#}
                             <td>
                                 <ul>
                                     <li>
                                         <a href="{{ path('user_show', { 'id': user.id }) }}">show</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('user_edit', { 'id': user.id }) }}">edit</a>
                                     </li>
                                 </ul>
                             </td>

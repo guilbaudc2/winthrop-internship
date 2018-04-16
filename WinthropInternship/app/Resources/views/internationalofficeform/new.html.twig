@@ -3,50 +3,48 @@
 {% block body %}
     <h1>Internationalofficeform creation</h1>
     
+        <h2>Student Information</h2>
+    
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
             <div class="card-panel">
                 <table>
                     <tbody>
                         <tr>
-                            <th>Firstname</th>
+                            <th>First Name</th>
                             <td>{{ studentFormOne.firstName }}</td>
                         </tr>
                         <tr>
-                            <th>Lastname</th>
+                            <th>Last Name</th>
                             <td>{{ studentFormOne.lastName }}</td>
                         </tr>
                         <tr>
-                            <th>Username</th>
+                            <th>Winthrop Username</th>
                             <td>{{ studentFormOne.userName }}</td>
                         </tr>
                         <tr>
-                            <th>Cwid</th>
+                            <th>CWID (Winthrop ID Number)</th>
                             <td>{{ studentFormOne.cWID }}</td>
                         </tr>
                         <tr>
-                            <th>Emailaddress</th>
+                            <th>Winthrop Email Address</th>
                             <td>{{ studentFormOne.emailAddress }}</td>
                         </tr>
                         <tr>
-                            <th>Classenrolled</th>
+                            <th>Internship Class</th>
                             <td>{{ studentFormOne.classEnrolled }}</td>
                         </tr>
                         <tr>
-                            <th>Numcredits</th>
+                            <th>Number of Credits for Internship</th>
                             <td>{{ studentFormOne.numCredits }}</td>
                         </tr>
                         <tr>
-                            <th>Phonenumber</th>
+                            <th>Phone Number</th>
                             <td>{{ studentFormOne.phoneNumber }}</td>
                         </tr>
                         <tr>
-                            <th>Legallyauthorized</th>
-                            <td>{% if studentFormOne.legallyAuthorized %}Yes{% else %}No{% endif %}</td>
-                        </tr>
-                        <tr>
-                            <th>Futureworkauthorization</th>
-                            <td>{% if studentFormOne.futureWorkAuthorization %}Yes{% else %}No{% endif %}</td>
+                            <th>Work Authorization (US Citizen or Permanent Resident)</th>
+                            <td>{% if studentFormOne.workAuthorization %}Yes{% else %}No{% endif %}</td>
                         </tr>
                         <tr>
                             <th>Major</th>
@@ -57,38 +55,37 @@
                             <td>{{ studentFormOne.minor }}</td>
                         </tr>
                         <tr>
-                            <th>Facultyliaison</th>
+                            <th>Faculty Liaison</th>
                             <td>{{ studentFormOne.facultyLiaison }}</td>
                         </tr>
                         <tr>
-                            <th>Semesterenrolled</th>
+                            <th>Semester Enrolled</th>
                             <td>{{ studentFormOne.semesterEnrolled }}</td>
                         </tr>
                         <tr>
-                            <th>Yearenrolled</th>
+                            <th>Year Enrolled</th>
                             <td>{% if studentFormOne.yearEnrolled %}{{ studentFormOne.yearEnrolled|date('Y-m-d') }}{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Semestergrad</th>
+                            <th>Semester Graduating</th>
                             <td>{{ studentFormOne.semesterGrad }}</td>
                         </tr>
                         <tr>
-                            <th>Yeargrad</th>
+                            <th>Year Graduating</th>
                             <td>{% if studentFormOne.yearGrad %}{{ studentFormOne.yearGrad|date('Y-m-d') }}{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Sitesupername</th>
+                            <th>Internship Site Supervisor's Name</th>
                             <td>{{ studentFormOne.siteSuperName }}</td>
                         </tr>
                         <tr>
-                            <th>Sitesuperemail</th>
+                            <th>Internship Site Supervisor's Email Address</th>
                             <td>{{ studentFormOne.siteSuperEmail }}</td>
                         </tr>
                         <tr>
                             <th>Submitted Date</th>
                             <td>{% if studentFormOne.submitDate %}{{ studentFormOne.submitDate|date('Y-m-d') }}{% endif %}</td>
                         </tr>
-
                     </tbody>
                 </table>
             </div>

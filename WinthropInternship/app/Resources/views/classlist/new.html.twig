@@ -1,0 +1,20 @@
+{% extends 'innerbase.html.twig' %}
+
+{% block body %}
+    <h1>Create New Internship Class</h1>
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <div class="card-panel">
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <input type="submit" value="Create" />
+            {{ form_end(form) }}
+            </div>
+        </div>
+    </div> 
+    <ul>
+        <li>
+            <a href="{{ path('classlist_index') }}">Back to the list</a>
+        </li>
+    </ul>
+{% endblock %}

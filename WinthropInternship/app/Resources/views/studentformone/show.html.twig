@@ -1,5 +1,6 @@
 {% extends 'innerbase.html.twig' %}
 
+{% block title %}Student Form One Information{% endblock %}
 
 {% block javascripts %} 
     <script>
@@ -33,7 +34,7 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Studentformone</h1>
+    <h1>Student Form</h1>
     
     <div class="section" id="nav-backBtn">
         <ul>
@@ -55,49 +56,41 @@
             <div class="card-panel">
                 <table>
                     <tbody>
-                        {#<tr>#}
-                        {#    <th>Id</th>#}
-                        {#    <td>{{ studentFormOne.id }}</td>#}
-                        {#</tr>#}
                         <tr>
-                            <th>Firstname</th>
+                            <th>First Name</th>
                             <td>{{ studentFormOne.firstName }}</td>
                         </tr>
                         <tr>
-                            <th>Lastname</th>
+                            <th>Last Name</th>
                             <td>{{ studentFormOne.lastName }}</td>
                         </tr>
                         <tr>
-                            <th>Username</th>
+                            <th>Winthrop Username</th>
                             <td>{{ studentFormOne.userName }}</td>
                         </tr>
                         <tr>
-                            <th>Cwid</th>
+                            <th>CWID (Winthrop ID Number)</th>
                             <td>{{ studentFormOne.cWID }}</td>
                         </tr>
                         <tr>
-                            <th>Emailaddress</th>
+                            <th>Winthrop Email Address</th>
                             <td>{{ studentFormOne.emailAddress }}</td>
                         </tr>
                         <tr>
-                            <th>Classenrolled</th>
+                            <th>Internship Class</th>
                             <td>{{ studentFormOne.classEnrolled }}</td>
                         </tr>
                         <tr>
-                            <th>Numcredits</th>
+                            <th>Number of Credits for Internship</th>
                             <td>{{ studentFormOne.numCredits }}</td>
                         </tr>
                         <tr>
-                            <th>Phonenumber</th>
+                            <th>Phone Number</th>
                             <td>{{ studentFormOne.phoneNumber }}</td>
                         </tr>
                         <tr>
-                            <th>Legallyauthorized</th>
-                            <td>{% if studentFormOne.legallyAuthorized %}Yes{% else %}No{% endif %}</td>
-                        </tr>
-                        <tr>
-                            <th>Futureworkauthorization</th>
-                            <td>{% if studentFormOne.futureWorkAuthorization %}Yes{% else %}No{% endif %}</td>
+                            <th>Work Authorization (US Citizen or Permanent Resident)</th>
+                            <td>{% if studentFormOne.workAuthorization %}Yes{% else %}No{% endif %}</td>
                         </tr>
                         <tr>
                             <th>Major</th>
@@ -108,7 +101,7 @@
                             <td>{{ studentFormOne.minor }}</td>
                         </tr>
                         <tr>
-                            <th>Facultyliaison</th>
+                            <th>Faculty Liaison</th>
                             <td>{{ studentFormOne.facultyLiaison }}</td>
                         </tr>
                         <tr>
@@ -116,29 +109,29 @@
                             <td>{{ studentFormOne.semesterEnrolled }}</td>
                         </tr>
                         <tr>
-                            <th>Yearenrolled</th>
+                            <th>Year Enrolled</th>
                             <td>{% if studentFormOne.yearEnrolled %}{{ studentFormOne.yearEnrolled|date('Y-m-d') }}{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Semestergrad</th>
+                            <th>Semester Graduating</th>
                             <td>{{ studentFormOne.semesterGrad }}</td>
                         </tr>
                         <tr>
-                            <th>Yeargrad</th>
+                            <th>Year Graduating</th>
                             <td>{% if studentFormOne.yearGrad %}{{ studentFormOne.yearGrad|date('Y-m-d') }}{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Date</th>
-                            <td>{% if studentFormOne.date %}{{ studentFormOne.date|date('Y-m-d') }}{% endif %}</td>
-                        </tr>
-                        <tr>
-                            <th>Sitesupername</th>
+                            <th>Internship Site Supervisor's Name</th>
                             <td>{{ studentFormOne.siteSuperName }}</td>
                         </tr>
                         <tr>
-                            <th>Sitesuperemail</th>
+                            <th>Internship Site Supervisor's Email Address</th>
                             <td>{{ studentFormOne.siteSuperEmail }}</td>
                         </tr>
+                        <tr>
+                            <th>Submitted Date</th>
+                            <td>{% if studentFormOne.submitDate %}{{ studentFormOne.submitDate|date('Y-m-d') }}{% endif %}</td>
+                        </tr>                        
                         {#<tr>#}
                         {#    <th>Sitesuperaccesscode</th>#}
                         {#    <td>{{ studentFormOne.siteSuperAccessCode }}</td>#}
@@ -167,6 +160,287 @@
             </div>
         </div>
     </div>
+
+    
+    
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <div class="card-panel">
+                {% if siteSupervisorForm %}
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>For Profit?</th>
+                            <td>{% if siteSupervisorForm.forProfit %}Yes{% else %}No{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Organizationname</th>
+                            <td>{{ siteSupervisorForm.organizationName }}</td>
+                        </tr>
+                        <tr>
+                            <th>Businesslicensenum</th>
+                            <td>{{ siteSupervisorForm.businessLicenseNum }}</td>
+                        </tr>
+                        <tr>
+                            <th>Stateissued</th>
+                            <td>{{ siteSupervisorForm.stateIssued }}</td>
+                        </tr>
+                        <tr>
+                            <th>Directinternshipsupervisor</th>
+                            <td>{{ siteSupervisorForm.directInternshipSupervisor }}</td>
+                        </tr>
+                        <tr>
+                            <th>Supervisorstitle</th>
+                            <td>{{ siteSupervisorForm.supervisorsTitle }}</td>
+                        </tr>
+                        <tr>
+                            <th>Physicaladdress</th>
+                            <td>{{ siteSupervisorForm.physicalAddress }}</td>
+                        </tr>
+                        <tr>
+                            <th>Availableforsitevisit</th>
+                            <td>{% if siteSupervisorForm.availableForSiteVisit %}Yes{% else %}No{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Supervisorphone</th>
+                            <td>{{ siteSupervisorForm.supervisorPhone }}</td>
+                        </tr>
+                        <tr>
+                            <th>Supervisoremail</th>
+                            <td>{{ siteSupervisorForm.supervisorEmail }}</td>
+                        </tr>
+                        <tr>
+                            <th>Internshipprojectedstartdate</th>
+                            <td>{% if siteSupervisorForm.internshipProjectedStartDate %}{{ siteSupervisorForm.internshipProjectedStartDate|date('Y-m-d') }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Internshipprojectedenddate</th>
+                            <td>{% if siteSupervisorForm.internshipProjectedEndDate %}{{ siteSupervisorForm.internshipProjectedEndDate|date('Y-m-d') }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Totalweeks</th>
+                            <td>{{ siteSupervisorForm.totalWeeks }}</td>
+                        </tr>
+                        <tr>
+                            <th>Estimatedhours</th>
+                            <td>{{ siteSupervisorForm.estimatedHours }}</td>
+                        </tr>
+                        <tr>
+                            <th>Paid</th>
+                            <td>{% if siteSupervisorForm.paid %}Yes{% else %}No{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Salary</th>
+                            <td>{{ siteSupervisorForm.salary }}</td>
+                        </tr>
+                        <tr>
+                            <th>Salaryorstipend</th>
+                            <td>{% if siteSupervisorForm.salaryOrStipend %}{{ siteSupervisorForm.salaryOrStipend|join(', ') }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Stipend</th>
+                            <td>{{ siteSupervisorForm.stipend }}</td>
+                        </tr>
+                        <tr>
+                            <th>Task</th>
+                            <td>{{ siteSupervisorForm.task }}</td>
+                        </tr>
+                        <tr>
+                            <th>Projects</th>
+                            <td>{{ siteSupervisorForm.projects }}</td>
+                        </tr>
+                        <tr>
+                            <th>Outcomes</th>
+                            <td>{{ siteSupervisorForm.outcomes }}</td>
+                        </tr>
+                        <tr>
+                            <th>Additionalcomments</th>
+                            <td>{{ siteSupervisorForm.additionalComments }}</td>
+                        </tr>
+                        <tr>
+                            <th>Date Submitted</th>
+                            <td>{{ siteSupervisorForm.submitDate }}</td>
+                        </tr>
+                        <tr>
+                            <th>Signature</th>
+                            <td>{{ siteSupervisorForm.digitalSignature }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                {%else%}
+                
+                Waiting on Site Supervisor Form.
+                
+                {%endif%}
+            </div>
+        </div>
+    </div>
+    
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <div class="card-panel">
+                {% if hRForm %}
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Completedtitleix</th>
+                            <td>{% if hRForm.completedTitleIX %}Yes{% else %}No{% endif %}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                                {%else%}
+                
+                Waiting on HR Form.
+                
+                {%endif%}
+            </div>
+        </div>
+    </div>
+
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <div class="card-panel">
+                {% if studentFormTwo %}
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Educationalexperience</th>
+                            <td>{{ studentFormTwo.educationalExperience }}</td>
+                        </tr>
+                        <tr>
+                            <th>Goals</th>
+                            <td>{{ studentFormTwo.goals }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                {%else%}
+                
+                Waiting on Student Form Two.
+                
+                {%endif%}
+            </div>
+        </div>
+    </div>
+    
+{% if studentFormOne.workAuthorization == false %}
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <div class="card-panel">
+                {% if ioForm %}
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Approve</th>
+                            <td>{% if internationalOfficeForm.approve %}Yes{% else %}No{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Additional Comments</th>
+                            <td>{{ siteSupervisorForm.additionalComments }}</td>
+                        </tr>
+                        <tr>
+                            <th>Approved Date</th>
+                            <td>{% if internationalOfficeForm.approveDate %}{{ internationalOfficeForm.approveDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Digital Signature</th>
+                            <td>{{ internationalOfficeForm.digitalSignature }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                {%else%}
+                
+                Waiting on International Office Form.
+                
+                {%endif%}
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <div class="card-panel">
+                {% if flForm %}
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Legalname</th>
+                            <td>{{ facultyLiaisonForm.legalName }}</td>
+                        </tr>
+                        <tr>
+                            <th>Internshiplearningagreement</th>
+                            <td>{% if facultyLiaisonForm.internshipLearningAgreement %}Yes{% else %}No{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Midpointevaluation</th>
+                            <td>{% if facultyLiaisonForm.midPointEvaluation %}Yes{% else %}No{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Sitevisit</th>
+                            <td>{% if facultyLiaisonForm.siteVisit %}Yes{% else %}No{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Finalreport</th>
+                            <td>{% if facultyLiaisonForm.finalReport %}Yes{% else %}No{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Finalevaluation</th>
+                            <td>{% if facultyLiaisonForm.finalEvaluation %}Yes{% else %}No{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Internship Industry</th>
+                            <td>{{ facultyLiaisonForm.internshipIndustry }}</td>
+                        </tr>
+                        <tr>
+                            <th>Approve</th>
+                            <td>{% if facultyLiaisonForm.approve %}Yes{% else %}No{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Approvedate</th>
+                            <td>{% if facultyLiaisonForm.approveDate %}{{ facultyLiaisonForm.approveDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                {%else%}
+                
+                Waiting on Faculty Liaison Form.
+                
+                {%endif%}
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <div class="card-panel">
+                {% if ccForm %}
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Digital Signature</th>
+                            <td>{{ careerConsultantForm.legalName }}</td>
+                        </tr>
+                        <tr>
+                            <th>Approve</th>
+                            <td>{% if careerConsultantForm.approve %}Yes{% else %}No{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Approve Date</th>
+                            <td>{% if careerConsultantForm.approveDate %}{{ careerConsultantForm.approveDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                {%else%}
+                
+                Waiting on Career Consultant Form.
+                
+                {%endif%}
+            </div>
+        </div>
+    </div>    
+
+{%endif%}
 
     <ul>
         <li>

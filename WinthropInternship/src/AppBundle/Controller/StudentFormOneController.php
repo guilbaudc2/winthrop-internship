@@ -15,6 +15,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
  */
 class StudentFormOneController extends Controller
 {
+    private $studentFormOnes;
+    
     /**
      * Lists all studentFormOne entities.
      *
@@ -23,35 +25,60 @@ class StudentFormOneController extends Controller
      */
     public function indexAction()
     {
-        $user = $this->getUser();
-        
-        $username = $user->getUsername();
-        
-        $emailAddress = $username . "@winthrop.edu";
-        
-        $em = $this->getDoctrine()->getManager();
-        
-        $studentFormOnes = $em->getRepository('AppBundle:StudentFormOne')->findBy(array('emailAddress' => $emailAddress));
 
-        if ($this->get('security.authorization_checker')->isGranted('ROLE_HR_ADMIN')) {
-            return $this->redirectToRoute('hrform_index');
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {   
+            if ($this->get('security.authorization_checker')->isGranted('ROLE_HR_ADMIN')) {
+                return $this->redirectToRoute('hrform_index');
+            }elseif ($this->get('security.authorization_checker')->isGranted('ROLE_IO_ADMIN')) {
+                return $this->redirectToRoute('internationalofficeform_index');
+            }elseif($this->get('security.authorization_checker')->isGranted('ROLE_FL_ADMIN')) {
+                return $this->redirectToRoute('facultyliaisonform_index');
+            }else{
+                $user = $this->getUser();
+                
+                $username = $user->getUsername();
+                
+                $emailAddress = $username . "@winthrop.edu";
+                
+                $em = $this->getDoctrine()->getManager();
+                
+                $this->studentFormOnes = $em->getRepository('AppBundle:StudentFormOne')->findBy(array('emailAddress' => $emailAddress));
+            }
+            
         }
-        
-        if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
-
-                $studentFormOnes = $em->getRepository('AppBundle:StudentFormOne')->findAll();
+            else{
+                if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
+                    return $this->redirectToRoute('careerconsultantform_index');
+                }
+                
+            // $user = $this->getUser();
+            
+            // $username = $user->getUsername();
+            
+            // $emailAddress = $username . "@winthrop.edu";
+            
+            $em = $this->getDoctrine()->getManager();
+            
+            // $studentFormOnes = $em->getRepository('AppBundle:StudentFormOne')->findBy(array('emailAddress' => $emailAddress));
+            
+            // if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
+    
+                $this->studentFormOnes = $em->getRepository('AppBundle:StudentFormOne')->findAll();
                 
                 return $this->render('studentformone/index.html.twig', array(
-                    'studentFormOnes' => $studentFormOnes,
-            ));
-        }
+                    'studentFormOnes' => $this->studentFormOnes,
+                ));
+            }
+            
+            if ($this->getUser()) {
+                return $this->render('studentformone/index.html.twig', array(
+                    'studentFormOnes' => $this->studentFormOnes,
+                ));
+            }else{
+                return $this->redirectToRoute('homepage');
+            }
+            return $this->render('studentformone/index.html.twig');
         
-        if ($this->getUser()) {
-        return $this->render('studentformone/index.html.twig', array(
-            'studentFormOnes' => $studentFormOnes,
-        ));
-        }
-        return $this->render('studentformone/index.html.twig');
     }
     
     //     public function indexAction()
@@ -120,7 +147,7 @@ class StudentFormOneController extends Controller
             $siteSuperFormURL = "http://18.233.91.151:8080/WinthropInternship/web/app_dev.php/sitesupervisorform";
             $studentFormTwoURL = "http://18.233.91.151:8080/WinthropInternship/web/app_dev.php/studentformtwo";
             
-            $message = (new \Swift_Message('Success Submission of Winthrop Internship Form Part 1'))
+            $message = (new \Swift_Message('Successful Submission of Winthrop Internship Form Part 1'))
                 ->setFrom('cce@winthrop.edu')
                 ->setTo($studentEmail)
                 ->setBody(
@@ -143,7 +170,7 @@ class StudentFormOneController extends Controller
                 );
             $mailer->send($message);
             
-            $message = (new \Swift_Message('Access Code for Winthrop Internship Form'))
+            $message = (new \Swift_Message('Action Required for Winthrop Internship Form'))
                 ->setFrom('cce@winthrop.edu')
                 ->setTo($siteSuperEmail)
            ->setBody(
@@ -170,7 +197,7 @@ class StudentFormOneController extends Controller
                 );
             $mailer->send($message);
             
-            $message = (new \Swift_Message('Action Required for Winthrop Internship Form'))
+            $message = (new \Swift_Message('Access Code for Winthrop Internship Form'))
                 ->setFrom('cce@winthrop.edu')
                 ->setTo($siteSuperEmail)
            ->setBody(
@@ -219,7 +246,7 @@ class StudentFormOneController extends Controller
         $username = $user->getUsername();
         
         // if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') || in_array($username, $studentFormOne)){
-        if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') || $username == $studentFormOne->getUserName()){
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') || $username == $studentFormOne->getUserName() || $this->get('security.authorization_checker')->isGranted('ROLE_FL_ADMIN')){
             // $username == "$studentFormOne") {
             
             $em = $this->getDoctrine()->getManager();
@@ -229,13 +256,84 @@ class StudentFormOneController extends Controller
             $query = $em->createQuery("SELECT ssf FROM AppBundle:SiteSupervisorForm ssf JOIN AppBundle:StudentFormOne sfo WHERE sfo.id = ssf.student_form_one AND sfo.id = :id");
             $query->setParameter("id", $studentFormOne->getId());
         
-            $siteSupervisorForm = $query->getResult();
+            $siteSupervisorFormArray = $query->getResult();
+            
+            if (empty($siteSupervisorFormArray)) {
+                 $siteSupervisorForm = $siteSupervisorFormArray;
+            }else{
+                $siteSupervisorForm = $siteSupervisorFormArray[0];
+            }
+            dump($siteSupervisorForm);
+            
+            $query = $em->createQuery("SELECT hr FROM AppBundle:HRForm hr JOIN AppBundle:StudentFormOne sfo WHERE sfo.id = hr.student_form_one AND sfo.id = :id");
+            $query->setParameter("id", $studentFormOne->getId());
+        
+            $hRFormArray = $query->getResult();
+            
+            if (empty($hRFormArray)) {
+                 $hRForm = $hRFormArray;
+            }else{
+                $hRForm = $hRFormArray[0];
+            }
+            
+            
+            $query = $em->createQuery("SELECT sft FROM AppBundle:StudentFormTwo sft JOIN AppBundle:StudentFormOne sfo WHERE sfo.id = sft.student_form_one AND sfo.id = :id");
+            $query->setParameter("id", $studentFormOne->getId());
+        
+            $studentFormTwoArray = $query->getResult();
+            
+            if (empty($studentFormTwoArray)) {
+                 $studentFormTwo = $studentFormTwoArray;
+            }else{
+                $studentFormTwo = $studentFormTwoArray[0];
+            }
+
+            
+            $query = $em->createQuery("SELECT io FROM AppBundle:InternationalOfficeForm io JOIN AppBundle:StudentFormOne sfo WHERE sfo.id = io.student_form_one AND sfo.id = :id and sfo.workAuthorization = 0");
+            $query->setParameter("id", $studentFormOne->getId());
+        
+            $ioFormArray = $query->getResult();
+            
+            if (empty($ioFormArray)) {
+                 $ioForm = $ioFormArray;
+            }else{
+                $ioForm = $ioFormArray[0];
+            }
+            
+            $query = $em->createQuery("SELECT fl FROM AppBundle:FacultyLiaisonForm fl JOIN AppBundle:StudentFormOne sfo WHERE sfo.id = fl.student_form_one AND sfo.id = :id");
+            $query->setParameter("id", $studentFormOne->getId());
+        
+            $flFormArray = $query->getResult();
+            
+            if (empty($flFormArray)) {
+                 $flForm = $flFormArray;
+            }else{
+                $flForm = $flFormArray[0];
+            }
+            
+            $query = $em->createQuery("SELECT cc FROM AppBundle:CareerConsultantForm cc JOIN AppBundle:StudentFormOne sfo WHERE sfo.id = cc.student_form_one AND sfo.id = :id");
+            $query->setParameter("id", $studentFormOne->getId());
+        
+            $ccFormArray = $query->getResult();
+            
+            if (empty($ccFormArray)) {
+                 $ccForm = $ccFormArray;
+            }else{
+                $ccForm = $ccFormArray[0];
+            }            
+            
+            
             // var_dump($studentInfo);
             $deleteForm = $this->createDeleteForm($studentFormOne);
     
             return $this->render('studentformone/show.html.twig', array(
-                // 'siteSuperForm' => $siteSupervisorForm,
+                'siteSupervisorForm' => $siteSupervisorForm,
                 'studentFormOne' => $studentFormOne,
+                'studentFormTwo' => $studentFormTwo,
+                'hRForm' => $hRForm,
+                'ioForm' => $ioForm,
+                'flForm' => $flForm,
+                'ccForm' => $ccForm,
                 'delete_form' => $deleteForm->createView(),
             ));
         }else {
