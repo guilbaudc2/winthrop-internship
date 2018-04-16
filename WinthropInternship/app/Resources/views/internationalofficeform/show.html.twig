@@ -10,39 +10,39 @@
                 <table>
                     <tbody>
                         <tr>
-                            <th>Firstname</th>
+                            <th>First Name</th>
                             <td>{{ studentFormOne.firstName }}</td>
                         </tr>
                         <tr>
-                            <th>Lastname</th>
+                            <th>Last Name</th>
                             <td>{{ studentFormOne.lastName }}</td>
                         </tr>
                         <tr>
-                            <th>Username</th>
+                            <th>Winthrop Username</th>
                             <td>{{ studentFormOne.userName }}</td>
                         </tr>
                         <tr>
-                            <th>Cwid</th>
+                            <th>CWID (Winthrop ID Number)</th>
                             <td>{{ studentFormOne.cWID }}</td>
                         </tr>
                         <tr>
-                            <th>Emailaddress</th>
+                            <th>Winthrop Email Address</th>
                             <td>{{ studentFormOne.emailAddress }}</td>
                         </tr>
                         <tr>
-                            <th>Classenrolled</th>
+                            <th>Internship Class</th>
                             <td>{{ studentFormOne.classEnrolled }}</td>
                         </tr>
                         <tr>
-                            <th>Numcredits</th>
+                            <th>Number of Credits for Internship</th>
                             <td>{{ studentFormOne.numCredits }}</td>
                         </tr>
                         <tr>
-                            <th>Phonenumber</th>
+                            <th>Phone Number</th>
                             <td>{{ studentFormOne.phoneNumber }}</td>
                         </tr>
                         <tr>
-                            <th>Workauthorization</th>
+                            <th>Work Authorization (US Citizen or Permanent Resident)</th>
                             <td>{% if studentFormOne.workAuthorization %}Yes{% else %}No{% endif %}</td>
                         </tr>
                         <tr>
@@ -54,31 +54,31 @@
                             <td>{{ studentFormOne.minor }}</td>
                         </tr>
                         <tr>
-                            <th>Facultyliaison</th>
+                            <th>Faculty Liaison</th>
                             <td>{{ studentFormOne.facultyLiaison }}</td>
                         </tr>
                         <tr>
-                            <th>Semesterenrolled</th>
+                            <th>Semester Enrolled</th>
                             <td>{{ studentFormOne.semesterEnrolled }}</td>
                         </tr>
                         <tr>
-                            <th>Yearenrolled</th>
+                            <th>Year Enrolled</th>
                             <td>{% if studentFormOne.yearEnrolled %}{{ studentFormOne.yearEnrolled|date('Y-m-d') }}{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Semestergrad</th>
+                            <th>Semester Graduating</th>
                             <td>{{ studentFormOne.semesterGrad }}</td>
                         </tr>
                         <tr>
-                            <th>Yeargrad</th>
+                            <th>Year Graduating</th>
                             <td>{% if studentFormOne.yearGrad %}{{ studentFormOne.yearGrad|date('Y-m-d') }}{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Sitesupername</th>
+                            <th>Internship Site Supervisor's Name</th>
                             <td>{{ studentFormOne.siteSuperName }}</td>
                         </tr>
                         <tr>
-                            <th>Sitesuperemail</th>
+                            <th>Internship Site Supervisor's Email Address</th>
                             <td>{{ studentFormOne.siteSuperEmail }}</td>
                         </tr>
                         <tr>
@@ -99,47 +99,47 @@
                 <table>
                     <tbody>
                         <tr>
-                            <th>Forprofit</th>
+                            <th>For Profit?</th>
                             <td>{% if siteSupervisorForm.forProfit %}Yes{% else %}No{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Organizationname</th>
+                            <th>Organization Name</th>
                             <td>{{ siteSupervisorForm.organizationName }}</td>
                         </tr>
                         <tr>
-                            <th>Businesslicensenum</th>
+                            <th>Business License Nummber or FEIN #</th>
                             <td>{{ siteSupervisorForm.businessLicenseNum }}</td>
                         </tr>
                         <tr>
-                            <th>Stateissued</th>
+                            <th>State Issued</th>
                             <td>{{ siteSupervisorForm.stateIssued }}</td>
                         </tr>
                         <tr>
-                            <th>Directinternshipsupervisor</th>
+                            <th>Direct Internship Supervisor</th>
                             <td>{{ siteSupervisorForm.directInternshipSupervisor }}</td>
                         </tr>
                         <tr>
-                            <th>Supervisorstitle</th>
+                            <th>Supervisor's Title</th>
                             <td>{{ siteSupervisorForm.supervisorsTitle }}</td>
                         </tr>
                         <tr>
-                            <th>Physicaladdress</th>
+                            <th>Physical Aaddress</th>
                             <td>{{ siteSupervisorForm.physicalAddress }}</td>
                         </tr>
                         <tr>
-                            <th>Availableforsitevisit</th>
+                            <th>Available for Site Visit?</th>
                             <td>{% if siteSupervisorForm.availableForSiteVisit %}Yes{% else %}No{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Supervisorphone</th>
+                            <th>Supervisor Phone</th>
                             <td>{{ siteSupervisorForm.supervisorPhone }}</td>
                         </tr>
                         <tr>
-                            <th>Supervisoremail</th>
+                            <th>Supervisor Email</th>
                             <td>{{ siteSupervisorForm.supervisorEmail }}</td>
                         </tr>
                         <tr>
-                            <th>Internshipprojectedstartdate</th>
+                            <th>Internship Projected Start Date</th>
                             <td>{% if siteSupervisorForm.internshipProjectedStartDate %}{{ siteSupervisorForm.internshipProjectedStartDate|date('Y-m-d') }}{% endif %}</td>
                         </tr>
                         <tr>
@@ -147,43 +147,43 @@
                             <td>{% if siteSupervisorForm.internshipProjectedEndDate %}{{ siteSupervisorForm.internshipProjectedEndDate|date('Y-m-d') }}{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Totalweeks</th>
+                            <th>Estimated Total Weeks</th>
                             <td>{{ siteSupervisorForm.totalWeeks }}</td>
                         </tr>
                         <tr>
-                            <th>Estimatedhours</th>
+                            <th>Estimated Total Hours/Week</th>
                             <td>{{ siteSupervisorForm.estimatedHours }}</td>
                         </tr>
                         <tr>
-                            <th>Paid</th>
+                            <th>Paid?</th>
                             <td>{% if siteSupervisorForm.paid %}Yes{% else %}No{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Salary</th>
-                            <td>{{ siteSupervisorForm.salary }}</td>
-                        </tr>
-                        <tr>
-                            <th>Salaryorstipend</th>
+                            <th>Salary or Stipend</th>
                             <td>{% if siteSupervisorForm.salaryOrStipend %}{{ siteSupervisorForm.salaryOrStipend|join(', ') }}{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Stipend</th>
+                            <th>Salary Amount</th>
+                            <td>{{ siteSupervisorForm.salary }}</td>
+                        </tr>                        
+                        <tr>
+                            <th>Stipend Amount</th>
                             <td>{{ siteSupervisorForm.stipend }}</td>
                         </tr>
                         <tr>
-                            <th>Task</th>
+                            <th>Intern Tasks/Role</th>
                             <td>{{ siteSupervisorForm.task }}</td>
                         </tr>
                         <tr>
-                            <th>Projects</th>
+                            <th>Specific Projects Intern will work on/assist with</th>
                             <td>{{ siteSupervisorForm.projects }}</td>
                         </tr>
                         <tr>
-                            <th>Outcomes</th>
+                            <th>Learning Outcomes for Intern</th>
                             <td>{{ siteSupervisorForm.outcomes }}</td>
                         </tr>
                         <tr>
-                            <th>Additionalcomments</th>
+                            <th>Additional Comments Regarding Internship</th>
                             <td>{{ siteSupervisorForm.additionalComments }}</td>
                         </tr>
                         <tr>
@@ -221,7 +221,7 @@
                             <td>{% if internationalOfficeForm.approve %}Yes{% else %}No{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Additionalcomments</th>
+                            <th>Additional Comments</th>
                             <td>{{ siteSupervisorForm.additionalComments }}</td>
                         </tr>
                         <tr>

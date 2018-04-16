@@ -36,14 +36,30 @@ class HRFormController extends Controller
             
             $repo =  $this->getDoctrine()->getRepository('AppBundle:StudentFormOne');
             
-            $query = $em->createQuery("SELECT DISTINCT sfo.id, sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName FROM AppBundle:StudentFormOne sfo INNER JOIN AppBundle:SiteSupervisorForm ssf WITH sfo.id = ssf.student_form_one LEFT JOIN AppBundle:HRform h WITH sfo.id = h.student_form_one WHERE h.student_form_one IS NULL");
+            $query = $em->createQuery("SELECT DISTINCT sfo.id, sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName, ssf.submitDate FROM AppBundle:StudentFormOne sfo INNER JOIN AppBundle:SiteSupervisorForm ssf WITH sfo.id = ssf.student_form_one LEFT JOIN AppBundle:HRform h WITH sfo.id = h.student_form_one WHERE h.student_form_one IS NULL");
             
             $studentFormOnes = $query->getResult();
-    
+
+            usort($studentFormOnes, function ($a, $b) {
+                $a_val = $a['submitDate'];
+                $b_val = $b['submitDate'];
+                
+                if($a_val > $b_val) return 1;
+                if($a_val < $b_val) return -1;
+                return 0;
+            });    
             
-            $query = $em->createQuery("SELECT sfo.id, sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf WHERE sfo.id = ssf.student_form_one JOIN AppBundle:HRform h WHERE sfo.id = h.student_form_one"); 
+            $query = $em->createQuery("SELECT sfo.id, sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName, h.approveDate FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf WHERE sfo.id = ssf.student_form_one JOIN AppBundle:HRform h WHERE sfo.id = h.student_form_one"); 
             $hRForms = $query->getResult();
                 
+            usort($hRForms, function ($a, $b) {
+                $a_val = $a['approveDate'];
+                $b_val = $b['approveDate'];
+                
+                if($a_val > $b_val) return 1;
+                if($a_val < $b_val) return -1;
+                return 0;
+            });
             
             return $this->render('hrform/index.html.twig', array(
                 'studentFormOnes' => $studentFormOnes,
@@ -62,33 +78,36 @@ class HRFormController extends Controller
      */
     public function newAction(Request $request)
     {
+
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_HR_ADMIN') || $this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
         
-        if(isset($_GET["studentInfo"])){
-            $studentArray = $_GET["studentInfo"];
-             
-            foreach($studentArray as $studentID){
-                if($studentID != ""){
-                $em = $this->getDoctrine()->getManager();
+            if(isset($_GET["studentInfo"])){
+                $studentArray = $_GET["studentInfo"];
+                 
+                foreach($studentArray as $studentID){
+                    if($studentID != ""){
+                    $em = $this->getDoctrine()->getManager();
             
 //  The student ID is used here to query from the database where the student form one ID equals the one from the hidden input.
 
-                $query = $em->createQuery('SELECT u FROM AppBundle:StudentFormOne u WHERE u.id = :id')
-                    ->setParameter('id', $studentID);
-                $studentFormOneID = $query->getResult();
-                
-                $this->studentFormOne = $studentFormOneID[0];
-                
-                $hRForm = new Hrform($this->studentFormOne);
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($hRForm);
-                $em->flush();
-                
+                    $query = $em->createQuery('SELECT u FROM AppBundle:StudentFormOne u WHERE u.id = :id')
+                        ->setParameter('id', $studentID);
+                    $studentFormOneID = $query->getResult();
+                    
+                    $this->studentFormOne = $studentFormOneID[0];
+                    
+                    $hRForm = new Hrform($this->studentFormOne);
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($hRForm);
+                    $em->flush();
+                    
+                    }
+                    
                 }
-                
-            }
-        
 
-        } 
+            }   
+            
+        }
 
               return $this->redirectToRoute('hrform_index');
 
@@ -102,12 +121,14 @@ class HRFormController extends Controller
      */
     public function showAction(HRForm $hRForm)
     {
-        $deleteForm = $this->createDeleteForm($hRForm);
-
-        return $this->render('hrform/show.html.twig', array(
-            'hRForm' => $hRForm,
-            'delete_form' => $deleteForm->createView(),
-        ));
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_HR_ADMIN') || $this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {        
+            $deleteForm = $this->createDeleteForm($hRForm);
+    
+            return $this->render('hrform/show.html.twig', array(
+                'hRForm' => $hRForm,
+                'delete_form' => $deleteForm->createView(),
+            ));
+        }
     }
 
     /**
@@ -118,21 +139,26 @@ class HRFormController extends Controller
      */
     public function editAction(Request $request, HRForm $hRForm)
     {
-        $deleteForm = $this->createDeleteForm($hRForm);
-        $editForm = $this->createForm('AppBundle\Form\HRFormType', $hRForm);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('hrform_edit', array('id' => $hRForm->getId()));
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_HR_ADMIN') || $this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {        
+            $deleteForm = $this->createDeleteForm($hRForm);
+            $editForm = $this->createForm('AppBundle\Form\HRFormType', $hRForm);
+            $editForm->handleRequest($request);
+    
+            if ($editForm->isSubmitted() && $editForm->isValid()) {
+                $this->getDoctrine()->getManager()->flush();
+    
+                return $this->redirectToRoute('hrform_edit', array('id' => $hRForm->getId()));
+            }
+    
+            return $this->render('hrform/edit.html.twig', array(
+                'hRForm' => $hRForm,
+                'edit_form' => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+            ));
         }
 
-        return $this->render('hrform/edit.html.twig', array(
-            'hRForm' => $hRForm,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
+        return $this->redirectToRoute('hrform_index');
+
     }
 
     /**
@@ -143,16 +169,21 @@ class HRFormController extends Controller
      */
     public function deleteAction(Request $request, HRForm $hRForm)
     {
-        $form = $this->createDeleteForm($hRForm);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($hRForm);
-            $em->flush();
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_HR_ADMIN') || $this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {        
+        
+            $form = $this->createDeleteForm($hRForm);
+            $form->handleRequest($request);
+    
+            if ($form->isSubmitted() && $form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->remove($hRForm);
+                $em->flush();
+            }
         }
 
         return $this->redirectToRoute('hrform_index');
+
     }
 
     /**

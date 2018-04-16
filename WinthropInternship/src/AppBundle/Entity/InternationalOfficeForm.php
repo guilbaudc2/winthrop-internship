@@ -64,7 +64,6 @@ class InternationalOfficeForm
         
         $this->student_form_one = $student_form_one;
 
-    
         $this->approveDate = new \DateTime("now");
     }
 

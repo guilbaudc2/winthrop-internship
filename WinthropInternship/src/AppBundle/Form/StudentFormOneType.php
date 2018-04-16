@@ -16,7 +16,7 @@ class StudentFormOneType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('firstName')->add('lastName')->add('userName')->add('cWID')->add('emailAddress')->add('classEnrolled')->add('numCredits')->add('phoneNumber')->add('workAuthorization', ChoiceType::class, array(
+        $builder->add('firstName')->add('lastName')->add('userName')->add('cWID')->add('emailAddress')->add('classEnrolled', EntityType::class, array('class' => 'AppBundle:ClassList'))->add('numCredits')->add('phoneNumber')->add('workAuthorization', ChoiceType::class, array(
     'choices'  => array(
         'US Citizen' => true,
         'Permanent Resident' => true,        
@@ -24,7 +24,19 @@ class StudentFormOneType extends AbstractType
         'Restricted' => false,
         'None' => false,        
     ),
-))->add('major')->add('minor')->add('facultyLiaison', EntityType::class, array('class' => 'AppBundle:FacultyLiaisonList'))->add('semesterEnrolled')->add('yearEnrolled', DateType::class, array('widget' => 'single_text'))->add('semesterGrad')->add('yearGrad', DateType::class, array('widget' => 'single_text'))->add('siteSuperName')->add('siteSuperEmail');
+))->add('major')->add('minor')->add('facultyLiaison', EntityType::class, array('class' => 'AppBundle:FacultyLiaisonList'))->add('semesterEnrolled', ChoiceType::class, array(
+    'choices'  => array(
+        'Fall' => 'Fall',
+        'Spring' => 'Spring',        
+        'Summer' => 'Summer',    
+    ),
+))->add('yearEnrolled', DateType::class, array('widget' => 'single_text'))->add('semesterGrad', ChoiceType::class, array(
+    'choices'  => array(
+        'Fall' => 'Fall',
+        'Spring' => 'Spring',        
+        'Summer' => 'Summer',    
+    ),
+))->add('yearGrad', DateType::class, array('widget' => 'single_text'))->add('siteSuperName')->add('siteSuperEmail');
     }/**
      * {@inheritdoc}
      */
