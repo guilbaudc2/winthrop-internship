@@ -15,11 +15,11 @@ class __TwigTemplate_825e441c1edd7b1da46ac71a009f4d4f4445e1e7b3ce2a49fe14b205df8
 
     protected function doDisplay(array $context, array $blocks = array())
     {
-        $__internal_2dcfa842d22209f8f07575dc4f086ec949f247bef88fbb163ca32846bf60284d = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
-        $__internal_2dcfa842d22209f8f07575dc4f086ec949f247bef88fbb163ca32846bf60284d->enter($__internal_2dcfa842d22209f8f07575dc4f086ec949f247bef88fbb163ca32846bf60284d_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@FOSUser/Security/login_content.html.twig"));
+        $__internal_bc8df08fbc21c7192edff796213977adc994f554fe815da045a877e885ff7e9a = $this->env->getExtension("Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension");
+        $__internal_bc8df08fbc21c7192edff796213977adc994f554fe815da045a877e885ff7e9a->enter($__internal_bc8df08fbc21c7192edff796213977adc994f554fe815da045a877e885ff7e9a_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@FOSUser/Security/login_content.html.twig"));
 
-        $__internal_6a0e49270fe6ae6a39a70b0d466cbfe37bff1953f076fe03535878c9574dc1c9 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
-        $__internal_6a0e49270fe6ae6a39a70b0d466cbfe37bff1953f076fe03535878c9574dc1c9->enter($__internal_6a0e49270fe6ae6a39a70b0d466cbfe37bff1953f076fe03535878c9574dc1c9_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@FOSUser/Security/login_content.html.twig"));
+        $__internal_6bf0e61d352e318172fa9c642bc0171c0f2aecb72711a59766cc746411458371 = $this->env->getExtension("Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension");
+        $__internal_6bf0e61d352e318172fa9c642bc0171c0f2aecb72711a59766cc746411458371->enter($__internal_6bf0e61d352e318172fa9c642bc0171c0f2aecb72711a59766cc746411458371_prof = new Twig_Profiler_Profile($this->getTemplateName(), "template", "@FOSUser/Security/login_content.html.twig"));
 
         // line 2
         echo "
@@ -61,10 +61,10 @@ class __TwigTemplate_825e441c1edd7b1da46ac71a009f4d4f4445e1e7b3ce2a49fe14b205df8
         echo "\"><h2 id=\"reset-button\">Reset Password</h2></a>
 ";
         
-        $__internal_2dcfa842d22209f8f07575dc4f086ec949f247bef88fbb163ca32846bf60284d->leave($__internal_2dcfa842d22209f8f07575dc4f086ec949f247bef88fbb163ca32846bf60284d_prof);
+        $__internal_bc8df08fbc21c7192edff796213977adc994f554fe815da045a877e885ff7e9a->leave($__internal_bc8df08fbc21c7192edff796213977adc994f554fe815da045a877e885ff7e9a_prof);
 
         
-        $__internal_6a0e49270fe6ae6a39a70b0d466cbfe37bff1953f076fe03535878c9574dc1c9->leave($__internal_6a0e49270fe6ae6a39a70b0d466cbfe37bff1953f076fe03535878c9574dc1c9_prof);
+        $__internal_6bf0e61d352e318172fa9c642bc0171c0f2aecb72711a59766cc746411458371->leave($__internal_6bf0e61d352e318172fa9c642bc0171c0f2aecb72711a59766cc746411458371_prof);
 
     }
 

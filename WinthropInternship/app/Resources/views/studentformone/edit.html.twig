@@ -22,7 +22,7 @@
             <div class="card-panel">
             {{ form_start(edit_form) }}
                 {{ form_widget(edit_form) }}
-                <input type="submit" class="btn-large waves-effect waves-light landing-btn-color button-resize" value="Save Changes" />
+                <input type="submit" id="save" class="btn-large waves-effect waves-light landing-btn-color button-resize" value="Save Changes"/>
             {{ form_end(edit_form) }}
             </div>
         </div>
@@ -31,7 +31,7 @@
     <ul>
         <li>
             {{ form_start(delete_form) }}
-                <input type="submit" class="btn-large waves-effect waves-light landing-btn-color button-resize" value="Delete">
+                <input type="submit" id="delete_student" class="btn-large waves-effect waves-light landing-btn-color button-resize" value="Delete">
             {{ form_end(delete_form) }}
         </li>
     </ul>

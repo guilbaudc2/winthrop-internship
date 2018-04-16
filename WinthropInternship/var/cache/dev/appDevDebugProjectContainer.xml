@@ -612,6 +612,9 @@
     <service id="AppBundle\Form\StudentFormOneType" class="AppBundle\Form\StudentFormOneType" public="false" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
+    <service id="AppBundle\Form\StudentFormTwoType" class="AppBundle\Form\StudentFormTwoType" public="false" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
     <service id="controller_name_converter" class="Symfony\Bundle\FrameworkBundle\Controller\ControllerNameParser" public="false">
       <tag name="monolog.logger" channel="request"/>
       <argument type="service" id="kernel"/>
@@ -866,6 +869,7 @@
         <argument>AppBundle\Form\InternationalOfficeFormType</argument>
         <argument>AppBundle\Form\SiteSupervisorFormType</argument>
         <argument>AppBundle\Form\StudentFormOneType</argument>
+        <argument>AppBundle\Form\StudentFormTwoType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FormType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\ChoiceType</argument>
         <argument>Symfony\Bridge\Doctrine\Form\Type\EntityType</argument>
@@ -1082,7 +1086,7 @@
       <argument type="service" id="form.resolved_type_factory"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension" public="false">
-      <argument type="service" id="service_locator.heyywyj"/>
+      <argument type="service" id="service_locator.w54ijxo"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.http_foundation"/>
@@ -1704,14 +1708,6 @@
       </call>
       <call method="addListener">
         <argument>kernel.request</argument>
-        <argument type="collection">
-          <argument type="service" id="debug.debug_handlers_listener"/>
-          <argument>configure</argument>
-        </argument>
-        <argument>2048</argument>
-      </call>
-      <call method="addListener">
-        <argument>console.command</argument>
         <argument type="collection">
           <argument type="service" id="debug.debug_handlers_listener"/>
           <argument>configure</argument>
@@ -4151,6 +4147,8 @@
     <service id="abstract.instanceof.AppBundle\Form\SiteSupervisorFormType" class="AppBundle\Form\SiteSupervisorFormType" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id="instanceof.Symfony\Component\Form\FormTypeInterface.0.AppBundle\Form\StudentFormOneType" class="AppBundle\Form\StudentFormOneType" public="false" autowire="true" abstract="true"/>
     <service id="abstract.instanceof.AppBundle\Form\StudentFormOneType" class="AppBundle\Form\StudentFormOneType" public="false" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id="instanceof.Symfony\Component\Form\FormTypeInterface.0.AppBundle\Form\StudentFormTwoType" class="AppBundle\Form\StudentFormTwoType" public="false" autowire="true" abstract="true"/>
+    <service id="abstract.instanceof.AppBundle\Form\StudentFormTwoType" class="AppBundle\Form\StudentFormTwoType" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id="service_locator.wa3urhg" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection"/>
@@ -4358,7 +4356,7 @@
         <argument key="inline" type="service" id="fragment.renderer.inline"/>
       </argument>
     </service>
-    <service id="service_locator.heyywyj" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id="service_locator.w54ijxo" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="AppBundle\Form\CareerConsultantFormType" type="service" id="AppBundle\Form\CareerConsultantFormType"/>
@@ -4366,6 +4364,7 @@
         <argument key="AppBundle\Form\InternationalOfficeFormType" type="service" id="AppBundle\Form\InternationalOfficeFormType"/>
         <argument key="AppBundle\Form\SiteSupervisorFormType" type="service" id="AppBundle\Form\SiteSupervisorFormType"/>
         <argument key="AppBundle\Form\StudentFormOneType" type="service" id="AppBundle\Form\StudentFormOneType"/>
+        <argument key="AppBundle\Form\StudentFormTwoType" type="service" id="AppBundle\Form\StudentFormTwoType"/>
         <argument key="FOS\UserBundle\Form\Type\ChangePasswordFormType" type="service" id="fos_user.change_password.form.type"/>
         <argument key="FOS\UserBundle\Form\Type\ProfileFormType" type="service" id="fos_user.profile.form.type"/>
         <argument key="FOS\UserBundle\Form\Type\RegistrationFormType" type="service" id="fos_user.registration.form.type"/>

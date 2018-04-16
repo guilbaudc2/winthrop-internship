@@ -146,7 +146,7 @@ input[type=date]:not(.browser-default) {
 
 input[type=submit]{
     /*margin-top:20px;*/
-    
+
     letter-spacing: 1px;
     padding-top: 0px;
     padding-right: 1rem;
@@ -184,7 +184,6 @@ input[type=submit]{
     padding: 5px;
 }
 
-
 .button-resize{
     font-size: 18px;
 }
@@ -221,3 +220,24 @@ input[type=submit]{
 label.required:before{
     content:"* ";
 }
+
+/*
+#delete_student{
+    font-style:normal;
+    font-size:22px;
+    letter-spacing: 1.5px;
+    padding-top: 1rem;
+    padding-right: 2rem;
+    padding-bottom: 1rem;
+    padding-left: 2rem;
+    color: #fff;
+    border-radius: 18px; 
+    -moz-border-radius: 5px; 
+    -webkit-font-smoothing: antialiased;
+    -webkit-border-radius: 5px;
+}
+
+#save{
+    padding: 1rem;
+}
+*/
