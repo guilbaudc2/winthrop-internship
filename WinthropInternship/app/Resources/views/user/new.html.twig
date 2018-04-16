@@ -1,0 +1,22 @@
+{% extends 'innerbase.html.twig' %}
+
+{% block title %}New User{% endblock %}
+
+{% block body %}
+    <h1 class="header center">Create New User</h1>
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <div class="card-panel">
+            {{ form_start(new_form) }}
+                {{ form_widget(new_form) }}
+                <input type="submit" class="btn-large waves-effect waves-light landing-btn-color button-resize" value="Submit" />
+            {{ form_end(new_form) }}
+            </div>
+        </div>
+    </div>
+    <ul>
+        <li>
+            <a href="{{ path('user_index') }}">Back to the list</a>
+        </li>
+    </ul>
+{% endblock %}                

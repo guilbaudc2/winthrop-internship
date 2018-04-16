@@ -75,7 +75,7 @@ class SiteSupervisorFormController extends Controller
      * @Route("/new", name="sitesupervisorform_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, \Swift_Mailer $mailer)
     {
         if(isset($_GET["accessCodeSS"])){
     
@@ -109,6 +109,35 @@ class SiteSupervisorFormController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($siteSupervisorForm);
             $em->flush();
+            
+            $studentFName = $this->studentFormOne->getFirstName();
+            $studentLName = $this->studentFormOne->getLastName();
+            $studentEmail = $this->studentFormOne->getEmailAddress();
+            
+            $studentFormTwoURL = "http://18.233.91.151:8080/WinthropInternship/web/app_dev.php/studentformtwo";
+            
+            $message = (new \Swift_Message('Successful Submission of Winthrop Internship Site Supervisor Form'))
+                ->setFrom('cce@winthrop.edu')
+                ->setTo($studentEmail)
+                ->setBody(
+                    $this->renderView(
+                        'emails/SiteSupervisorForm/student_notifcation.html.twig',
+                        array('studentFName' => $studentFName,
+                              'studentFormTwoURL' => $studentFormTwoURL,
+                        )
+                    ),
+                    'text/html'
+                )
+                ->addPart(
+                    $this->renderView(
+                        'emails/SiteSupervisorForm/student_notification.txt.twig',
+                        array('studentFName' => $studentFName,
+                              'studentFormTwoURL' => $studentFormTwoURL,
+                        )
+                    ),
+                    'text/plain'
+                );
+            $mailer->send($message);
 
             return $this->redirectToRoute('sitesupervisorform_show', array('id' => $siteSupervisorForm->getId()));
         }

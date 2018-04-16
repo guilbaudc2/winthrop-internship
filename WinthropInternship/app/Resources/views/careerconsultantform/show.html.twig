@@ -1,8 +1,106 @@
 {% extends 'innerbase.html.twig' %}
-
+{% block javascripts %} 
+    <script>
+        /*alert(5 + 6);*/
+        $(document).ready(function(){
+            $('#export').click(function(){
+                
+                var rows = [["Firstname", "Lastname", "Username", "Cwid", "Emailaddress", "Classenrolled", "Numcredits", "Phonenumber", "Workauthorization", "Major", "Minor", "Facultyliaison", 
+                "Semesterenrolled", "Yearenrolled", "Semestergrad", "Yeargrad", "Sitesupername", "Sitesuperemail", "Submitted Date"]];
+                
+                var stuArray = ["{{ studentFormOne.firstName }}", "{{ studentFormOne.lastName }}", "{{ studentFormOne.userName }}",
+                    "{{ studentFormOne.cWID }}", "{{ studentFormOne.emailAddress }}", "{{ studentFormOne.classEnrolled }}", "{{ studentFormOne.numCredits }}",
+                      "{{ studentFormOne.phoneNumber }}", "{% if studentFormOne.workAuthorization %}Yes{% else %}No{% endif %}", "{{ studentFormOne.major }}",
+                       "{{ studentFormOne.minor }}", "{{ studentFormOne.facultyLiaison }}", "{{ studentFormOne.semesterEnrolled }}",
+                      "{% if studentFormOne.yearEnrolled %}{{ studentFormOne.yearEnrolled|date('Y-m-d') }}{% endif %}",
+                      "{{ studentFormOne.semesterGrad }}", "{% if studentFormOne.yearGrad %}{{ studentFormOne.yearGrad|date('Y-m-d') }}{% endif %}",
+                       "{{ studentFormOne.siteSuperName }}", "{{ studentFormOne.siteSuperEmail }}", "{% if studentFormOne.submitDate %}{{ studentFormOne.submitDate|date('Y-m-d') }}{% endif %}"];
+                rows.push(stuArray); 
+                
+                 rows.push(["", ""]);
+                
+                rows.push(["For Profit?", "Organization Name", "Business License Nummber or FEIN #", "State Issued",
+                "Direct Internship Supervisor", "Supervisor's Title", "Physical Address", "Site Visit?", "Supervisor Phone",
+                "Supervisor Email", "Projected Start Date", "Projected End Date", "Estimated Total Weeks", "Estimated Total Hours/Week",
+                "Paid?", "Salary or Stipend", "Salary Amount", "Stipend Amount", "Intern Tasks/Role", "Specific Projects", "Learning Outcomes",
+                "Additional Comments", "Date Submitted", "Signature"]);
+                var ssForm = ["{% if siteSupervisorForm.forProfit %}Yes{% else %}No{% endif %}", "{{ siteSupervisorForm.organizationName }}", 
+                "{{ siteSupervisorForm.businessLicenseNum }}", "{{ siteSupervisorForm.stateIssued }}", "{{ siteSupervisorForm.directInternshipSupervisor }}", 
+                "{{ siteSupervisorForm.supervisorsTitle }}", "{{ siteSupervisorForm.physicalAddress }}", "{% if siteSupervisorForm.availableForSiteVisit %}Yes{% else %}No{% endif %}", 
+                "{{ siteSupervisorForm.supervisorPhone }}", "{{ siteSupervisorForm.supervisorEmail }}", "{% if siteSupervisorForm.internshipProjectedStartDate %}{{ siteSupervisorForm.internshipProjectedStartDate|date('Y-m-d') }}{% endif %}", 
+                "{% if siteSupervisorForm.internshipProjectedEndDate %}{{ siteSupervisorForm.internshipProjectedEndDate|date('Y-m-d') }}{% endif %}", 
+                "{{ siteSupervisorForm.totalWeeks }}", "{{ siteSupervisorForm.estimatedHours }}", "{% if siteSupervisorForm.paid %}Yes{% else %}No{% endif %}", 
+                "{% if siteSupervisorForm.salaryOrStipend %}{{ siteSupervisorForm.salaryOrStipend|join(', ') }}{% endif %}", 
+                "{{ siteSupervisorForm.salary }}", "{{ siteSupervisorForm.stipend }}", "{{ siteSupervisorForm.task }}", 
+                "{{ siteSupervisorForm.projects }}", "{{ siteSupervisorForm.outcomes }}", "{{ siteSupervisorForm.additionalComments }}", 
+                "{{ siteSupervisorForm.submitDate }}", "{{ siteSupervisorForm.digitalSignature }}"];
+                rows.push(ssForm);
+                
+                 rows.push(["", ""]);
+                
+                rows.push(["Id", "Completedtitleix"]);
+                var hrForm = ["{{ hRForm.id }}", "{% if hRForm.completedTitleIX %}Yes{% else %}No{% endif %}"];
+                rows.push(hrForm);
+                
+                 rows.push(["", ""]);
+                
+                rows.push(["Id", "Educationalexperience", "Goals"]);
+                var stu2Form = ["{{ studentFormTwo.id }}", "{{ studentFormTwo.educationalExperience }}", "{{ studentFormTwo.goals }}"];
+                rows.push(stu2Form);
+                
+                 rows.push(["", ""]);
+                
+                rows.push(["Id", "Legalname", "Internshiplearningagreement", "Midpointevaluation", "Sitevisit", "Finalreport", 
+                "Finalevaluation", "Approve", "Approvedate"]);
+                var flForm = ["{{ facultyLiaisonForm.id }}", "{{ facultyLiaisonForm.legalName }}", "{% if facultyLiaisonForm.internshipLearningAgreement %}Yes{% else %}No{% endif %}", 
+                "{% if facultyLiaisonForm.midPointEvaluation %}Yes{% else %}No{% endif %}", "{% if facultyLiaisonForm.siteVisit %}Yes{% else %}No{% endif %}", 
+                "{% if facultyLiaisonForm.finalReport %}Yes{% else %}No{% endif %}", "{% if facultyLiaisonForm.finalEvaluation %}Yes{% else %}No{% endif %}", 
+                "{% if facultyLiaisonForm.approve %}Yes{% else %}No{% endif %}", "{% if facultyLiaisonForm.approveDate %}{{ facultyLiaisonForm.approveDate|date('Y-m-d H:i:s') }}{% endif %}"];
+                rows.push(flForm);
+                
+                rows.push(["", ""]);
+                
+                 rows.push(["Id", "Legalname", "Approve", "Approvedate"]);
+                 var ccForm = ["{{ careerConsultantForm.id }}", "{{ careerConsultantForm.legalName }}", "{% if careerConsultantForm.approve %}Yes{% else %}No{% endif %}", "{% if careerConsultantForm.approveDate %}{{ careerConsultantForm.approveDate|date('Y-m-d H:i:s') }}{% endif %}"];
+                 rows.push(ccForm);
+                
+                let csvContent = "data:text/csv;charset=utf-8,";
+                rows.forEach(function(rowArray){
+                   let row = rowArray.join(",");
+                   csvContent += row + "\r\n";
+                });
+                var encodedUri = encodeURI(csvContent);
+                
+                var d = new Date();
+                var month = d.getMonth()+1;
+                var day = d.getDate();
+                var specDate = d.getFullYear() + '/' +
+                    (month<10 ? '0' : '') + month + '/' +
+                    (day<10 ? '0' : '') + day;
+                var csv = 'ccExport_' + specDate + '.csv';
+                
+                var link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", csv);
+                document.body.appendChild(link); // Required for FF
+                
+                link.click(); // This will download the data file
+            });
+        });
+    </script>
+{% endblock %}
 {% block body %}
     <h1>Careerconsultantform</h1>
-
+    <div class="section" id="nav-backBtn">
+        <ul>
+            <li>
+                <a href="{{ path('careerconsultantform_index') }}" class="btn waves-effect waves-light button-back">Back to the list</a>
+            </li>
+            <li>
+                <a href="{{ path('careerconsultantform_edit', { 'id': careerConsultantForm.id }) }}" class="btn waves-effect waves-light button-back">Edit</a>
+            </li>
+        </ul>
+    </div>
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
             <div class="card-panel">
@@ -328,12 +426,6 @@
     </div>
 
     <ul>
-        <li>
-            <a href="{{ path('careerconsultantform_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('careerconsultantform_edit', { 'id': careerConsultantForm.id }) }}">Edit</a>
-        </li>
         <li>
             {{ form_start(delete_form) }}
                 <input type="submit" value="Delete">
