@@ -75,6 +75,14 @@ class FacultyLiaisonForm
      * @ORM\Column(name="internshipIndustry", type="string", length=255)
      */
     private $internshipIndustry;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="additionalComments", type="text", nullable=true)
+     */
+    private $additionalComments;
+    
 
     /**
      * @var bool
@@ -286,8 +294,31 @@ class FacultyLiaisonForm
     {
         return $this->internshipIndustry;
     }
-    
 
+    /**
+     * Set additionalComments
+     *
+     * @param string $additionalComments
+     *
+     * @return SiteSupervisorForm
+     */
+    public function setAdditionalComments($additionalComments)
+    {
+        $this->additionalComments = $additionalComments;
+    
+        return $this;
+    }
+
+    /**
+     * Get additionalComments
+     *
+     * @return string
+     */
+    public function getAdditionalComments()
+    {
+        return $this->additionalComments;
+    }
+    
     /**
      * Set approve
      *

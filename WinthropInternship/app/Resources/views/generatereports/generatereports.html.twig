@@ -1,0 +1,39 @@
+{% extends 'innerbase.html.twig' %}
+
+{% block title %}Generatate Reports{% endblock %}
+
+{% block stylesheets %}
+    <style type="text/css">
+        .button-back:hover{
+            color:#ffffff;
+        }
+        .button-back{
+            background-color: #F0B323;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+
+<h1 class="header center">Generate Reports</h1></h1>
+    
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <div class="card-panel">
+                <div class="row center">
+                    <a href="{{ path('banner_export_file')}}" class="btn waves-effect waves-light button-back">Banner Export File</a>
+                </div>
+                <div class="row center">
+                    <a href="{{ path('complete_forms_export_file')}}" class="btn waves-effect waves-light button-back">Completed Forms Export File</a>
+                </div>                
+                <div class="row center">
+                    <a href="{{ path('unpaid_export_file')}}" class="btn waves-effect waves-light button-back">Unpaid Internships Export File</a>
+                </div>
+                {#<div class="row center">#}
+                {#    <a href="{{ path('export_file')}}" class="btn waves-effect waves-light button-back">Export File</a>#}
+                {#</div>                #}
+            </div>
+        </div>
+    </div>
+            
+{% endblock %}

@@ -38,34 +38,40 @@ class SiteSupervisorFormController extends Controller
         if ($this->getUser() && $this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
             
             $em = $this->getDoctrine()->getManager();
-
+            
+            $flQuery2 = $em->createQuery("SELECT sfo.id, sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, sfo.submitDate as lastUpdated FROM AppBundle:StudentFormOne sfo LEFT JOIN AppBundle:SiteSupervisorForm ssf WITH sfo.id = ssf.student_form_one WHERE ssf.student_form_one IS NULL ORDER BY lastUpdated ASC"); 
+            
+            $studentFormOnesOnly = $flQuery2->getResult();
+            
             $siteSupervisorForms = $em->getRepository('AppBundle:SiteSupervisorForm')->findAll();
             
             return $this->render('sitesupervisorform/adminindex.html.twig', array(
+                'studentFormOnesOnly' => $studentFormOnesOnly,
                 'siteSupervisorForms' => $siteSupervisorForms,
             ));
+            
         }else{
-         
-        $em = $this->getDoctrine()->getManager();
-
-        $data = array();
-        $form = $this->createFormBuilder($data)
-            ->add('email', EmailType::class)
-            ->add('accessCodeSS', PasswordType::class)
-            ->add('submit', SubmitType::class)
-            ->getForm();
-
-        $form->handleRequest($request);
-        
-        if ($form->isSubmitted() && $form->isValid()) {
-            $accessCode = $form["accessCodeSS"]->getData();
-
-            return $this->redirectToRoute('sitesupervisorform_new');
-        }
-        
-        return $this->render('sitesupervisorform/index.html.twig', array(
-                'form' => $form->createView(),
-        ));
+            
+            $em = $this->getDoctrine()->getManager();
+    
+            $data = array();
+            $form = $this->createFormBuilder($data)
+                ->add('email', EmailType::class)
+                ->add('accessCodeSS', PasswordType::class)
+                ->add('submit', SubmitType::class)
+                ->getForm();
+    
+            $form->handleRequest($request);
+            
+            if ($form->isSubmitted() && $form->isValid()) {
+                $accessCode = $form["accessCodeSS"]->getData();
+    
+                return $this->redirectToRoute('sitesupervisorform_new');
+            }
+            
+            return $this->render('sitesupervisorform/index.html.twig', array(
+                    'form' => $form->createView(),
+            ));
         }
     }
 

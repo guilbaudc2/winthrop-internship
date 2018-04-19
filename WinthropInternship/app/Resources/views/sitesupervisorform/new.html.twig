@@ -11,12 +11,32 @@
                 <table>
                     <tbody>
                         <tr>
-                            <th>Firstname</th>
+                            <th>Prospective Intern's First Name</th>
                             <td>{{ studentFormOne.firstName }}</td>
                         </tr>
                         <tr>
-                            <th>Lastname</th>
+                            <th>Prospective Intern's Last Name</th>
                             <td>{{ studentFormOne.lastName }}</td>
+                        </tr>
+                        <tr>
+                            <th>Prospective Intern's Email Address</th>
+                            <td>{{ studentFormOne.emailAddress }}</td>
+                        </tr>
+                        <tr>
+                            <th>Prospective Intern's Phone Number</th>
+                            <td>{{ studentFormOne.phoneNumber }}</td>
+                        </tr>
+                        <tr>
+                            <th>Prospective Intern's Semester/Date Enrolled</th>
+                            <td>{{ studentFormOne.semester}}/{{ studentFormOne.yearEnrolled}}</td>
+                        </tr>
+                        <tr>
+                            <th>Prospective Intern's Major</th>
+                            <td>{{ studentFormOne.Major }}</td>
+                        </tr>
+                        <tr>
+                            <th>Prospective Intern's Faculty Liaison</th>
+                            <td>{{ studentFormOne.facultyLiaison }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -37,7 +57,7 @@
     </div>
     <ul>
         <li>
-            <a href="{{ path('sitesupervisorform_index') }}">Back to the list</a>
+            <a href="{{ path('sitesupervisorform_index') }}">Discard Changes</a>
         </li>
     </ul>
 {% endblock %}

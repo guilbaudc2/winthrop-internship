@@ -2,23 +2,55 @@
 
 {% block title %}Site Supervisor Form{% endblock %}
 
-{% block stylesheets %}
-    <link rel="stylesheet" type="text/css" href="../../../assets/css/reset.css">
-    <link type="text/css" rel="stylesheet" href="../../../assets/css/materialize.min.css"  media="screen,projection"/>
-    <link rel="stylesheet" type="text/css" href="../../../assets/css/styles.css">
-{% endblock %}
-
-{% block javascripts %}<script type="text/javascript" src="../../../assets/js/materialize.min.js"></script>{% endblock %}
-
 {% block body %}
-    <h1>Sitesupervisorform edit</h1>
+    <h1 class="header center">Edit Internship Site Information</h1>
+
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <div class="card-panel">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Prospective Intern's First Name</th>
+                            <td>{{ studentFormOne.firstName }}</td>
+                        </tr>
+                        <tr>
+                            <th>Prospective Intern's Last Name</th>
+                            <td>{{ studentFormOne.lastName }}</td>
+                        </tr>
+                        <tr>
+                            <th>Prospective Intern's Email Address</th>
+                            <td>{{ studentFormOne.emailAddress }}</td>
+                        </tr>
+                        <tr>
+                            <th>Prospective Intern's Phone Number</th>
+                            <td>{{ studentFormOne.phoneNumber }}</td>
+                        </tr>
+                        <tr>
+                            <th>Prospective Intern's Semester/Date Enrolled</th>
+                            <td>{{ studentFormOne.semester}}/{{ studentFormOne.yearEnrolled}}</td>
+                        </tr>
+                        <tr>
+                            <th>Prospective Intern's Major</th>
+                            <td>{{ studentFormOne.Major }}</td>
+                        </tr>
+                        <tr>
+                            <th>Prospective Intern's Faculty Liaison</th>
+                            <td>{{ studentFormOne.facultyLiaison }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>    
+    
         <div class="section no-pad-bot" id="index-banner">
             <div class="container">
                 <div class="card-panel">
             {{ form_start(edit_form) }}
                 {{ form_widget(edit_form) }}
                 {#<input type="submit" value="Edit" />#}
-                <input type="submit" class="btn-large waves-effect waves-light landing-btn-color button-resize" value="Edit" />
+                <input onclick="M.toast({html: 'Changes Saved'})" type="submit" value="Save Changes" />
             {{ form_end(edit_form) }}
             </div>
         </div>

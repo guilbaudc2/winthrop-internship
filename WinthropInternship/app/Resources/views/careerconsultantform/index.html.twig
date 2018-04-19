@@ -1,5 +1,7 @@
 {% extends 'innerbase.html.twig' %}
 
+{% block title %}Career Consultant Dashboard{% endblock %}
+
 {% block javascripts %} 
     <script>
         /*alert(5 + 6);*/
@@ -55,78 +57,65 @@
                 link.click(); // This will download the data file
             });
         });
+        
+        $(document).ready(function() {
+            $('#readyToApprove, #inProgress, #approved, #completed').DataTable();
+            
+            $(".paginate_button.previous").html("<i class=\"material-icons\">chevron_left</i>"); 
+            $(".paginate_button.next").html("<i class=\"material-icons\">chevron_right</i>"); 
+            
+            $(".paginate_button").click(function(){
+                $(".paginate_button.previous").html("<i class=\"material-icons\">chevron_left</i>"); 
+                $(".paginate_button.next").html("<i class=\"material-icons\">chevron_right</i>"); 
+            });
+        });
+        
     </script>
 {% endblock %}
 
 {% block body %}
-    <h1>Careerconsultantforms list</h1>
-    {#
-    <div class="section" id="nav-backBtn">
-        <ul>
-            <li>
-                <button id="export" class="btn waves-effect waves-light button-back" >Export File</button>
-              //  <a href="{{ path('export_file', { 'id': studentFormOne.id }) }}" class="btn waves-effect waves-light button-back">Export file</a> 
-            </li>
-        </ul>
-    </div>
-    #}
+    <h1 class="header center">Career Consultant Dashboard</h1>
+    {#<div class="section" id="nav-backBtn">#}
+    {#    <ul>#}
+    {#        <li>#}
+    {#            <a href="{{ path('export_file')}}" class="btn waves-effect waves-light button-back">Export File</a>#}
+              {#  <a href="{{ path('export_file', { 'id': studentFormOne.id }) }}" class="btn waves-effect waves-light button-back">Export file</a> #}
+    {#        </li>#}
+    {#    </ul>#}
+    {#</div>#}
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
             <div class="card-panel">
                 <h2 class="header">Student Applications to Approve</h2>
-               <table>
+                <table class="highlight striped responsive-table" id="readyToApprove">
                     <thead>
                         <tr>
-                            <td>
-                                <table>
-                                    <th>Student Name</th>
-                                    <th>Student Email Address</th>
-                                    <th>Student CWID</th>
-                                    <th>Organization Name</th>
-                                {% if is_granted('ROLE_SUPER_ADMIN')%}
-                                    {#<th>Student's Internship Class</th>#}
-                                    {#<th>Faculty Liaison</th>#}
-                                {% endif %} 
-                                    <th>View Application</th>
-                                </table>
-                            </td>
+                            <th>Student Name</th>
+                            <th>Student Email Address</th>
+                            <th>Student CWID</th>
+                            <th>Organization Name</th>
+                        {% if is_granted('ROLE_SUPER_ADMIN')%}
+                            {#<th>Student's Internship Class</th></th>#}
+                            {#<th>Faculty Liaison</th>#}
+                        {% endif %} 
+                            <th>View Application</th>
                         </tr>
                     </thead>
                     <tbody>
                     {% for studentFormOne in studentFormOnesReady %}
                         <tr>
+                            <td>{{ studentFormOne.firstName }} {{ studentFormOne.lastName }}</td>
+                            <td>{{ studentFormOne.emailAddress}}</td>
+                            <td>{{ studentFormOne.cWID }}</td>
+                            <td>{{ studentFormOne.organizationName }}</td>
+                        {% if is_granted('ROLE_SUPER_ADMIN')%}                                          
+                            {#<td>{{ studentFormOne.classEnrolled }}</td>#}
+                            {#<td>{{ studentFormOne.facultyLiaison }}</td>#}
+                        {% endif %}   
                             <td>
                                 <form action="{{ path('careerconsultantform_new') }}" method="GET">
-                                    <input type="hidden" name="studentInfo" value="{{ studentFormOne.id }}" />
-                                    <table>
-                                        {#<td class="mdl-data-table__cell--non-numeric"><label><input type="checkbox" class="filled-in"/><span>{{ studentFormOne.firstName }}</span></label></td>#}
-                                        <td>{{ studentFormOne.firstName }} {{ studentFormOne.lastName }}</td>
-                                        <td>{{ studentFormOne.emailAddress}}</td>
-                                        <td>{{ studentFormOne.cWID }}</td>
-                                        <td>{{ studentFormOne.organizationName }}</td>
-                                    {% if is_granted('ROLE_SUPER_ADMIN')%}                                          
-                                        {#<td>#}
-                                        {#    <ul>#}
-                                        {#        <li>#}
-                                        {#            <a href="{{ path('studentformone_show', { 'id': studentFormOne.id }) }}">show</a>#}
-                                        {#        </li>#}
-                                        {#        <li>#}
-                                        {#            <a href="{{ path('studentformone_edit', { 'id': studentFormOne.id }) }}">edit</a>#}
-                                        {#        </li>#}
-                                        {#    </ul>#}
-                                        {#</td>#}
-                                        {#<td>{{ studentFormOne.classEnrolled }}</td>#}
-                                        {#<td>{{ studentFormOne.facultyLiaison }}</td>#}
-                                    {% endif %}   
-                                        <td>
-                                            {#<ul>#}
-                                            {#    <li>#}
-                                            {#        <a href="{{ path('internationalofficeform_new') }}">Create a new internationalOfficeForm</a>#}
-                                            {#    </li>#}
-                                            {#</ul>#}
-                                            <input type="submit" name="submit" value="View Application">
-                                        </td>
-                                    </table>
+                                    <input type="hidden" name="studentInfo" value="{{ studentFormOne.id }}" />                                            
+                                    <input type="submit" name="submit" value="View Application">
                                 </form>
                             </td>
                         </tr>
@@ -141,7 +130,7 @@
         <div class="container">
             <div class="card-panel">
                 <h2 class="header">In-Progress Student Applications</h2>
-                <table>
+                <table class="highlight striped responsive-table" id="inProgress">
                     <thead>
                         <tr>
                             <th>Last Updated</th>
@@ -150,7 +139,7 @@
                             <th>Student Email Address</th>
                             <th>Student CWID</th>
                             <th>Organization Name</th>
-                            <th>Last User</th>
+                            <th>Last Updated By</th>
                             <th>View Student Form One</th>
                         </tr>
                     </thead>
@@ -164,7 +153,7 @@
                             <td>{{ incompleteStudentForm.cWID }}</td>
                             <td>{{ incompleteStudentForm.organizationName }}</td>
                             <td>{{ incompleteStudentForm.lastUser }}</td>
-                            <td><a href="{{ path('studentformone_show', { 'id': incompleteStudentForm.id }) }}">show</a></td>
+                            <td><a href="{{ path('studentformone_show', { 'id': incompleteStudentForm.id }) }}" class="waves-effect waves-light btn show">show</a></td>
                         </tr>
                     {% endfor %}
                     
@@ -179,7 +168,7 @@
         <div class="container">
             <div class="card-panel">
                 <h2 class="header">Approved Student Applications</h2>
-                <table>
+                <table class="highlight striped responsive-table" id="approved">
                     <thead>
                         <tr>
                             <th>Student First Name</th>
@@ -220,7 +209,7 @@
                             <td>
                                 <ul>
                                     <li>
-                                        <a href="{{ path('careerconsultantform_show', { 'id': careerConsultantForm.id }) }}">show</a>
+                                        <a href="{{ path('careerconsultantform_show', { 'id': careerConsultantForm.id }) }}" class="waves-effect waves-light btn show">show</a>
                                     </li>
                                 </ul>
                             </td>
@@ -231,10 +220,4 @@
             </div>
         </div>
     </div>              
-
-    <ul>
-        <li>
-            <a href="{{ path('careerconsultantform_new') }}">Create a new careerConsultantForm</a>
-        </li>
-    </ul>
 {% endblock %}

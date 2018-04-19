@@ -1,12 +1,15 @@
 {% extends 'innerbase.html.twig' %}
+
+{% block title %}Completed Student Internship Learning Agreement{% endblock %}
+
 {% block javascripts %} 
     <script>
         /*alert(5 + 6);*/
         $(document).ready(function(){
             $('#export').click(function(){
                 
-                var rows = [["Firstname", "Lastname", "Username", "Cwid", "Emailaddress", "Classenrolled", "Numcredits", "Phonenumber", "Workauthorization", "Major", "Minor", "Facultyliaison", 
-                "Semesterenrolled", "Yearenrolled", "Semestergrad", "Yeargrad", "Sitesupername", "Sitesuperemail", "Submitted Date"]];
+                var rows = [["First Name", "Last Name", "Winthrop Username", "CWID/W-Number", "Winthrop Email Address", "Internship Class Enrolled", "Internship Class Course Credits", "Phone Number", "Work Authorization (US Citizen or Permanant Resident?)", "Major", "Minor", "Faculty Liaison", 
+                "Semester Enrolled in Course", "Year Enrolled in Course", "Semester Graduating", "Year Graduating", "Site Supervisor's Name", "Site Supervisor's Email Address", "Submitted Date"]];
                 
                 var stuArray = ["{{ studentFormOne.firstName }}", "{{ studentFormOne.lastName }}", "{{ studentFormOne.userName }}",
                     "{{ studentFormOne.cWID }}", "{{ studentFormOne.emailAddress }}", "{{ studentFormOne.classEnrolled }}", "{{ studentFormOne.numCredits }}",
@@ -17,7 +20,7 @@
                        "{{ studentFormOne.siteSuperName }}", "{{ studentFormOne.siteSuperEmail }}", "{% if studentFormOne.submitDate %}{{ studentFormOne.submitDate|date('Y-m-d') }}{% endif %}"];
                 rows.push(stuArray); 
                 
-                 rows.push(["", ""]);
+                rows.push(["", ""]);
                 
                 rows.push(["For Profit?", "Organization Name", "Business License Nummber or FEIN #", "State Issued",
                 "Direct Internship Supervisor", "Supervisor's Title", "Physical Address", "Site Visit?", "Supervisor Phone",
@@ -36,23 +39,22 @@
                 "{{ siteSupervisorForm.submitDate }}", "{{ siteSupervisorForm.digitalSignature }}"];
                 rows.push(ssForm);
                 
-                 rows.push(["", ""]);
+                rows.push(["", ""]);
                 
-                rows.push(["Id", "Completedtitleix"]);
-                var hrForm = ["{{ hRForm.id }}", "{% if hRForm.completedTitleIX %}Yes{% else %}No{% endif %}"];
+                rows.push(["Did Student Complete TitleIX Training?"]);
+                var hrForm = ["{% if hRForm.completedTitleIX %}Yes{% else %}No{% endif %}"];
                 rows.push(hrForm);
                 
-                 rows.push(["", ""]);
+                rows.push(["", ""]);
                 
-                rows.push(["Id", "Educationalexperience", "Goals"]);
-                var stu2Form = ["{{ studentFormTwo.id }}", "{{ studentFormTwo.educationalExperience }}", "{{ studentFormTwo.goals }}"];
+                rows.push(["Explain how this internship will add to your educational experience at Winthrop University", "What professional and personal goals do you hope to achieve while at this internship? (Be specific)"]);
+                var stu2Form = ["{{ studentFormTwo.educationalExperience }}", "{{ studentFormTwo.goals }}"];
                 rows.push(stu2Form);
                 
-                 rows.push(["", ""]);
+                rows.push(["", ""]);
                 
-                rows.push(["Id", "Legalname", "Internshiplearningagreement", "Midpointevaluation", "Sitevisit", "Finalreport", 
-                "Finalevaluation", "Approve", "Approvedate"]);
-                var flForm = ["{{ facultyLiaisonForm.id }}", "{{ facultyLiaisonForm.legalName }}", "{% if facultyLiaisonForm.internshipLearningAgreement %}Yes{% else %}No{% endif %}", 
+                rows.push(["Digital Signature", "Does student need a completed Internship Learning Agreement", "Does student need to complete a Midpoint Evaluation", "Does Internship Site Require a  Site Visit", "Does student need to complete a Final Report","Does student need to complete a Final Evaluation", "Approve", "Approve Date"]);
+                var flForm = ["{{ facultyLiaisonForm.legalName }}", "{% if facultyLiaisonForm.internshipLearningAgreement %}Yes{% else %}No{% endif %}", 
                 "{% if facultyLiaisonForm.midPointEvaluation %}Yes{% else %}No{% endif %}", "{% if facultyLiaisonForm.siteVisit %}Yes{% else %}No{% endif %}", 
                 "{% if facultyLiaisonForm.finalReport %}Yes{% else %}No{% endif %}", "{% if facultyLiaisonForm.finalEvaluation %}Yes{% else %}No{% endif %}", 
                 "{% if facultyLiaisonForm.approve %}Yes{% else %}No{% endif %}", "{% if facultyLiaisonForm.approveDate %}{{ facultyLiaisonForm.approveDate|date('Y-m-d H:i:s') }}{% endif %}"];
@@ -60,9 +62,9 @@
                 
                 rows.push(["", ""]);
                 
-                 rows.push(["Id", "Legalname", "Approve", "Approvedate"]);
-                 var ccForm = ["{{ careerConsultantForm.id }}", "{{ careerConsultantForm.legalName }}", "{% if careerConsultantForm.approve %}Yes{% else %}No{% endif %}", "{% if careerConsultantForm.approveDate %}{{ careerConsultantForm.approveDate|date('Y-m-d H:i:s') }}{% endif %}"];
-                 rows.push(ccForm);
+                rows.push(["Digital Signature", "Approved?", "Approve Date"]);
+                var ccForm = ["{{ careerConsultantForm.legalName }}", "{% if careerConsultantForm.approve %}Yes{% else %}No{% endif %}", "{% if careerConsultantForm.approveDate %}{{ careerConsultantForm.approveDate|date('Y-m-d H:i:s') }}{% endif %}"];
+                rows.push(ccForm);
                 
                 let csvContent = "data:text/csv;charset=utf-8,";
                 rows.forEach(function(rowArray){
@@ -86,15 +88,115 @@
                 
                 link.click(); // This will download the data file
             });
+            
+            // Alt Settings, CSV File in Two Rows
+            
+            //  //CSV File Headers
+                
+            //     // SF1
+            //     var rows = [["First Name", "Last Name", "Winthrop Username", "CWID/W-Number", "Winthrop Email Address", "Internship Class Enrolled", "Internship Class Course Credits", "Phone Number", "Work Authorization (US Citizen or Permanant Resident?)", "Major", "Minor", "Faculty Liaison", 
+            //     "Semester Enrolled in Course", "Year Enrolled in Course", "Semester Graduating", "Year Graduating", "Site Supervisor's Name", "Site Supervisor's Email Address", "Submitted Date"]];
+                
+            //     // SSF
+            //     rows.push(["For Profit?", "Organization Name", "Business License Nummber or FEIN #", "State Issued",
+            //     "Direct Internship Supervisor", "Supervisor's Title", "Physical Address", "Site Visit?", "Supervisor Phone",
+            //     "Supervisor Email", "Projected Start Date", "Projected End Date", "Estimated Total Weeks", "Estimated Total Hours/Week",
+            //     "Paid?", "Salary or Stipend", "Salary Amount", "Stipend Amount", "Intern Tasks/Role", "Specific Projects", "Learning Outcomes",
+            //     "Additional Comments", "Date Submitted", "Signature"]);
+                
+            //     // HR
+            //     rows.push(["Did Student Complete TitleIX Training?"]);
+                
+            //     // SF2
+            //     rows.push(["Explain how this internship will add to your educational experience at Winthrop University", "What professional and personal goals do you hope to achieve while at this internship? (Be specific)"]);
+                
+            //     // FL
+                
+            //     rows.push(["Digital Signature", "Does student need a completed Internship Learning Agreement", "Does student need to complete a Midpoint Evaluation", "Does Internship Site Require a  Site Visit", "Does student need to complete a Final Report","Does student need to complete a Final Evaluation", "Approve", "Approve Date"]);
+                
+            //     // CC
+            //     rows.push(["Digital Signature", "Approved?", "Approve Date"]);
+                
+            //     // CSV File Content
+                
+            //     var content = new Array();
+                
+            //     // SF1
+            //     var stuArray = ["{{ studentFormOne.firstName }}", "{{ studentFormOne.lastName }}", "{{ studentFormOne.userName }}",
+            //         "{{ studentFormOne.cWID }}", "{{ studentFormOne.emailAddress }}", "{{ studentFormOne.classEnrolled }}", "{{ studentFormOne.numCredits }}",
+            //           "{{ studentFormOne.phoneNumber }}", "{% if studentFormOne.workAuthorization %}Yes{% else %}No{% endif %}", "{{ studentFormOne.major }}",
+            //           "{{ studentFormOne.minor }}", "{{ studentFormOne.facultyLiaison }}", "{{ studentFormOne.semesterEnrolled }}",
+            //           "{% if studentFormOne.yearEnrolled %}{{ studentFormOne.yearEnrolled|date('Y-m-d') }}{% endif %}",
+            //           "{{ studentFormOne.semesterGrad }}", "{% if studentFormOne.yearGrad %}{{ studentFormOne.yearGrad|date('Y-m-d') }}{% endif %}",
+            //           "{{ studentFormOne.siteSuperName }}", "{{ studentFormOne.siteSuperEmail }}", "{% if studentFormOne.submitDate %}{{ studentFormOne.submitDate|date('Y-m-d') }}{% endif %}"];
+            //     content.push(stuArray); 
+                
+            //     // rows.push(["", ""]);
+                
+            //     // SSF
+            //     var ssForm = ["{% if siteSupervisorForm.forProfit %}Yes{% else %}No{% endif %}", "{{ siteSupervisorForm.organizationName }}", 
+            //     "{{ siteSupervisorForm.businessLicenseNum }}", "{{ siteSupervisorForm.stateIssued }}", "{{ siteSupervisorForm.directInternshipSupervisor }}", 
+            //     "{{ siteSupervisorForm.supervisorsTitle }}", "{{ siteSupervisorForm.physicalAddress }}", "{% if siteSupervisorForm.availableForSiteVisit %}Yes{% else %}No{% endif %}", 
+            //     "{{ siteSupervisorForm.supervisorPhone }}", "{{ siteSupervisorForm.supervisorEmail }}", "{% if siteSupervisorForm.internshipProjectedStartDate %}{{ siteSupervisorForm.internshipProjectedStartDate|date('Y-m-d') }}{% endif %}", 
+            //     "{% if siteSupervisorForm.internshipProjectedEndDate %}{{ siteSupervisorForm.internshipProjectedEndDate|date('Y-m-d') }}{% endif %}", 
+            //     "{{ siteSupervisorForm.totalWeeks }}", "{{ siteSupervisorForm.estimatedHours }}", "{% if siteSupervisorForm.paid %}Yes{% else %}No{% endif %}", 
+            //     "{% if siteSupervisorForm.salaryOrStipend %}{{ siteSupervisorForm.salaryOrStipend|join(', ') }}{% endif %}", 
+            //     "{{ siteSupervisorForm.salary }}", "{{ siteSupervisorForm.stipend }}", "{{ siteSupervisorForm.task }}", 
+            //     "{{ siteSupervisorForm.projects }}", "{{ siteSupervisorForm.outcomes }}", "{{ siteSupervisorForm.additionalComments }}", 
+            //     "{{ siteSupervisorForm.submitDate }}", "{{ siteSupervisorForm.digitalSignature }}"];
+            //     content.push(ssForm);
+                
+            //     //  rows.push(["", ""]);
+                
+            //     // HR
+            //     var hrForm = ["{% if hRForm.completedTitleIX %}Yes{% else %}No{% endif %}"];
+            //     content.push(hrForm);
+                
+            //     //  rows.push(["", ""]);
+                
+            //     // SF2
+            //     var stu2Form = ["{{ studentFormTwo.educationalExperience }}", "{{ studentFormTwo.goals }}"];
+            //     content.push(stu2Form);
+                
+            //     // rows.push(["", ""]);
+                
+            //     // FL
+            //     var flForm = ["{{ facultyLiaisonForm.legalName }}", "{% if facultyLiaisonForm.internshipLearningAgreement %}Yes{% else %}No{% endif %}", 
+            //     "{% if facultyLiaisonForm.midPointEvaluation %}Yes{% else %}No{% endif %}", "{% if facultyLiaisonForm.siteVisit %}Yes{% else %}No{% endif %}", 
+            //     "{% if facultyLiaisonForm.finalReport %}Yes{% else %}No{% endif %}", "{% if facultyLiaisonForm.finalEvaluation %}Yes{% else %}No{% endif %}", 
+            //     "{% if facultyLiaisonForm.approve %}Yes{% else %}No{% endif %}", "{% if facultyLiaisonForm.approveDate %}{{ facultyLiaisonForm.approveDate|date('Y-m-d H:i:s') }}{% endif %}"];
+            //     content.push(flForm);
+                
+            //     // rows.push(["", ""]);
+                
+            //     // CC
+            //      var ccForm = ["{{ careerConsultantForm.legalName }}", "{% if careerConsultantForm.approve %}Yes{% else %}No{% endif %}", "{% if careerConsultantForm.approveDate %}{{ careerConsultantForm.approveDate|date('Y-m-d H:i:s') }}{% endif %}"];
+            //      content.push(ccForm);
+                
+            //     let csvContent = "data:text/csv;charset=utf-8,";
+            //     rows.forEach(function(rowArray){
+            //       let row = rowArray.join(",");
+            //       csvContent += row + "\n";
+            //     });
+                
+            //     csvContent += "\r\n";
+                
+            //     content.forEach(function(rowArray){
+            //       let row = rowArray.join(",");
+            //       csvContent += row + "\n";
+            //     });
         });
     </script>
 {% endblock %}
 {% block body %}
-    <h1>Careerconsultantform</h1>
+    <h1 class="header center">Completed Student Winthrop Internship Learning Agreement</h1>
     <div class="section" id="nav-backBtn">
         <ul>
             <li>
                 <a href="{{ path('careerconsultantform_index') }}" class="btn waves-effect waves-light button-back">Back to the list</a>
+            </li>
+            <li>
+                <a href="#export" id="export" class="btn waves-effect waves-light button-back" >Export File</a>
             </li>
             <li>
                 <a href="{{ path('careerconsultantform_edit', { 'id': careerConsultantForm.id }) }}" class="btn waves-effect waves-light button-back">Edit</a>
@@ -107,39 +209,39 @@
                 <table>
                     <tbody>
                         <tr>
-                            <th>Firstname</th>
+                            <th>First Name</th>
                             <td>{{ studentFormOne.firstName }}</td>
                         </tr>
                         <tr>
-                            <th>Lastname</th>
+                            <th>Last Name</th>
                             <td>{{ studentFormOne.lastName }}</td>
                         </tr>
                         <tr>
-                            <th>Username</th>
+                            <th>Winthrop Username</th>
                             <td>{{ studentFormOne.userName }}</td>
                         </tr>
                         <tr>
-                            <th>Cwid</th>
+                            <th>CWID (Winthrop ID Number)</th>
                             <td>{{ studentFormOne.cWID }}</td>
                         </tr>
                         <tr>
-                            <th>Emailaddress</th>
+                            <th>Winthrop Email Address</th>
                             <td>{{ studentFormOne.emailAddress }}</td>
                         </tr>
                         <tr>
-                            <th>Classenrolled</th>
+                            <th>Internship Class</th>
                             <td>{{ studentFormOne.classEnrolled }}</td>
                         </tr>
                         <tr>
-                            <th>Numcredits</th>
+                            <th>Number of Credits for Internship</th>
                             <td>{{ studentFormOne.numCredits }}</td>
                         </tr>
                         <tr>
-                            <th>Phonenumber</th>
+                            <th>Phone Number</th>
                             <td>{{ studentFormOne.phoneNumber }}</td>
                         </tr>
                         <tr>
-                            <th>Workauthorization</th>
+                            <th>Work Authorization (US Citizen or Permanent Resident)</th>
                             <td>{% if studentFormOne.workAuthorization %}Yes{% else %}No{% endif %}</td>
                         </tr>
                         <tr>
@@ -151,31 +253,31 @@
                             <td>{{ studentFormOne.minor }}</td>
                         </tr>
                         <tr>
-                            <th>Facultyliaison</th>
+                            <th>Faculty Liaison</th>
                             <td>{{ studentFormOne.facultyLiaison }}</td>
                         </tr>
                         <tr>
-                            <th>Semesterenrolled</th>
+                            <th>Semester Enrolled</th>
                             <td>{{ studentFormOne.semesterEnrolled }}</td>
                         </tr>
                         <tr>
-                            <th>Yearenrolled</th>
+                            <th>Year Enrolled</th>
                             <td>{% if studentFormOne.yearEnrolled %}{{ studentFormOne.yearEnrolled|date('Y-m-d') }}{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Semestergrad</th>
+                            <th>Semester Graduating</th>
                             <td>{{ studentFormOne.semesterGrad }}</td>
                         </tr>
                         <tr>
-                            <th>Yeargrad</th>
+                            <th>Year Graduating</th>
                             <td>{% if studentFormOne.yearGrad %}{{ studentFormOne.yearGrad|date('Y-m-d') }}{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Sitesupername</th>
+                            <th>Internship Site Supervisor's Name</th>
                             <td>{{ studentFormOne.siteSuperName }}</td>
                         </tr>
                         <tr>
-                            <th>Sitesuperemail</th>
+                            <th>Internship Site Supervisor's Email Address</th>
                             <td>{{ studentFormOne.siteSuperEmail }}</td>
                         </tr>
                         <tr>
@@ -210,7 +312,7 @@
                             <td>{{ siteSupervisorForm.organizationName }}</td>
                         </tr>
                         <tr>
-                            <th>Business License Nummber or FEIN #</th>
+                            <th>Business License Number or FEIN #</th>
                             <td>{{ siteSupervisorForm.businessLicenseNum }}</td>
                         </tr>
                         <tr>
@@ -226,7 +328,7 @@
                             <td>{{ siteSupervisorForm.supervisorsTitle }}</td>
                         </tr>
                         <tr>
-                            <th>Physical Aaddress</th>
+                            <th>Physical Address</th>
                             <td>{{ siteSupervisorForm.physicalAddress }}</td>
                         </tr>
                         <tr>
@@ -294,7 +396,7 @@
                             <td>{{ siteSupervisorForm.submitDate }}</td>
                         </tr>
                         <tr>
-                            <th>Signature</th>
+                            <th>Digital Signature</th>
                             <td>{{ siteSupervisorForm.digitalSignature }}</td>
                         </tr>
                         <tr>
@@ -307,7 +409,8 @@
             </div>
         </div>
     </div>
-    >
+    
+    <h2>HR Form Information</h2>
     
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
@@ -315,18 +418,20 @@
                 <table>
                     <tbody>
                         <tr>
-                            <th>Id</th>
-                            <td>{{ hRForm.id }}</td>
+                            <th>Did Student Complete TitleIX Training?</th>
+                            <td>{% if hRForm.completedTitleIX %}Yes{% else %}No{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Completedtitleix</th>
-                            <td>{% if hRForm.completedTitleIX %}Yes{% else %}No{% endif %}</td>
+                            <th>Approved Date</th>
+                            <td>{% if hRForm.approveDate %}{{ hRForm.approveDate|date('Y-m-d H:i:s') }}{% endif %}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+    
+    <h2>Student Form Two Information</h2>
 
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
@@ -334,22 +439,54 @@
                 <table>
                     <tbody>
                         <tr>
-                            <th>Id</th>
-                            <td>{{ studentFormTwo.id }}</td>
-                        </tr>
-                        <tr>
-                            <th>Educationalexperience</th>
+                            <th>Explain how this internship will add to your educational experience at Winthrop University</th>
                             <td>{{ studentFormTwo.educationalExperience }}</td>
                         </tr>
                         <tr>
-                            <th>Goals</th>
+                            <th>What professional and personal goals do you hope to achieve while at this internship? (Be specific)</th>
                             <td>{{ studentFormTwo.goals }}</td>
+                        </tr>
+                        <tr>
+                            <th>Date Submitted</th>
+                            <td>{% if studentFormTwo.submitDate %}{{ studentFormTwo.submitDate|date('Y-m-d H:i:s') }}{% endif %}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+    
+{% if studentFormOne.workAuthorization == false %}
+    <h2>International Office Form Information</h2> 
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <div class="card-panel">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Approve</th>
+                            <td>{% if ioForm.approve %}Yes{% else %}No{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Additional Comments</th>
+                            <td>{{ ioForm.additionalComments }}</td>
+                        </tr>
+                        <tr>
+                            <th>Approved Date</th>
+                            <td>{% if ioForm.approveDate %}{{ ioForm.approveDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Digital Signature</th>
+                            <td>{{ ioForm.digitalSignature }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{%endif%}    
+    
+    <h2>Faculty Liaison Form Information</h2>
 
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
@@ -357,31 +494,27 @@
                 <table>
                     <tbody>
                         <tr>
-                            <th>Id</th>
-                            <td>{{ facultyLiaisonForm.id }}</td>
-                        </tr>
-                        <tr>
-                            <th>Legalname</th>
+                            <th>Digital Signature</th>
                             <td>{{ facultyLiaisonForm.legalName }}</td>
                         </tr>
                         <tr>
-                            <th>Internshiplearningagreement</th>
+                            <th>Does student need a completed Internship Learning Agreement?</th>
                             <td>{% if facultyLiaisonForm.internshipLearningAgreement %}Yes{% else %}No{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Midpointevaluation</th>
+                            <th>Does student need to complete a Midpoint Evaluation?</th>
                             <td>{% if facultyLiaisonForm.midPointEvaluation %}Yes{% else %}No{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Sitevisit</th>
+                            <th>Does Internship Site Require a  Site Visit?</th>
                             <td>{% if facultyLiaisonForm.siteVisit %}Yes{% else %}No{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Finalreport</th>
+                            <th>Does student need to complete a Final Report?</th>
                             <td>{% if facultyLiaisonForm.finalReport %}Yes{% else %}No{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Finalevaluation</th>
+                            <th>Does student need to complete a Final Evaluation?</th>
                             <td>{% if facultyLiaisonForm.finalEvaluation %}Yes{% else %}No{% endif %}</td>
                         </tr>
                         <tr>
@@ -389,7 +522,7 @@
                             <td>{% if facultyLiaisonForm.approve %}Yes{% else %}No{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Approvedate</th>
+                            <th>Approve Date</th>
                             <td>{% if facultyLiaisonForm.approveDate %}{{ facultyLiaisonForm.approveDate|date('Y-m-d H:i:s') }}{% endif %}</td>
                         </tr>
                     </tbody>
@@ -398,17 +531,15 @@
         </div>
     </div>
     
+    <h2>Career Consultant Form Information</h2>
+    
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
             <div class="card-panel">
                 <table>
                     <tbody>
                         <tr>
-                            <th>Id</th>
-                            <td>{{ careerConsultantForm.id }}</td>
-                        </tr>
-                        <tr>
-                            <th>Legalname</th>
+                            <th>Digital Signature</th>
                             <td>{{ careerConsultantForm.legalName }}</td>
                         </tr>
                         <tr>
@@ -416,7 +547,7 @@
                             <td>{% if careerConsultantForm.approve %}Yes{% else %}No{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Approvedate</th>
+                            <th>Approve Date</th>
                             <td>{% if careerConsultantForm.approveDate %}{{ careerConsultantForm.approveDate|date('Y-m-d H:i:s') }}{% endif %}</td>
                         </tr>
                     </tbody>
@@ -428,7 +559,7 @@
     <ul>
         <li>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                <input type="submit" class="del-btn" value="Delete">
             {{ form_end(delete_form) }}
         </li>
     </ul>

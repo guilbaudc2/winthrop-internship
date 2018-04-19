@@ -1,8 +1,21 @@
 {% extends 'innerbase.html.twig' %}
 
+{% block title %}International Office Form{% endblock %}
+
 {% block body %}
     <h1 class="header center">International Office Form</h1>
     <h2>Student Information</h2>
+    
+    <div class="section" id="nav-backBtn">
+        <ul>
+            <li>
+                <a href="{{ path('internationalofficeform_index') }}" class="btn waves-effect waves-light button-back">Back to the list</a>
+            </li>
+            <li>
+                <a href="{{ path('internationalofficeform_edit', { 'id': internationalOfficeForm.id }) }}" class="btn waves-effect waves-light button-back">Edit</a>
+            </li>
+        </ul>
+    </div>
     
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
@@ -107,7 +120,7 @@
                             <td>{{ siteSupervisorForm.organizationName }}</td>
                         </tr>
                         <tr>
-                            <th>Business License Nummber or FEIN #</th>
+                            <th>Business License Number or FEIN #</th>
                             <td>{{ siteSupervisorForm.businessLicenseNum }}</td>
                         </tr>
                         <tr>
@@ -208,14 +221,6 @@
             <div class="card-panel">
                 <table>
                     <tbody>
-                        {#<tr>#}
-                        {#    <th>Id</th>#}
-                        {#    <td>{{ internationalOfficeForm.id }}</td>#}
-                        {#</tr>#}
-                        {#<tr>#}
-                        {#    <th>Student Id</th>#}
-                        {#    <td>{{ internationalOfficeForm.studentFormOne }}</td>#}
-                        {#</tr>#}
                         <tr>
                             <th>Approve</th>
                             <td>{% if internationalOfficeForm.approve %}Yes{% else %}No{% endif %}</td>
@@ -239,14 +244,8 @@
     </div>
     <ul>
         <li>
-            <a href="{{ path('internationalofficeform_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('internationalofficeform_edit', { 'id': internationalOfficeForm.id }) }}">Edit</a>
-        </li>
-        <li>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                <input type="submit" class="del-btn" value="Delete">
             {{ form_end(delete_form) }}
         </li>
     </ul>

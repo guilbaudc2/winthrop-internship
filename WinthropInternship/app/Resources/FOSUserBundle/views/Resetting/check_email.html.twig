@@ -3,7 +3,15 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% block fos_user_content %}
+<div class="fosUserSuccess">
 <p>
 {{ 'resetting.check_email'|trans({'%tokenLifetime%': tokenLifetime})|nl2br }}
 </p>
+</div>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="../../assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../../assets/css/main.css">
+    <link rel="stylesheet" type="text/css" href="../../assets/css/styles.css">
 {% endblock %}

@@ -3,28 +3,24 @@
 {% block title %}Student Form Two Information{% endblock %}
 
 {% block body %}
-    <h1>Studentformtwo</h1>
+    <h1 class="header center">Student Form Two</h1>
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
             <div class="card-panel">
                 <table>
                     <tbody>
                         <tr>
-                            <th>Id</th>
-                            <td>{{ studentFormTwo.id }}</td>
-                        </tr>
-                        <tr>
-                            <th>Educationalexperience</th>
+                            <th>Explain how this internship will add to your educational experience at Winthrop University</th>
                             <td>{{ studentFormTwo.educationalExperience }}</td>
                         </tr>
                         <tr>
-                            <th>Goals</th>
+                            <th>What professional and personal goals do you hope to achieve while at this internship? (Be specific)</th>
                             <td>{{ studentFormTwo.goals }}</td>
                         </tr>
-                        {#<tr>#}
-                        {#    <th>SFO id</th>#}
-                        {#    <td>{{ studentFormTwo.student_form_one_id }}</td>#}
-                        {#</tr>#}
+                        <tr>
+                            <th>Date Submitted</th>
+                            <td>{% if studentFormTwo.submitDate %}{{ studentFormTwo.submitDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

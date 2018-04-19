@@ -1,63 +1,60 @@
 {% extends 'innerbase.html.twig' %}
 
+{% block title %}Faculty Liaison Dashboard{% endblock %}
+
+{% block javascripts %} 
+    <script>
+        $(document).ready(function() {
+            $('#readyToApprove, #inProgress, #approved, #completed').DataTable();
+        
+            $(".paginate_button.previous").html("<i class=\"material-icons\">chevron_left</i>");
+            $(".paginate_button.next").html("<i class=\"material-icons\">chevron_right</i>"); 
+            
+            $(".paginate_button").click(function(){
+                $(".paginate_button.previous").html("<i class=\"material-icons\">chevron_left</i>"); 
+                $(".paginate_button.next").html("<i class=\"material-icons\">chevron_right</i>"); 
+            });
+        });
+        
+    </script>
+{% endblock %}
+
+
 {% block body %}
-    <h1>Faculty Liaison List</h1>
+    <h1 class="header center">Faculty Liaison Dashboard</h1>
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
             <div class="card-panel">
                 <h2 class="header">Student Applications to Approve</h2>
-                <table>
+                <table class="highlight striped responsive-table" id="readyToApprove">
                     <thead>
                         <tr>
-                            <td>
-                                <table>
-                                    <th>Student Name</th>
-                                    <th>Student Email Address</th>
-                                    <th>Student CWID</th>
-                                    <th>Organization Name</th>
-                                {% if is_granted('ROLE_SUPER_ADMIN')%}
-                                    <th>Student's Internship Class</th>
-                                    <th>Faculty Liaison</th>
-                                {% endif %} 
-                                    <th>View Application</th>
-                                </table>
-                            </td>
+                            <th>Student Name</th>
+                            <th>Student Email Address</th>
+                            <th>Student CWID</th>
+                            <th>Organization Name</th>
+                        {% if is_granted('ROLE_SUPER_ADMIN')%}
+                            <th>Student's Internship Class</th>
+                            <th>Faculty Liaison</th>
+                        {% endif %} 
+                            <th>View Application</th>
                         </tr>
                     </thead>
                     <tbody>
                     {% for studentFormOne in studentFormOnesReady %}
                         <tr>
+                            <td>{{ studentFormOne.firstName }} {{ studentFormOne.lastName }}</td>
+                            <td>{{ studentFormOne.emailAddress}}</td>
+                            <td>{{ studentFormOne.cWID }}</td>
+                            <td>{{ studentFormOne.organizationName }}</td>
+                        {% if is_granted('ROLE_SUPER_ADMIN')%}                                          
+                            <td>{{ studentFormOne.classEnrolled }}</td>
+                            <td>{{ studentFormOne.facultyLiaison }}</td>
+                        {% endif %}   
                             <td>
                                 <form action="{{ path('facultyliaisonform_new') }}" method="GET">
                                     <input type="hidden" name="studentInfo" value="{{ studentFormOne.id }}" />
-                                    <table>
-                                        <td>{{ studentFormOne.firstName }} {{ studentFormOne.lastName }}</td>
-                                        <td>{{ studentFormOne.emailAddress}}</td>
-                                        <td>{{ studentFormOne.cWID }}</td>
-                                        <td>{{ studentFormOne.organizationName }}</td>
-                                    {% if is_granted('ROLE_SUPER_ADMIN')%}                                          
-                                        {#<td>#}
-                                        {#    <ul>#}
-                                        {#        <li>#}
-                                        {#            <a href="{{ path('studentformone_show', { 'id': studentFormOne.id }) }}">show</a>#}
-                                        {#        </li>#}
-                                        {#        <li>#}
-                                        {#            <a href="{{ path('studentformone_edit', { 'id': studentFormOne.id }) }}">edit</a>#}
-                                        {#        </li>#}
-                                        {#    </ul>#}
-                                        {#</td>#}
-                                        <td>{{ studentFormOne.classEnrolled }}</td>
-                                        <td>{{ studentFormOne.facultyLiaison }}</td>
-                                    {% endif %}   
-                                        <td>
-                                            {#<ul>#}
-                                            {#    <li>#}
-                                            {#        <a href="{{ path('internationalofficeform_new') }}">Create a new internationalOfficeForm</a>#}
-                                            {#    </li>#}
-                                            {#</ul>#}
-                                            <input type="submit" name="submit" value="View Application">
-                                        </td>
-                                    </table>
+                                    <input type="submit" value="View Application">
                                 </form>
                             </td>
                         </tr>
@@ -72,7 +69,7 @@
         <div class="container">
             <div class="card-panel">
                 <h2 class="header">In-Progress Student Applications</h2>
-                <table>
+                <table class="highlight striped responsive-table" id="inProgress">
                     <thead>
                         <tr>
                             <th>Last Updated</th>
@@ -81,8 +78,8 @@
                             <th>Student Email Address</th>
                             <th>Student CWID</th>
                             <th>Organization Name</th>
-                            <th>Last User</th>
-                            <th>View Student Form One</th>
+                            <th>Last Updated By</th>
+                            <th>View Student Form</th>
                         </tr>
                     </thead>
                     </tbody>
@@ -95,7 +92,7 @@
                             <td>{{ incompleteStudentForm.cWID }}</td>
                             <td>{{ incompleteStudentForm.organizationName }}</td>
                             <td>{{ incompleteStudentForm.lastUser }}</td>
-                            <td><a href="{{ path('studentformone_show', { 'id': incompleteStudentForm.id }) }}">show</a></td>
+                            <td><a href="{{ path('studentformone_show', { 'id': incompleteStudentForm.id }) }}" class="waves-effect waves-light btn show">show</a></td>
                         </tr>
                     {% endfor %}
                     
@@ -110,7 +107,7 @@
         <div class="container">
             <div class="card-panel">
                 <h2 class="header">Approved Student Applications</h2>
-                <table>
+                <table class="highlight striped responsive-table" id="approved">
                     <thead>
                         <tr>
                             <th>Student First Name</th>
@@ -123,29 +120,6 @@
                     </thead>
                     </tbody>
                     {% for facultyLiaisonForm in facultyLiaisonForms %}
-                    {#    <tr>#}
-                    {#        <td><a href="{{ path('facultyliaisonform_show', { 'id': facultyLiaisonForm.id }) }}">{{ facultyLiaisonForm.id }}</a></td>#}
-                    {#        <td>{{ facultyLiaisonForm.legalName }}</td>#}
-                    {#        <td>{% if facultyLiaisonForm.internshipLearningAgreement %}Yes{% else %}No{% endif %}</td>#}
-                    {#        <td>{% if facultyLiaisonForm.midPointEvaluation %}Yes{% else %}No{% endif %}</td>#}
-                    {#        <td>{% if facultyLiaisonForm.siteVisit %}Yes{% else %}No{% endif %}</td>#}
-                    {#        <td>{% if facultyLiaisonForm.finalReport %}Yes{% else %}No{% endif %}</td>#}
-                    {#        <td>{% if facultyLiaisonForm.finalEvaluation %}Yes{% else %}No{% endif %}</td>#}
-                    {#        <td>{% if facultyLiaisonForm.approve %}Yes{% else %}No{% endif %}</td>#}
-                    {#        <td>{% if facultyLiaisonForm.approveDate %}{{ facultyLiaisonForm.approveDate|date('Y-m-d H:i:s') }}{% endif %}</td>#}
-                    {#        <td>#}
-                    {#            <ul>#}
-                    {#                <li>#}
-                    {#                    <a href="{{ path('facultyliaisonform_show', { 'id': facultyLiaisonForm.id }) }}">show</a>#}
-                    {#                </li>#}
-                    {#                <li>#}
-                    {#                    <a href="{{ path('facultyliaisonform_edit', { 'id': facultyLiaisonForm.id }) }}">edit</a>#}
-                    {#                </li>#}
-                    {#            </ul>#}
-                    {#        </td>#}
-                    {#    </tr>#}
-                    {#{% endfor %}#}
-                    
                         <tr>
                             <td>{{ facultyLiaisonForm.firstName }}</td>
                             <td>{{ facultyLiaisonForm.lastName }}</td>
@@ -155,7 +129,7 @@
                             <td>
                                 <ul>
                                     <li>
-                                        <a href="{{ path('facultyliaisonform_show', { 'id': facultyLiaisonForm.id }) }}">show</a>
+                                        <a href="{{ path('facultyliaisonform_show', { 'id': facultyLiaisonForm.id }) }}" class="waves-effect waves-light btn show">show</a>
                                     </li>
                                 </ul>
                             </td>
@@ -167,10 +141,40 @@
             </div>
         </div>
     </div>
-
-    <ul>
-        <li>
-            <a href="{{ path('facultyliaisonform_new') }}">Create a new facultyLiaisonForm</a>
-        </li>
-    </ul>
+    
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <div class="card-panel">
+                <h2 class="header">Completed Student Applications</h2>
+                <table class="highlight striped responsive-table" id="completed">
+                    <thead>
+                        <tr>
+                            <th>Date Completed</th>
+                            <th>Student First Name</th>
+                            <th>Student Last Name</th>
+                            <th>Student Email Address</th>
+                            <th>Student CWID</th>
+                            <th>Organization Name</th>
+                            <th>View Student Form</th>
+                        </tr>
+                    </thead>
+                    </tbody>
+                    {% for completeStudentForm in completedForms %}
+                        <tr>
+                            <td>{% if completeStudentForm.lastUpdated %}{{ completeStudentForm.lastUpdated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                            <td>{{ completeStudentForm.firstName }}</td>
+                            <td>{{ completeStudentForm.lastName }}</td>
+                            <td>{{ completeStudentForm.emailAddress}}</td>
+                            <td>{{ completeStudentForm.cWID }}</td>
+                            <td>{{ completeStudentForm.organizationName }}</td>
+                            <td><a href="{{ path('careerconsultantform_show', { 'id': completeStudentForm.id }) }}" class="waves-effect waves-light btn show">Show</a></td>
+                        </tr>
+                    {% endfor %}
+                    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>    
+    
 {% endblock %}

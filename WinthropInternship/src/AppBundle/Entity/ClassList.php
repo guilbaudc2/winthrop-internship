@@ -24,7 +24,7 @@ class ClassList
     /**
      * @var string
      *
-     * @ORM\Column(name="coursePrefixNumber", type="string", length=7, unique=true)
+     * @ORM\Column(name="coursePrefixNumber", type="string", length=10, unique=true)
      */
     private $coursePrefixNumber;
 

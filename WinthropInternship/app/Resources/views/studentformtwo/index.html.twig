@@ -3,7 +3,7 @@
 {% block title %}Student Form Two List{% endblock %}
 
 {% block body %}
-    <h1>Studentformtwos list</h1>
+    <h1 class="header center">Student Form Two Information</h1>
 
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
@@ -11,28 +11,20 @@
                 <table>
                     <thead>
                         <tr>
-                            <td>
-                                <table>
-                                    <th>Student First Name</th>
-                                    <th>Student Last Name</th>
-                                    <th>Complete Student Form Two</th>
-                                </table>
-                            </td>
+                            <th>Student First Name</th>
+                            <th>Student Last Name</th>
+                            <th>Complete Student Form Two</th>
                         </tr>
                     </thead>
                     <tbody>
                     {% for studentFormOne in studentFormOnes %}
-                        <tr class="noBorderBottom">
+                        <tr>
+                            <td>{{ studentFormOne.firstName }}</td>
+                            <td>{{ studentFormOne.lastName }}</td>
                             <td>
                                 <form action="{{ path('studentformtwo_new') }}" method="GET">
                                     <input type="hidden" name="studentInfo" value="{{ studentFormOne.id }}" />
-                                    <table>
-                                        <td>{{ studentFormOne.firstName }}</td>
-                                        <td>{{ studentFormOne.lastName }}</td>
-                                        <td>
-                                            <input type="submit" name="submit" value="View Application">
-                                        </td>
-                                    </table>
+                                    <input type="submit" name="submit" value="View Application">
                                 </form>
                             </td>
                         </tr>
@@ -50,16 +42,14 @@
                 <table>
                     <thead>
                         <tr>
-                            {#<th>Id</th>#}
-                            <th>Educationalexperience</th>
-                            <th>Goals</th>
+                            <th>Explain how this internship will add to your educational experience at Winthrop University</th>
+                            <th>What professional and personal goals do you hope to achieve while at this internship? (Be specific)</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                     {% for studentFormTwo in studentFormTwos %}
                         <tr>
-                            {#<td><a href="{{ path('studentformtwo_show', { 'id': studentFormTwo.id }) }}">{{ studentFormTwo.id }}</a></td>#}
                             <td>{{ studentFormTwo.educationalExperience }}</td>
                             <td>{{ studentFormTwo.goals }}</td>
                             <td>

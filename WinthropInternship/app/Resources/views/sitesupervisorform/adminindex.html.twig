@@ -4,6 +4,40 @@
 
 {% block body %}
     <h1 class="header center">Site Supervisor Dataset</h1>
+ 
+     <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <div class="card-panel">
+                <h2 class="header">Awaiting Site Supervisor</h2>
+                <table class="highlight striped responsive-table">
+                    <thead>
+                        <tr>
+                            <th>Last Updated</th>
+                            <th>Student First Name</th>
+                            <th>Student Last Name</th>
+                            <th>Student Email Address</th>
+                            <th>Student CWID</th>
+                            <th>View Student Form</th>
+                        </tr>
+                    </thead>
+                    </tbody>
+                    {% for incompleteStudentForm in studentFormOnesOnly %}
+                        <tr>
+                            <td>{% if incompleteStudentForm.lastUpdated %}{{ incompleteStudentForm.lastUpdated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                            <td>{{ incompleteStudentForm.firstName }}</td>
+                            <td>{{ incompleteStudentForm.lastName }}</td>
+                            <td>{{ incompleteStudentForm.emailAddress}}</td>
+                            <td>{{ incompleteStudentForm.cWID }}</td>
+                            <td><a href="{{ path('studentformone_show', { 'id': incompleteStudentForm.id }) }}" class="waves-effect waves-light btn show">show</a></td>
+                        </tr>
+                    {% endfor %}
+                    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+ 
     
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">

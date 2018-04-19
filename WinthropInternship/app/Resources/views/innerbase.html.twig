@@ -3,16 +3,32 @@
 <head>
     <meta charset="UTF-8" />
     <title>{% block title %}{% endblock %} | Winthrop Internship Learning Engagement</title>
-    <link rel="stylesheet" type="text/css" href="../../assets/css/reset.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+{% if '/edit' in app.request.uri %}
+    <link rel="stylesheet" type="text/css" href="../../../assets/css/reset.css">
+    <link type="text/css" rel="stylesheet" href="../../../assets/css/materialize.min.css"  media="screen,projection"/>
+    <link rel="stylesheet" type="text/css" href="../../../assets/css/styles.css">
+    <link rel="stylesheet" type="text/css" href="../../../assets/css/innerBaseStyles.css">
+{% else %}
+    <link rel="stylesheet" type="text/css" href="../../assets/css/reset.css">
     <link type="text/css" rel="stylesheet" href="../../assets/css/materialize.min.css"  media="screen,projection"/>
     <link rel="stylesheet" type="text/css" href="../../assets/css/styles.css">
     <link rel="stylesheet" type="text/css" href="../../assets/css/innerBaseStyles.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+{% endif %}
+    
     {% block stylesheets %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+{% if '/edit' in app.request.uri %}
+    <script type="text/javascript" src="../../../assets/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../../../assets/DataTables/datatables.min.js"></script>
+{% else %}
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="../../assets/js/materialize.min.js"></script>
+    <script type="text/javascript" src="../../assets/DataTables/datatables.min.js"></script>
+{% endif %}
+        
     {#<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">#}
     {#<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>#}
     <!--Icon Attribution-->
@@ -20,6 +36,9 @@
     <!--Home by asianson.design from the Noun Project-->
     <!--Reporting by AlfredoCreates.com/Icons from the Noun Project-->
     <!--export by Eagle Eye from the Noun Project-->
+    <script type="text/javascript">
+ 
+    </script>
 </head>
 <body>
 <nav role="navigation">
@@ -32,20 +51,25 @@
     </div>
 </nav>
 <ul id="slide-out" class="sidenav">
-    <li><a href="/WinthropInternship/web/app_dev.php/studentformone"><figure><img src="../../assets/images/Home.png" alt="Dashboard Icon"><figcaption>Dashboard</figcaption></figure></a></li>
-{% if is_granted('ROLE_SUPER_ADMIN')%}    
-    <li><a href="#!"><figure><img src="../../assets/images/Reporting.png" alt="Generate Reports Icon"><figcaption>Generate Reports</figcaption></figure></a></li>
-    <li><a href="/WinthropInternship/web/app_dev.php/updatesystem"><figure><img src="../../assets/images/Gear.png" alt="Update System Icon"><figcaption>Manage Faculty Liaisons/Class Lists</figcaption></figure></a></li>
-    <li><a href="#export" id="export"><figure><img src="../../assets/images/export.png" alt="Export Icon"><figcaption>Export Files</figcaption></figure></a></li>
+{% if '/edit' in app.request.uri %}
+    <li><a href="{{ path('studentformone_index')}}"><figure><img src="../../../assets/images/Home.png" alt="Dashboard Icon"><figcaption>Dashboard</figcaption></figure></a></li>
+{% else %}
+    <li><a href="{{ path('studentformone_index')}}"><figure><img src="../../assets/images/Home.png" alt="Dashboard Icon"><figcaption>Dashboard</figcaption></figure></a></li>
+{% endif %}
+{% if is_granted('ROLE_SUPER_ADMIN')%} 
+{% if '/edit' in app.request.uri %}
+    <li><a href="{{ path('generatereports')}}"><figure><img src="../../../assets/images/Reporting.png" alt="Generate Reports Icon"><figcaption>Generate Reports</figcaption></figure></a></li>
+    <li><a href="{{ path('updatesystem')}}"><figure><img src="../../../assets/images/Gear.png" alt="Update System Icon"><figcaption>Manage Faculty Liaisons/Class Lists</figcaption></figure></a></li>
+{% else %}    
+    <li><a href="{{ path('generatereports')}}"><figure><img src="../../assets/images/Reporting.png" alt="Generate Reports Icon"><figcaption>Generate Reports</figcaption></figure></a></li>
+    <li><a href="{{ path('updatesystem')}}"><figure><img src="../../assets/images/Gear.png" alt="Update System Icon"><figcaption>Manage Faculty Liaisons/Class Lists</figcaption></figure></a></li>
+{% endif %}
+    {#<li><a href="#export" id="export"><figure><img src="../../assets/images/export.png" alt="Export Icon"><figcaption>Export Files</figcaption></figure></a></li>#}
+    <li><a href="{{path('user_index')}}">Manage Users</a></li>
     <li><a href="{{path('internationalofficeform_index')}}">International Office Forms</a></li>
     <li><a href="{{path('hrform_index')}}">HR Forms</a></a></li>
     <li><a href="{{path('facultyliaisonform_index')}}">Faculty Liaison Forms</a></li>
 {% endif %}    
-    {#<li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>#}
-    {#<li><a href="#!">Second Link</a></li>#}
-    {#<li><div class="divider"></div></li>#}
-    {#<li><a class="subheader">Subheader</a></li>#}
-    {#<li><a class="waves-effect" href="#!">Third Link With Waves</a></li>#}
     <li><a href="{{path('fos_user_security_logout')}}">Logout</a></li>
 </ul>
 {% block body %}{% endblock %}

@@ -1,15 +1,15 @@
 {% extends 'innerbase.html.twig' %}
 
+{% block title %}HR Form Dashboard{% endblock %}
+
 {% block body %}
-    <h1 class="header center">HR Form list</h1>
+    <h1 class="header center">HR Form Dashboard</h1>
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
             <div class="card-panel">
-                {#<form method="post" action="{{ path('hrform_new') }}"></form>#}
+                <h2 class="header">Student Applications to Approve</h2>             
                 <form id="hrAction" action="{{ path('hrform_new') }}" method="GET">
-                    {#<table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" id="hrTable">#}
                     <table class="mdl-data-table mdl-shadow--2dp" id="hrTable">
-                    {#<table>#}
                         <thead>
                             <tr>
                                 <th>
@@ -23,14 +23,6 @@
                                 <th>Email Address</th>
                                 <th>Winthrop ID Number (CWID)</th>
                                 <th>Internship Company Name</th>
-                                    {#<ul class="flexRow">#}
-                                    {#    <li>First Name</li>#}
-                                    {#    <li>Last Name</li>#}
-                                    {#    <li>Email Address</li>#}
-                                    {#    <li>Winthrop ID Number (CWID)</li>#}
-                                    {#    <li>Internship Company Name</li>#}
-                                    {#</ul>#}
-                                {#</th>#}
                             </tr>
                         </thead>
                         <tbody>
@@ -47,21 +39,11 @@
                                 <td>{{ studentFormOne.emailAddress}}</td>
                                 <td>{{ studentFormOne.cWID }}</td>
                                 <td>{{ studentFormOne.organizationName }}</td>
-                                {#<td class="mdl-data-table__cell--non-numeric">#}
-                                    {#<input type="hidden" name="studentInfo[]" value="{{ studentFormOne.id }}" />#}
-                                {#    <ul class="flexRow">#}
-                                {#        <li>{{ studentFormOne.firstName }}</li>#}
-                                {#        <li>{{ studentFormOne.lastName }}</li>#}
-                                {#        <li>{{ studentFormOne.emailAddress}}</li>#}
-                                {#        <li>{{ studentFormOne.cWID }}</li>#}
-                                {#        <li>{{ studentFormOne.organizationName }}</li>#}
-                                {#    </ul>#}
-                                {#</td>#}
                             </tr>
                         {% endfor %}
                         </tbody>
                     </table>
-                    <input type="submit" name="submit" value="Approve Applications">
+                    <input type="submit" class="viewHR" value="Approve Applications">
                 </form> 
             </div>
         </div>
@@ -69,15 +51,16 @@
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
             <div class="card-panel">
-                <table>
+                <h2 class="header">Approved Student Applications</h2>                
+                <table class="highlight striped responsive-table" id="approved">
                     <thead>
                         <tr>
-                            <td>Approved Date</td>
-                            <td>First Name</td>
-                            <td>Last Name</td>
-                            <td>Email Address</td>
-                            <td>Winthrop ID Number (CWID)</td>
-                            <td>Internship Company Name</td>
+                            <td>Approved Date</th>
+                            <td>First Name</th>
+                            <td>Last Name</th>
+                            <td>Email Address</th>
+                            <td>Winthrop ID Number (CWID)</th>
+                            <td>Internship Company Name</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -96,16 +79,17 @@
             </div>
         </div>
     </div>
-    {#<ul>#}
-    {#    <li>#}
-    {#        <a href="{{ path('hrform_new') }}">Create a new hRForm</a>#}
-    {#    </li>#}
-    {#</ul>#}
 {% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
     <link rel="stylesheet" type="text/css" href="../../assets/css/rmCheckBox.css">
+    
+<style type="text/css">
+#approved th {
+    font-weight:bold;
+}
+</style>    
 {% endblock %}
 
 {% block javascripts %}    
@@ -131,43 +115,18 @@
           }
         };
         headerCheckbox.addEventListener('change', headerCheckHandler);
-    
-    
-        // var table = document.querySelector('table');
-        // var headerCheckbox = table.querySelector('thead .mdl-data-table__select input');
-        // var boxes = table.querySelectorAll('tbody .mdl-data-table__select');
-        // var headerCheckHandler = function(event) {
-        //   if (event.target.checked) {
-        //     for (var i = 0, length = boxes.length; i < length; i++) {
-        //       boxes[i].MaterialCheckbox.check();
-        //       boxes[i].MaterialCheckbox.updateClasses();
-        //     }
-        //   } else {
-        //     for (var i = 0, length = boxes.length; i < length; i++) {
-        //       boxes[i].MaterialCheckbox.uncheck();
-        //       boxes[i].MaterialCheckbox.updateClasses();
-        //     }
-        //   }
-        // };
-        // headerCheckbox.addEventListener('change', headerCheckHandler);
-        // $(document).ready(function(){
-        // //     $("input[name=submit]").click(function(){
-        // //         if (!$("tr").hasClass("is-selected")) {
-        // //           $("tr.is-selected").find("input").removeAttr( "value" );  
-        // //         }
-        // //     });
-        // // });
         
-        //     $('#hrAction').submit(function(){
-        //         $('#hrTable > tbody  > tr').each(function() {
-        //             if(!$("tr").hasClass("is-selected")) {
-        //             // if($("tr:not([is-selected])")){
-        //                 // $("tr").removeClass("is-selected");
-        //                 // $("tr:not([is-selected]) > td > input").remove(); 
-        //                 $("tr:not([is-selected]) > td > input").val("");
-        //             }
-        //         });
-        //     });
-        // });
+        $(document).ready(function() {
+            $('#hrTable, #approved').DataTable();
+        
+            $(".paginate_button.previous").html("<i class=\"material-icons\">chevron_left</i>");
+            $(".paginate_button.next").html("<i class=\"material-icons\">chevron_right</i>"); 
+            
+            $(".paginate_button").click(function(){
+                $(".paginate_button.previous").html("<i class=\"material-icons\">chevron_left</i>"); 
+                $(".paginate_button.next").html("<i class=\"material-icons\">chevron_right</i>"); 
+            });
+        });
+        
     </script>
 {% endblock %}

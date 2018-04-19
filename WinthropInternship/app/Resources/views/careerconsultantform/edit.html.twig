@@ -1,13 +1,18 @@
 {% extends 'innerbase.html.twig' %}
 
+{% block title %}Edit Career Consultant Form{% endblock %}
+
 {% block body %}
-    <h1>Careerconsultantform edit</h1>
+    <h1 class="header center">Edit Career Consultant Form</h1>
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
             <div class="card-panel">
+                            
+                <h4>I approve of the Learning Agreement & Personal Learning Goals. Learning agreement is valid and internship meets University criteria.</h4>
             {{ form_start(edit_form) }}
                 {{ form_widget(edit_form) }}
-                <input type="submit" value="Edit" />
+                
+                <input onclick="M.toast({html: 'Changes Saved'})" type="submit" value="Save Changes" />
             {{ form_end(edit_form) }}
             </div>
         </div>
