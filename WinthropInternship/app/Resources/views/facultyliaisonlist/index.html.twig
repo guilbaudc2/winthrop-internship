@@ -2,6 +2,28 @@
 
 {% block title %}Faculty Liaison List{% endblock %}
 
+{% block javascripts %} 
+    <script>
+        $(document).ready(function() {
+            $('#list').DataTable();
+        
+            $(".paginate_button.previous").html("<i class=\"material-icons\">chevron_left</i>");
+            $(".paginate_button.next").html("<i class=\"material-icons\">chevron_right</i>"); 
+            
+            $(".paginate_button").click(function(){
+                $(".paginate_button.previous").html("<i class=\"material-icons\">chevron_left</i>"); 
+                $(".paginate_button.next").html("<i class=\"material-icons\">chevron_right</i>"); 
+            });
+
+            $(document).on('click', '.paginate_button', function(){
+                $(".paginate_button.previous").html("<i class=\"material-icons\">chevron_left</i>"); 
+                $(".paginate_button.next").html("<i class=\"material-icons\">chevron_right</i>"); 
+            });
+
+        });
+    </script>
+{% endblock %}
+
 {% block body %}
     <h1 class="header center">Faculty Liaison List</h1>
     
@@ -16,7 +38,7 @@
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
             <div class="card-panel">
-                <table>
+                <table class="highlight striped responsive-table" id="list">
                     <thead>
                         <tr>
                             <th>Name</th>

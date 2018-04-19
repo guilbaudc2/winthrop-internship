@@ -119,14 +119,19 @@
         $(document).ready(function() {
             $('#hrTable, #approved').DataTable();
         
-            $(".paginate_button.previous").html("<i class=\"material-icons\">chevron_left</i>");
+            $(".paginate_button.previous").html("<i class=\"material-icons\">chevron_left</i>"); 
             $(".paginate_button.next").html("<i class=\"material-icons\">chevron_right</i>"); 
             
             $(".paginate_button").click(function(){
                 $(".paginate_button.previous").html("<i class=\"material-icons\">chevron_left</i>"); 
                 $(".paginate_button.next").html("<i class=\"material-icons\">chevron_right</i>"); 
             });
+
+            $(document).on('click', '.paginate_button', function(){
+                $(".paginate_button.previous").html("<i class=\"material-icons\">chevron_left</i>"); 
+                $(".paginate_button.next").html("<i class=\"material-icons\">chevron_right</i>"); 
+            });
+
         });
-        
     </script>
 {% endblock %}
