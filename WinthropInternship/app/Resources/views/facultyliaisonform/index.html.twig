@@ -14,9 +14,13 @@
                 $(".paginate_button.previous").html("<i class=\"material-icons\">chevron_left</i>"); 
                 $(".paginate_button.next").html("<i class=\"material-icons\">chevron_right</i>"); 
             });
+
+            $(document).on('click', '.paginate_button', function(){
+                $(".paginate_button.previous").html("<i class=\"material-icons\">chevron_left</i>"); 
+                $(".paginate_button.next").html("<i class=\"material-icons\">chevron_right</i>"); 
+            });
+
         });
-        
-    </script>
 {% endblock %}
 
 
