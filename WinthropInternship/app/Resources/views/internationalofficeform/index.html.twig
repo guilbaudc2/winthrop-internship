@@ -1,58 +1,52 @@
 {% extends 'innerbase.html.twig' %}
 
+{% block title %}International Office Forms Dashboard{% endblock %}
+
+{% block javascripts %} 
+    <script>
+        $(document).ready(function() {
+            $('#readyToApprove, #inProgress, #approved, #completed').DataTable();
+        
+            $(".paginate_button.previous").html("<i class=\"material-icons\">chevron_left</i>"); 
+            $(".paginate_button.next").html("<i class=\"material-icons\">chevron_right</i>"); 
+            
+            $(".paginate_button").click(function(){
+                $(".paginate_button.previous").html("<i class=\"material-icons\">chevron_left</i>"); 
+                $(".paginate_button.next").html("<i class=\"material-icons\">chevron_right</i>"); 
+            });
+        });
+    </script>
+{% endblock %}
+
 {% block body %}
-    <h1>Internationalofficeforms list</h1>
+    <h1 class="header center">International Office Forms Dashboard</h1>
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
             <div class="card-panel">
                 <h2 class="header">Student Applications to Approve</h2>
-                <table>
+                <table class="highlight striped responsive-table" id="readyToApprove">
                     <thead>
                         <tr>
-                            <td>
-                                <table>
-                                    <th>Student First Name</th>
-                                    <th>Student Last Name</th>
-                                    <th>Student Email Address</th>
-                                    <th>Student CWID</th>
-                                    <th>Organization Name</th>
-                                    <th>View Application</th>
-                                </table>
-                            </td>
+                            <th>Student First Name</th>
+                            <th>Student Last Name</th>
+                            <th>Student Email Address</th>
+                            <th>Student CWID</th>
+                            <th>Organization Name</th>
+                            <th>View Application</th>
                         </tr>
                     </thead>
                     <tbody>
                     {% for studentFormOne in studentFormOnes %}
                         <tr>
+                            <td>{{ studentFormOne.firstName }}</td>
+                            <td>{{ studentFormOne.lastName }}</td>
+                            <td>{{ studentFormOne.emailAddress}}</td>
+                            <td>{{ studentFormOne.cWID }}</td>
+                            <td>{{ studentFormOne.organizationName }}</td>
                             <td>
                                 <form action="{{ path('internationalofficeform_new') }}" method="GET">
                                     <input type="hidden" name="studentInfo" value="{{ studentFormOne.id }}" />
-                                    <table>
-                                        {#<td class="mdl-data-table__cell--non-numeric"><label><input type="checkbox" class="filled-in"/><span>{{ studentFormOne.firstName }}</span></label></td>#}
-                                        <td>{{ studentFormOne.firstName }}</td>
-                                        <td>{{ studentFormOne.lastName }}</td>
-                                        <td>{{ studentFormOne.emailAddress}}</td>
-                                        <td>{{ studentFormOne.cWID }}</td>
-                                        <td>{{ studentFormOne.organizationName }}</td>
-                                        {#<td>#}
-                                        {#    <ul>#}
-                                        {#        <li>#}
-                                        {#            <a href="{{ path('studentformone_show', { 'id': studentFormOne.id }) }}">show</a>#}
-                                        {#        </li>#}
-                                        {#        <li>#}
-                                        {#            <a href="{{ path('studentformone_edit', { 'id': studentFormOne.id }) }}">edit</a>#}
-                                        {#        </li>#}
-                                        {#    </ul>#}
-                                        {#</td>#}
-                                        <td>
-                                            {#<ul>#}
-                                            {#    <li>#}
-                                            {#        <a href="{{ path('internationalofficeform_new') }}">Create a new internationalOfficeForm</a>#}
-                                            {#    </li>#}
-                                            {#</ul>#}
-                                            <input type="submit" name="submit" value="View Application">
-                                        </td>
-                                    </table>
+                                    <input type="submit" name="submit" value="View Application">
                                 </form>
                             </td>
                         </tr>
@@ -66,7 +60,7 @@
         <div class="container">
             <div class="card-panel">
                 <h2 class="header">Approved Student Applications</h2>
-                <table>
+                <table class="highlight striped responsive-table" id="approved">
                     <thead>
                         <tr>
                             <th>Student First Name</th>
@@ -80,7 +74,6 @@
                     </tbody>
                     {% for internationalOfficeForm in internationalOfficeForms %}
                         <tr>
-                            {#<td class="mdl-data-table__cell--non-numeric"><label><input type="checkbox" class="filled-in"/><span>{{ internationalOfficeForm.firstName }}</span></label></td>#}
                             <td>{{ internationalOfficeForm.firstName }}</td>
                             <td>{{ internationalOfficeForm.lastName }}</td>
                             <td>{{ internationalOfficeForm.emailAddress}}</td>
@@ -89,7 +82,7 @@
                             <td>
                                 <ul>
                                     <li>
-                                        <a href="{{ path('internationalofficeform_show', { 'id': internationalOfficeForm.id }) }}">show</a>
+                                        <a href="{{ path('internationalofficeform_show', { 'id': internationalOfficeForm.id }) }}" class="waves-effect waves-light btn show">show</a></td>
                                     </li>
                                 </ul>
                             </td>
@@ -100,9 +93,4 @@
             </div>
         </div>
     </div>
-    <ul>
-        <li>
-            <a href="{{ path('internationalofficeform_new') }}">Create a new internationalOfficeForm</a>
-        </li>
-    </ul>
 {% endblock %}

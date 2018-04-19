@@ -1,19 +1,31 @@
 {% extends 'innerbase.html.twig' %}
 
+{% block title %}HR Form{% endblock %}
+
 {% block body %}
-    <h1>Hrform</h1>
+    <h1 class="header center">HR Form</h1>
+    <div class="section" id="nav-backBtn">
+        <ul>
+            <li>
+                <a href="{{ path('hrform_index') }}" class="btn waves-effect waves-light button-back">Back to the list</a>
+            </li>
+            <li>
+                <a href="{{ path('hrform_edit', { 'id': hRForm.id }) }}" class="btn waves-effect waves-light button-back">Edit</a>
+            </li>
+        </ul>
+    </div>
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
             <div class="card-panel">
                 <table>
                     <tbody>
                         <tr>
-                            <th>Id</th>
-                            <td>{{ hRForm.id }}</td>
+                            <th>Did Student Complete TitleIX Training?</th>
+                            <td>{% if hRForm.completedTitleIX %}Yes{% else %}No{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Completedtitleix</th>
-                            <td>{% if hRForm.completedTitleIX %}Yes{% else %}No{% endif %}</td>
+                            <th>Approved Date</th>
+                            <td>{% if hRForm.approveDate %}{{ hRForm.approveDate|date('Y-m-d H:i:s') }}{% endif %}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -22,12 +34,7 @@
     </div>
 
     <ul>
-        <li>
-            <a href="{{ path('hrform_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('hrform_edit', { 'id': hRForm.id }) }}">Edit</a>
-        </li>
+        
         <li>
             {{ form_start(delete_form) }}
                 <input type="submit" value="Delete">

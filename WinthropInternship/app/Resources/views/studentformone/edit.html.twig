@@ -2,16 +2,8 @@
 
 {% block title %}Edit Student Form One Information{% endblock %}
 
-{% block stylesheets %}
-    <link rel="stylesheet" type="text/css" href="../../../assets/css/reset.css">
-    <link type="text/css" rel="stylesheet" href="../../../assets/css/materialize.min.css"  media="screen,projection"/>
-    <link rel="stylesheet" type="text/css" href="../../../assets/css/styles.css">
-{% endblock %}
-
-{% block javascripts %}<script type="text/javascript" src="../../../assets/js/materialize.min.js"></script>{% endblock %}
-
 {% block body %}
-    <h1 class="header center">Studentformone edit</h1>
+    <h1 class="header center">Edit Student Form One Information</h1>
     <div class="section" id="nav-backBtn">
         <ul>
             <li>
@@ -24,7 +16,7 @@
             <div class="card-panel">
             {{ form_start(edit_form) }}
                 {{ form_widget(edit_form) }}
-                <input type="submit" class="btn-large waves-effect waves-light landing-btn-color button-resize" value="Save Changes" />
+                <input onclick="M.toast({html: 'Changes Saved'})" type="submit" value="Save Changes" />
             {{ form_end(edit_form) }}
             </div>
         </div>
@@ -33,7 +25,7 @@
     <ul>
         <li>
             {{ form_start(delete_form) }}
-                <input type="submit" class="btn-large waves-effect waves-light landing-btn-color button-resize" value="Delete">
+                <input type="submit" class="del-btn" value="Delete">
             {{ form_end(delete_form) }}
         </li>
     </ul>

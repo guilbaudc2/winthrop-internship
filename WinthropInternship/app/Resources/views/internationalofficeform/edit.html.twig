@@ -2,30 +2,28 @@
 
 {% block title %}International Office Form{% endblock %}
 
-{% block stylesheets %}
-    <link rel="stylesheet" type="text/css" href="../../../assets/css/reset.css">
-    <link type="text/css" rel="stylesheet" href="../../../assets/css/materialize.min.css"  media="screen,projection"/>
-    <link rel="stylesheet" type="text/css" href="../../../assets/css/styles.css">
 {% endblock %}
 
-{% block javascripts %}<script type="text/javascript" src="../../../assets/js/materialize.min.js"></script>{% endblock %}
-
 {% block body %}
-    <h1>Internationalofficeform edit</h1>
+    <h1 class="header center">Edit International Office Form Approval</h1>
+    <div class="section" id="nav-backBtn">
+        <ul>
+            <li>
+                <a href="{{ path('internationalofficeform_index') }}" class="btn waves-effect waves-light button-back">Back to the list</a>
+            </li>
+        </ul>
+    </div>
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
             <div class="card-panel">
             {{ form_start(edit_form) }}
                 {{ form_widget(edit_form) }}
-                <input type="submit" value="Edit" />
+                <input onclick="M.toast({html: 'Changes Saved'})" type="submit" value="Save Changes" />
             {{ form_end(edit_form) }}
             </div>
         </div>
     </div>
     <ul>
-        <li>
-            <a href="{{ path('internationalofficeform_index') }}">Back to the list</a>
-        </li>
         <li>
             {{ form_start(delete_form) }}
                 <input type="submit" value="Delete">

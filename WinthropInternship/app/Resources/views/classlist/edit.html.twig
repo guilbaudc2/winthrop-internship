@@ -1,24 +1,30 @@
 {% extends 'innerbase.html.twig' %}
 
+{% block title %}Edit Internship Class Information{% endblock %}
+
 {% block body %}
-    <h1>Edit Internship Class Information</h1>
+    <h1 class="header center">Edit Internship Class Information</h1>
+    <div class="section" id="nav-backBtn">
+        <ul>
+            <li>
+                <a href="{{ path('classlist_index') }}" class="btn waves-effect waves-light button-back">Back to the list</a>
+            </li>
+        </ul>
+    </div>
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
             <div class="card-panel">
             {{ form_start(edit_form) }}
                 {{ form_widget(edit_form) }}
-                <input type="submit" value="Edit" />
+                <input onclick="M.toast({html: 'Changes Saved'})" type="submit" value="Save Changes" />
             {{ form_end(edit_form) }}
             </div>
         </div>
     </div> 
     <ul>
         <li>
-            <a href="{{ path('classlist_index') }}">Back to the list</a>
-        </li>
-        <li>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                <input type="submit" class="del-btn" value="Delete">
             {{ form_end(delete_form) }}
         </li>
     </ul>

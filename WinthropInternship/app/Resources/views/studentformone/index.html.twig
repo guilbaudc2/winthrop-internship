@@ -54,10 +54,7 @@
                                 <td>
                                     <ul>
                                         <li>
-                                            <a href="{{ path('studentformone_show', { 'id': studentFormOne.id }) }}">show</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ path('studentformone_edit', { 'id': studentFormOne.id }) }}">edit</a>
+                                            <a href="{{ path('studentformone_show', { 'id': studentFormOne.id }) }}" class="waves-effect waves-light btn show">show</a></td>
                                         </li>
                                     </ul>
                                 </td>
@@ -69,9 +66,4 @@
             </div>
         </div>
     {% endif %}
-    {#<ul>#}
-    {#    <li>#}
-    {#        <a href="{{ path('studentformone_new') }}">Create a new studentFormOne</a>#}
-    {#    </li>#}
-    {#</ul>#}
 {% endblock %}

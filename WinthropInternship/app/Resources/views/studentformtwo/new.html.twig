@@ -4,9 +4,127 @@
 
 {% block body %}
     <h1 class="header center">Your Information</h1>
+    
+    <h2>Site Supervisor Form Information</h2>   
+    
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
             <div class="card-panel">
+                {% if siteSupervisorForm %}
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>For Profit?</th>
+                            <td>{% if siteSupervisorForm.forProfit %}Yes{% else %}No{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Organization Name</th>
+                            <td>{{ siteSupervisorForm.organizationName }}</td>
+                        </tr>
+                        <tr>
+                            <th>Business License Number or FEIN #</th>
+                            <td>{{ siteSupervisorForm.businessLicenseNum }}</td>
+                        </tr>
+                        <tr>
+                            <th>State Issued</th>
+                            <td>{{ siteSupervisorForm.stateIssued }}</td>
+                        </tr>
+                        <tr>
+                            <th>Direct Internship Supervisor</th>
+                            <td>{{ siteSupervisorForm.directInternshipSupervisor }}</td>
+                        </tr>
+                        <tr>
+                            <th>Supervisor's Title</th>
+                            <td>{{ siteSupervisorForm.supervisorsTitle }}</td>
+                        </tr>
+                        <tr>
+                            <th>Physical Aaddress</th>
+                            <td>{{ siteSupervisorForm.physicalAddress }}</td>
+                        </tr>
+                        <tr>
+                            <th>Available for Site Visit?</th>
+                            <td>{% if siteSupervisorForm.availableForSiteVisit %}Yes{% else %}No{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Supervisor Phone</th>
+                            <td>{{ siteSupervisorForm.supervisorPhone }}</td>
+                        </tr>
+                        <tr>
+                            <th>Supervisor Email</th>
+                            <td>{{ siteSupervisorForm.supervisorEmail }}</td>
+                        </tr>
+                        <tr>
+                            <th>Internship Projected Start Date</th>
+                            <td>{% if siteSupervisorForm.internshipProjectedStartDate %}{{ siteSupervisorForm.internshipProjectedStartDate|date('Y-m-d') }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Internship Projected End Date</th>
+                            <td>{% if siteSupervisorForm.internshipProjectedEndDate %}{{ siteSupervisorForm.internshipProjectedEndDate|date('Y-m-d') }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Estimated Total Weeks</th>
+                            <td>{{ siteSupervisorForm.totalWeeks }}</td>
+                        </tr>
+                        <tr>
+                            <th>Estimated Total Hours/Week</th>
+                            <td>{{ siteSupervisorForm.estimatedHours }}</td>
+                        </tr>
+                        <tr>
+                            <th>Paid?</th>
+                            <td>{% if siteSupervisorForm.paid %}Yes{% else %}No{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Salary or Stipend</th>
+                            <td>{% if siteSupervisorForm.salaryOrStipend %}{{ siteSupervisorForm.salaryOrStipend|join(', ') }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Salary Amount</th>
+                            <td>{{ siteSupervisorForm.salary }}</td>
+                        </tr>                        
+                        <tr>
+                            <th>Stipend Amount</th>
+                            <td>{{ siteSupervisorForm.stipend }}</td>
+                        </tr>
+                        <tr>
+                            <th>Intern Tasks/Role</th>
+                            <td>{{ siteSupervisorForm.task }}</td>
+                        </tr>
+                        <tr>
+                            <th>Specific Projects Intern will work on/assist with</th>
+                            <td>{{ siteSupervisorForm.projects }}</td>
+                        </tr>
+                        <tr>
+                            <th>Learning Outcomes for Intern</th>
+                            <td>{{ siteSupervisorForm.outcomes }}</td>
+                        </tr>
+                        <tr>
+                            <th>Additional Comments Regarding Internship</th>
+                            <td>{{ siteSupervisorForm.additionalComments }}</td>
+                        </tr>
+                        <tr>
+                            <th>Date Submitted</th>
+                            <td>{{ siteSupervisorForm.submitDate }}</td>
+                        </tr>
+                        <tr>
+                            <th>Signature</th>
+                            <td>{{ siteSupervisorForm.digitalSignature }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                {%else%}
+                
+                Waiting on Site Supervisor Form.
+                
+                {%endif%}
+            </div>
+        </div>
+    </div>    
+    
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <div class="card-panel">
+                <p>Answer the following questions to complete your internship application for your particular site. These answers
+in addition to your Learning Agreement must be reviewed and approved by your faculty liaison</p>
             {{ form_start(form) }}
                 {{ form_widget(form) }}
                 <input type="submit" value="Submit" />

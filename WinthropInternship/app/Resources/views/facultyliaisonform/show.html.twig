@@ -1,7 +1,19 @@
 {% extends 'innerbase.html.twig' %}
 
+{% block title %}Faculty Liaison Approval{% endblock %}
+
 {% block body %}
-    <h1>Facultyliaisonform</h1>
+    <h1 class="header center">Faculty Liaison Form</h1>
+    <div class="section" id="nav-backBtn">
+        <ul>
+            <li>
+            <a href="{{ path('facultyliaisonform_index') }}" class="btn waves-effect waves-light button-back">Back to the list</a>
+            </li>
+            <li>
+                <a href="{{ path('facultyliaisonform_edit', { 'id': facultyLiaisonForm.id }) }}" class="btn waves-effect waves-light button-back">Edit</a>
+            </li>
+        </ul>
+    </div>
 
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
@@ -9,39 +21,39 @@
                 <table>
                     <tbody>
                         <tr>
-                            <th>Firstname</th>
+                            <th>First Name</th>
                             <td>{{ studentFormOne.firstName }}</td>
                         </tr>
                         <tr>
-                            <th>Lastname</th>
+                            <th>Last Name</th>
                             <td>{{ studentFormOne.lastName }}</td>
                         </tr>
                         <tr>
-                            <th>Username</th>
+                            <th>Winthrop Username</th>
                             <td>{{ studentFormOne.userName }}</td>
                         </tr>
                         <tr>
-                            <th>Cwid</th>
+                            <th>CWID (Winthrop ID Number)</th>
                             <td>{{ studentFormOne.cWID }}</td>
                         </tr>
                         <tr>
-                            <th>Emailaddress</th>
+                            <th>Winthrop Email Address</th>
                             <td>{{ studentFormOne.emailAddress }}</td>
                         </tr>
                         <tr>
-                            <th>Classenrolled</th>
+                            <th>Internship Class</th>
                             <td>{{ studentFormOne.classEnrolled }}</td>
                         </tr>
                         <tr>
-                            <th>Numcredits</th>
+                            <th>Number of Credits for Internship</th>
                             <td>{{ studentFormOne.numCredits }}</td>
                         </tr>
                         <tr>
-                            <th>Phonenumber</th>
+                            <th>Phone Number</th>
                             <td>{{ studentFormOne.phoneNumber }}</td>
                         </tr>
                         <tr>
-                            <th>Workauthorization</th>
+                            <th>Work Authorization (US Citizen or Permanent Resident)</th>
                             <td>{% if studentFormOne.workAuthorization %}Yes{% else %}No{% endif %}</td>
                         </tr>
                         <tr>
@@ -53,31 +65,31 @@
                             <td>{{ studentFormOne.minor }}</td>
                         </tr>
                         <tr>
-                            <th>Facultyliaison</th>
+                            <th>Faculty Liaison</th>
                             <td>{{ studentFormOne.facultyLiaison }}</td>
                         </tr>
                         <tr>
-                            <th>Semesterenrolled</th>
+                            <th>Semester Enrolled</th>
                             <td>{{ studentFormOne.semesterEnrolled }}</td>
                         </tr>
                         <tr>
-                            <th>Yearenrolled</th>
+                            <th>Year Enrolled</th>
                             <td>{% if studentFormOne.yearEnrolled %}{{ studentFormOne.yearEnrolled|date('Y-m-d') }}{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Semestergrad</th>
+                            <th>Semester Graduating</th>
                             <td>{{ studentFormOne.semesterGrad }}</td>
                         </tr>
                         <tr>
-                            <th>Yeargrad</th>
+                            <th>Year Graduating</th>
                             <td>{% if studentFormOne.yearGrad %}{{ studentFormOne.yearGrad|date('Y-m-d') }}{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Sitesupername</th>
+                            <th>Internship Site Supervisor's Name</th>
                             <td>{{ studentFormOne.siteSuperName }}</td>
                         </tr>
                         <tr>
-                            <th>Sitesuperemail</th>
+                            <th>Internship Site Supervisor's Email Address</th>
                             <td>{{ studentFormOne.siteSuperEmail }}</td>
                         </tr>
                         <tr>
@@ -97,7 +109,6 @@
   
     <h2>Internship Site Information</h2>
   
-    
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
             <div class="card-panel">
@@ -112,7 +123,7 @@
                             <td>{{ siteSupervisorForm.organizationName }}</td>
                         </tr>
                         <tr>
-                            <th>Business License Nummber or FEIN #</th>
+                            <th>Business License Number or FEIN #</th>
                             <td>{{ siteSupervisorForm.businessLicenseNum }}</td>
                         </tr>
                         <tr>
@@ -210,18 +221,20 @@
         </div>
     </div>
     
+    <h2>HR Form Information</h2>
+    
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
             <div class="card-panel">
                 <table>
                     <tbody>
                         <tr>
-                            <th>Id</th>
-                            <td>{{ hRForm.id }}</td>
+                            <th>Did Student Complete TitleIX Training?</th>
+                            <td>{% if hRForm.completedTitleIX %}Yes{% else %}No{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Completedtitleix</th>
-                            <td>{% if hRForm.completedTitleIX %}Yes{% else %}No{% endif %}</td>
+                            <th>Approved Date</th>
+                            <td>{% if hRForm.approveDate %}{{ hRForm.approveDate|date('Y-m-d H:i:s') }}{% endif %}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -229,22 +242,24 @@
         </div>
     </div>
 
+    <h2>Student Form Two Information</h2>
+
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
             <div class="card-panel">
                 <table>
                     <tbody>
                         <tr>
-                            <th>Id</th>
-                            <td>{{ studentFormTwo.id }}</td>
-                        </tr>
-                        <tr>
-                            <th>Educationalexperience</th>
+                            <th>Explain how this internship will add to your educational experience at Winthrop University</th>
                             <td>{{ studentFormTwo.educationalExperience }}</td>
                         </tr>
                         <tr>
-                            <th>Goals</th>
+                            <th>What professional and personal goals do you hope to achieve while at this internship? (Be specific)</th>
                             <td>{{ studentFormTwo.goals }}</td>
+                        </tr>
+                        <tr>
+                            <th>Date Submitted</th>
+                            <td>{% if studentFormTwo.submitDate %}{{ studentFormTwo.submitDate|date('Y-m-d H:i:s') }}{% endif %}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -252,49 +267,74 @@
         </div>
     </div>
 
+{% if studentFormOne.workAuthorization == false %}
+    <h2>International Office Form Information</h2> 
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
             <div class="card-panel">
                 <table>
                     <tbody>
                         <tr>
-                            <th>Id</th>
-                            <td>{{ facultyLiaisonForm.id }}</td>
+                            <th>Approve</th>
+                            <td>{% if ioForm.approve %}Yes{% else %}No{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Legalname</th>
+                            <th>Additional Comments</th>
+                            <td>{{ ioForm.additionalComments }}</td>
+                        </tr>
+                        <tr>
+                            <th>Approved Date</th>
+                            <td>{% if ioForm.approveDate %}{{ ioForm.approveDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                        </tr>
+                        <tr>
+                            <th>Digital Signature</th>
+                            <td>{{ ioForm.digitalSignature }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{%endif%}
+
+
+    <h2>Faculty Liaison Form Information</h2>
+
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <div class="card-panel">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Digital Signature</th>
                             <td>{{ facultyLiaisonForm.legalName }}</td>
                         </tr>
                         <tr>
-                            <th>Internshiplearningagreement</th>
+                            <th>Does student need a completed Internship Learning Agreement?</th>
                             <td>{% if facultyLiaisonForm.internshipLearningAgreement %}Yes{% else %}No{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Midpointevaluation</th>
+                            <th>Does student need to complete a Midpoint Evaluation?</th>
                             <td>{% if facultyLiaisonForm.midPointEvaluation %}Yes{% else %}No{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Sitevisit</th>
+                            <th>Does Internship Site Require a  Site Visit?</th>
                             <td>{% if facultyLiaisonForm.siteVisit %}Yes{% else %}No{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Finalreport</th>
+                            <th>Does student need to complete a Final Report?</th>
                             <td>{% if facultyLiaisonForm.finalReport %}Yes{% else %}No{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Finalevaluation</th>
+                            <th>Does student need to complete a Final Evaluation?</th>
                             <td>{% if facultyLiaisonForm.finalEvaluation %}Yes{% else %}No{% endif %}</td>
-                        </tr>
-                        <tr>
-                            <th>Internship Industry</th>
-                            <td>{{ facultyLiaisonForm.internshipIndustry }}</td>
                         </tr>
                         <tr>
                             <th>Approve</th>
                             <td>{% if facultyLiaisonForm.approve %}Yes{% else %}No{% endif %}</td>
                         </tr>
                         <tr>
-                            <th>Approvedate</th>
+                            <th>Approve Date</th>
                             <td>{% if facultyLiaisonForm.approveDate %}{{ facultyLiaisonForm.approveDate|date('Y-m-d H:i:s') }}{% endif %}</td>
                         </tr>
                     </tbody>
@@ -304,14 +344,8 @@
     </div>
     <ul>
         <li>
-            <a href="{{ path('facultyliaisonform_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('facultyliaisonform_edit', { 'id': facultyLiaisonForm.id }) }}">Edit</a>
-        </li>
-        <li>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                <input type="submit" class="del-btn" value="Delete">
             {{ form_end(delete_form) }}
         </li>
     </ul>

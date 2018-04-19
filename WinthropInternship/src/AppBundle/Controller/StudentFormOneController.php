@@ -34,15 +34,20 @@ class StudentFormOneController extends Controller
             }elseif($this->get('security.authorization_checker')->isGranted('ROLE_FL_ADMIN')) {
                 return $this->redirectToRoute('facultyliaisonform_index');
             }else{
-                $user = $this->getUser();
+                if (!$this->getUser()) {
+                    return $this->redirectToRoute('homepage');
+                }else{
                 
-                $username = $user->getUsername();
-                
-                $emailAddress = $username . "@winthrop.edu";
-                
-                $em = $this->getDoctrine()->getManager();
-                
-                $this->studentFormOnes = $em->getRepository('AppBundle:StudentFormOne')->findBy(array('emailAddress' => $emailAddress));
+                    $user = $this->getUser();
+                    
+                    $username = $user->getUsername();
+                    
+                    $emailAddress = $username . "@winthrop.edu";
+                    
+                    $em = $this->getDoctrine()->getManager();
+                    
+                    $this->studentFormOnes = $em->getRepository('AppBundle:StudentFormOne')->findBy(array('emailAddress' => $emailAddress));
+                }
             }
             
         }
@@ -263,7 +268,6 @@ class StudentFormOneController extends Controller
             }else{
                 $siteSupervisorForm = $siteSupervisorFormArray[0];
             }
-            dump($siteSupervisorForm);
             
             $query = $em->createQuery("SELECT hr FROM AppBundle:HRForm hr JOIN AppBundle:StudentFormOne sfo WHERE sfo.id = hr.student_form_one AND sfo.id = :id");
             $query->setParameter("id", $studentFormOne->getId());

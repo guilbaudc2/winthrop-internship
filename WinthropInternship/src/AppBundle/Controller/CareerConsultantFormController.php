@@ -5,7 +5,14 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\CareerConsultantForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\Encoder\CsvEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Careerconsultantform controller.
@@ -22,133 +29,173 @@ class CareerConsultantFormController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        //Ready for Approval
-        $ccQuery = $em->createQuery("SELECT sfo.id, sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf WHERE sfo.id = ssf.student_form_one AND sfo.workAuthorization = 1 JOIN AppBundle:HRForm hrf WHERE sfo.id = hrf.student_form_one JOIN AppBundle:StudentFormTwo sft WHERE sfo.id = sft.student_form_one JOIN AppBundle:FacultyLiaisonForm fl WHERE sfo.id = fl.student_form_one LEFT JOIN AppBundle:CareerConsultantForm cc WHERE sfo.id = cc.student_form_one WHERE cc.student_form_one IS NULL");
-        
-    
-        $noniostudentFormOnesReady = $ccQuery->getResult();
-        
-        $ccQueryIO = $em->createQuery("SELECT sfo.id, sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf WHERE sfo.id = ssf.student_form_one AND sfo.workAuthorization = 0 JOIN AppBundle:HRForm hrf WHERE sfo.id = hrf.student_form_one JOIN AppBundle:StudentFormTwo sft WHERE sfo.id = sft.student_form_one JOIN AppBundle:InternationalOfficeForm io WHERE sfo.id = io.student_form_one JOIN AppBundle:FacultyLiaisonForm fl WHERE sfo.id = fl.student_form_one LEFT JOIN AppBundle:CareerConsultantForm cc WHERE sfo.id = cc.student_form_one WHERE cc.student_form_one IS NULL"); 
-        
-        $ioStudentFormOnesReady = $ccQueryIO->getResult();
-        
-        $studentFormOnesReady = array_merge($noniostudentFormOnesReady, $ioStudentFormOnesReady);
-        
-        
-        $ccQuery3 = $em->createQuery("SELECT cc.id, sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, sfo.facultyLiaison, sfo.classEnrolled, ssf.organizationName FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf WHERE sfo.id = ssf.student_form_one JOIN AppBundle:Facultyliaisonform fl WHERE sfo.id = fl.student_form_one JOIN AppBundle:CareerConsultantForm cc WHERE sfo.id = cc.student_form_one"); 
-        
-        $careerConsultantForms = $ccQuery3->getResult();
-        
-        //Not Ready for Approval
-            $ccQuery2 = $em->createQuery("SELECT sfo.id, sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName, sfo.submitDate as lastUpdated FROM AppBundle:StudentFormOne sfo LEFT JOIN AppBundle:SiteSupervisorForm ssf WITH sfo.id = ssf.student_form_one WHERE ssf.student_form_one IS NULL"); 
-        
-            $studentFormOnesOnly = $ccQuery2->getResult();
-            
-                
-            $studentFormOneCompleted = array();
-            
-            foreach($studentFormOnesOnly as $studentFormOneOnly){
-                $studentFormOneOnly["lastUser"] = "Student";
-                
-                $studentFormOneCompleted[] = $studentFormOneOnly;
-                
-            }
-            
-            
-            $ccQuery2 = $em->createQuery("SELECT sfo.id, sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName, ssf.submitDate as lastUpdated FROM AppBundle:StudentFormOne sfo INNER JOIN AppBundle:SiteSupervisorForm ssf WITH sfo.id = ssf.student_form_one AND sfo.workAuthorization = 1 LEFT JOIN AppBundle:HRForm hr WITH sfo.id = hr.student_form_one LEFT JOIN AppBundle:StudentFormTwo sft WITH sfo.id = sft.student_form_one WHERE hr.student_form_one IS NULL OR sft.student_form_one IS NULL"); 
-        
-            $siteSupervisorFormsOnly = $ccQuery2->getResult();
-            
-                
-            $siteSupervisorFormCompleted = array();
-            
-            foreach($siteSupervisorFormsOnly as $siteSupervisorFormOnly){
-                $siteSupervisorFormOnly["lastUser"] = "Site Supervisor";
-                
-                $siteSupervisorFormCompleted[] = $siteSupervisorFormOnly;
-                
-            }
-            
-            $ccQuery2 = $em->createQuery("SELECT sfo.id, sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName, hr.approveDate as lastUpdated FROM AppBundle:StudentFormOne sfo INNER JOIN AppBundle:SiteSupervisorForm ssf WITH sfo.id = ssf.student_form_one INNER JOIN AppBundle:HRForm hr WITH sfo.id = hr.student_form_one LEFT JOIN AppBundle:StudentFormTwo sft WITH sfo.id = sft.student_form_one WHERE sft.student_form_one IS NULL"); 
-        
-            $hrFormsOnly = $ccQuery2->getResult();
-            
-                
-            $hrFormCompleted = array();
-            
-            foreach($hrFormsOnly as $hrFormOnly){
-                $hrFormOnly["lastUser"] = "Human Resources";
-                
-                $hrFormCompleted[] = $hrFormOnly;
-                
-            }
-            
-            $ccQuery2 = $em->createQuery("SELECT sfo.id, sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName, sft.submitDate as lastUpdated FROM AppBundle:StudentFormOne sfo INNER JOIN AppBundle:SiteSupervisorForm ssf WITH sfo.id = ssf.student_form_one INNER JOIN AppBundle:StudentFormTwo sft WITH sfo.id = sft.student_form_one LEFT JOIN AppBundle:HRForm hr WITH sfo.id = hr.student_form_one WHERE hr.student_form_one IS NULL"); 
-        
-            $studentFormTwosOnly = $ccQuery2->getResult();
-            
-                
-            $studentFormTwoCompleted = array();
-            
-            foreach($studentFormTwosOnly as $studentFormTwoOnly){
-                $studentFormTwoOnly["lastUser"] = "Student (Form Two)";
-                
-                $studentFormTwoCompleted[] = $studentFormTwoOnly;
-                
-            }
-            
-            $ccQuery2 = $em->createQuery("SELECT sfo.id, sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName, hr.approveDate as lastUpdated FROM AppBundle:StudentFormOne sfo INNER JOIN AppBundle:SiteSupervisorForm ssf WITH sfo.id = ssf.student_form_one AND sfo.workAuthorization = 0 INNER JOIN AppBundle:HRForm hr WITH sfo.id = hr.student_form_one INNER JOIN AppBundle:StudentFormTwo sft WITH sfo.id = sft.student_form_one LEFT JOIN AppBundle:InternationalOfficeForm io WITH sfo.id = io.student_form_one WHERE io.student_form_one IS NULL"); 
-        
-            $ioFormsOnly = $ccQuery2->getResult();
-            
-                
-            $ioFormCompleted = array();
-            
-            foreach($ioFormsOnly as $ioFormOnly){
-                $ioFormOnly["lastUser"] = "Human Resources/Student";
-                
-                $ioFormCompleted[] = $ioFormOnly;
-                
-            }
-            
-            
-            $studentFormOnes = array_merge($studentFormOneCompleted, $siteSupervisorFormCompleted,$hrFormCompleted, $studentFormTwoCompleted, $ioFormCompleted);
-            
-            // function cmp($a, $b)
-            // {
-            //     return strcmp($a["lastUpdated"], $b["lastupdated"]);
-            // }
-            
-            usort($studentFormOnes, function ($a, $b) {
-                $a_val = $a['lastUpdated'];
-                $b_val = $b['lastUpdated'];
-                
-                if($a_val > $b_val) return 1;
-                if($a_val < $b_val) return -1;
-                return 0;
-            });
-               
-        
-        
-        if ($this->getUser()) {
-            return $this->render('careerconsultantform/index.html.twig', array(
-                'studentFormOnesReady' => $studentFormOnesReady,
-                'studentFormOnes' => $studentFormOnes,
-                'careerConsultantForms' => $careerConsultantForms,
-            ));
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {   
+            return $this->redirectToRoute('studentformone_index');
         }else{
-            return $this->redirectToRoute('homepage');
+            $em = $this->getDoctrine()->getManager();
+    
+            //Ready for Approval
+            $ccQuery = $em->createQuery("SELECT sfo.id, sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf WHERE sfo.id = ssf.student_form_one AND sfo.workAuthorization = 1 JOIN AppBundle:HRForm hrf WHERE sfo.id = hrf.student_form_one JOIN AppBundle:StudentFormTwo sft WHERE sfo.id = sft.student_form_one JOIN AppBundle:FacultyLiaisonForm fl WHERE sfo.id = fl.student_form_one LEFT JOIN AppBundle:CareerConsultantForm cc WHERE sfo.id = cc.student_form_one WHERE cc.student_form_one IS NULL");
+            
         
+            $noniostudentFormOnesReady = $ccQuery->getResult();
+            
+            $ccQueryIO = $em->createQuery("SELECT sfo.id, sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf WHERE sfo.id = ssf.student_form_one AND sfo.workAuthorization = 0 JOIN AppBundle:HRForm hrf WHERE sfo.id = hrf.student_form_one JOIN AppBundle:StudentFormTwo sft WHERE sfo.id = sft.student_form_one JOIN AppBundle:InternationalOfficeForm io WHERE sfo.id = io.student_form_one JOIN AppBundle:FacultyLiaisonForm fl WHERE sfo.id = fl.student_form_one LEFT JOIN AppBundle:CareerConsultantForm cc WHERE sfo.id = cc.student_form_one WHERE cc.student_form_one IS NULL"); 
+            
+            $ioStudentFormOnesReady = $ccQueryIO->getResult();
+            
+            $studentFormOnesReady = array_merge($noniostudentFormOnesReady, $ioStudentFormOnesReady);
+            
+            
+            $ccQuery3 = $em->createQuery("SELECT cc.id, sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, sfo.facultyLiaison, sfo.classEnrolled, ssf.organizationName FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf WHERE sfo.id = ssf.student_form_one JOIN AppBundle:Facultyliaisonform fl WHERE sfo.id = fl.student_form_one JOIN AppBundle:CareerConsultantForm cc WHERE sfo.id = cc.student_form_one"); 
+            
+            $careerConsultantForms = $ccQuery3->getResult();
+            
+            
+            //Not Ready for Approval
+                $ccQuery2 = $em->createQuery("SELECT sfo.id, sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName, sfo.submitDate as lastUpdated FROM AppBundle:StudentFormOne sfo LEFT JOIN AppBundle:SiteSupervisorForm ssf WITH sfo.id = ssf.student_form_one WHERE ssf.student_form_one IS NULL"); 
+            
+                $studentFormOnesOnly = $ccQuery2->getResult();
+                
+                    
+                $studentFormOneCompleted = array();
+                
+                foreach($studentFormOnesOnly as $studentFormOneOnly){
+                    $studentFormOneOnly["lastUser"] = "Student";
+                    
+                    $studentFormOneCompleted[] = $studentFormOneOnly;
+                    
+                }
+                
+                
+                $ccQuery2 = $em->createQuery("SELECT sfo.id, sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName, ssf.submitDate as lastUpdated FROM AppBundle:StudentFormOne sfo INNER JOIN AppBundle:SiteSupervisorForm ssf WITH sfo.id = ssf.student_form_one AND sfo.workAuthorization = 1 LEFT JOIN AppBundle:HRForm hr WITH sfo.id = hr.student_form_one LEFT JOIN AppBundle:StudentFormTwo sft WITH sfo.id = sft.student_form_one WHERE (hr.student_form_one IS NULL AND sft.student_form_one IS NULL)"); 
+            
+                $siteSupervisorFormsOnly = $ccQuery2->getResult();
+                
+                    
+                $siteSupervisorFormCompleted = array();
+                
+                foreach($siteSupervisorFormsOnly as $siteSupervisorFormOnly){
+                    $siteSupervisorFormOnly["lastUser"] = "Site Supervisor";
+                    
+                    $siteSupervisorFormCompleted[] = $siteSupervisorFormOnly;
+                    
+                }
+                
+                $ccQuery2 = $em->createQuery("SELECT sfo.id, sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName, hr.approveDate as lastUpdated FROM AppBundle:StudentFormOne sfo INNER JOIN AppBundle:SiteSupervisorForm ssf WITH sfo.id = ssf.student_form_one INNER JOIN AppBundle:HRForm hr WITH sfo.id = hr.student_form_one LEFT JOIN AppBundle:StudentFormTwo sft WITH sfo.id = sft.student_form_one WHERE sft.student_form_one IS NULL"); 
+            
+                $hrFormsOnly = $ccQuery2->getResult();
+                
+                    
+                $hrFormCompleted = array();
+                
+                foreach($hrFormsOnly as $hrFormOnly){
+                    $hrFormOnly["lastUser"] = "Human Resources";
+                    
+                    $hrFormCompleted[] = $hrFormOnly;
+                    
+                }
+                
+                $ccQuery2 = $em->createQuery("SELECT sfo.id, sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName, sft.submitDate as lastUpdated FROM AppBundle:StudentFormOne sfo INNER JOIN AppBundle:SiteSupervisorForm ssf WITH sfo.id = ssf.student_form_one INNER JOIN AppBundle:StudentFormTwo sft WITH sfo.id = sft.student_form_one LEFT JOIN AppBundle:HRForm hr WITH sfo.id = hr.student_form_one WHERE hr.student_form_one IS NULL"); 
+            
+                $studentFormTwosOnly = $ccQuery2->getResult();
+                
+                    
+                $studentFormTwoCompleted = array();
+                
+                foreach($studentFormTwosOnly as $studentFormTwoOnly){
+                    $studentFormTwoOnly["lastUser"] = "Student (Form Two)";
+                    
+                    $studentFormTwoCompleted[] = $studentFormTwoOnly;
+                    
+                }
+                
+                $ccQuery2 = $em->createQuery("SELECT sfo.id, sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName, hr.approveDate, sft.submitDate as lastUpdated FROM AppBundle:StudentFormOne sfo INNER JOIN AppBundle:SiteSupervisorForm ssf WITH sfo.id = ssf.student_form_one AND sfo.workAuthorization = 0 INNER JOIN AppBundle:HRForm hr WITH sfo.id = hr.student_form_one INNER JOIN AppBundle:StudentFormTwo sft WITH sfo.id = sft.student_form_one LEFT JOIN AppBundle:InternationalOfficeForm io WITH sfo.id = io.student_form_one WHERE io.student_form_one IS NULL"); 
+            
+                $ioFormsOnly = $ccQuery2->getResult();
+                    
+                $ioFormCompleted = array();
+                
+                foreach($ioFormsOnly as $ioFormOnly){
+                    if($ioFormOnly["approveDate"] > $ioFormOnly["lastUpdated"]){
+                        $ioFormOnly["lastUpdated"] = $ioFormOnly["approveDate"];
+                        $ioFormOnly["lastUser"] = "Human Resources";
+                    }else {
+                    
+                        $ioFormOnly["lastUser"] = "Student (Form Two)";
+                    }
+                    
+                    $ioFormCompleted[] = $ioFormOnly;
+                    
+                }
+                
+                $ccQuery2 = $em->createQuery("SELECT sfo.id, sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName, hr.approveDate, sft.submitDate, io.approveDate as lastUpdated FROM AppBundle:StudentFormOne sfo INNER JOIN AppBundle:SiteSupervisorForm ssf WITH sfo.id = ssf.student_form_one AND sfo.workAuthorization = 0 INNER JOIN AppBundle:HRForm hr WITH sfo.id = hr.student_form_one INNER JOIN AppBundle:StudentFormTwo sft WITH sfo.id = sft.student_form_one INNER JOIN AppBundle:InternationalOfficeForm io WITH sfo.id = io.student_form_one LEFT JOIN AppBundle:FacultyLiaisonForm fl WITH sfo.id = fl.student_form_one WHERE fl.student_form_one IS NULL"); 
+            
+                $flFormsOnly = $ccQuery2->getResult();
+                
+                    
+                $flFormCompleted = array();
+                
+                foreach($flFormsOnly as $flFormOnly){
+                    
+                    if($flFormOnly["approveDate"] > $flFormOnly["lastUpdated"] && $flFormOnly["approveDate"] > $flFormOnly["submitDate"]){
+                        $flFormOnly["lastUpdated"] = $flFormOnly["approveDate"];
+                        $flFormOnly["lastUser"] = "Human Resources";
+                    }elseif($flFormOnly["submitDate"] > $flFormOnly["lastUpdated"] && $flFormOnly["submitDate"] > $flFormOnly["approveDate"]){
+                        $flFormOnly["lastUpdated"] = $flFormOnly["submitDate"];
+                        $flFormOnly["lastUser"] = "Student (Form Two)";
+                    }else{
+                        $flFormOnly["lastUser"] = "International Office";
+                    }
+                    
+                    $flFormCompleted[] = $flFormOnly;
+                    
+                }
+                
+                $ccQuery2 = $em->createQuery("SELECT sfo.id, sfo.firstName, sfo.lastName, sfo.emailAddress, sfo.cWID, ssf.organizationName, hr.approveDate, sft.submitDate as lastUpdated FROM AppBundle:StudentFormOne sfo INNER JOIN AppBundle:SiteSupervisorForm ssf WITH sfo.id = ssf.student_form_one AND sfo.workAuthorization = 1 INNER JOIN AppBundle:HRForm hr WITH sfo.id = hr.student_form_one INNER JOIN AppBundle:StudentFormTwo sft WITH sfo.id = sft.student_form_one LEFT JOIN AppBundle:FacultyLiaisonForm fl WITH sfo.id = fl.student_form_one WHERE fl.student_form_one IS NULL"); 
+            
+                $nonioflFormsOnly = $ccQuery2->getResult();
+                
+                    
+                $nonioflFormCompleted = array();
+                
+                foreach($nonioflFormsOnly as $nonioflFormOnly){
+                    $nonioflFormOnly["lastUser"] = "International Office";
+                    
+                    if($nonioflFormOnly["approveDate"] > $nonioflFormOnly["lastUpdated"]){
+                        $nonioflFormOnly["lastUpdated"] = $nonioflFormOnly["approveDate"];
+                        $nonioflFormOnly["lastUser"] = "Human Resources";
+                    } else{
+                    
+                        $nonioflFormOnly["lastUser"] = "Student (Form Two)";
+                    }
+                    
+                    $nonioflFormCompleted[] = $nonioflFormOnly;
+                    
+                }
+                
+                $studentFormOnes = array_merge($studentFormOneCompleted, $siteSupervisorFormCompleted,$hrFormCompleted, $studentFormTwoCompleted, $ioFormCompleted, $flFormCompleted, $nonioflFormCompleted);
+                
+                usort($studentFormOnes, function ($a, $b) {
+                    $a_val = $a['lastUpdated'];
+                    $b_val = $b['lastUpdated'];
+                    
+                    if($a_val > $b_val) return 1;
+                    if($a_val < $b_val) return -1;
+                    return 0;
+                });
+            
+            if ($this->getUser()) {
+                return $this->render('careerconsultantform/index.html.twig', array(
+                    'studentFormOnesReady' => $studentFormOnesReady,
+                    'studentFormOnes' => $studentFormOnes,
+                    'careerConsultantForms' => $careerConsultantForms,
+                ));
+            }else{
+                return $this->redirectToRoute('homepage');
+            
+            }
         }
-
-
-        // $careerConsultantForms = $em->getRepository('AppBundle:CareerConsultantForm')->findAll();
-
-        // return $this->render('careerconsultantform/index.html.twig', array(
-        //     'careerConsultantForms' => $careerConsultantForms,
-        // ));
     }
 
     /**
@@ -159,71 +206,83 @@ class CareerConsultantFormController extends Controller
      */
     public function newAction(Request $request)
     {
-        if(isset($_GET["studentInfo"])){
-            $studentID = $_GET["studentInfo"];
-    
-    
-            $em = $this->getDoctrine()->getManager();
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {   
+            return $this->redirectToRoute('studentformone_index');
+        }else{
+            if(isset($_GET["studentInfo"])){
+                $studentID = $_GET["studentInfo"];
+        
+        
+                $em = $this->getDoctrine()->getManager();
+                    
+                $query = $em->createQuery('SELECT u FROM AppBundle:StudentFormOne u WHERE u.id = :id')
+                    ->setParameter('id', $studentID);
+                $studentFormOneID = $query->getResult();
                 
-            $query = $em->createQuery('SELECT u FROM AppBundle:StudentFormOne u WHERE u.id = :id')
-                ->setParameter('id', $studentID);
-            $studentFormOneID = $query->getResult();
+                $this->studentFormOne = $studentFormOneID[0];
+                
+                $query = $em->createQuery("SELECT ssf FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf  WHERE sfo.id = ssf.student_form_one AND sfo.id = :id")
+                    ->setParameter("id", $studentID);
             
-            //$this->studentFormOneData = $studentFormOneID;
-            $this->studentFormOne = $studentFormOneID[0];
+                $siteSupervisorFormArray = $query->getResult();
+                $siteSupervisorForm = $siteSupervisorFormArray[0];
+                
+                $query = $em->createQuery("SELECT hr FROM AppBundle:StudentFormOne sfo JOIN AppBundle:HRForm hr  WHERE sfo.id = hr.student_form_one AND sfo.id = :id")
+                    ->setParameter("id", $studentID);
+    
+                $hrFormArray = $query->getResult();
+                $hrForm = $hrFormArray[0];
+    
+                
+                $query = $em->createQuery("SELECT sft FROM AppBundle:StudentFormOne sfo JOIN AppBundle:StudentFormTwo sft  WHERE sfo.id = sft.student_form_one AND sfo.id = :id")
+                    ->setParameter("id", $studentID);
+    
+                $studentFormTwoArray = $query->getResult();
+                $studentFormTwo = $studentFormTwoArray[0];
+                
+                $query = $em->createQuery("SELECT fl FROM AppBundle:StudentFormOne sfo JOIN AppBundle:FacultyLiaisonForm fl  WHERE sfo.id = fl.student_form_one AND sfo.id = :id")
+                    ->setParameter("id", $studentID);
             
-            dump($studentID);
+                $facultyLiaisonFormArray = $query->getResult();
+                $facultyLiaisonForm = $facultyLiaisonFormArray[0];
+    
+                $query = $em->createQuery("SELECT io FROM AppBundle:StudentFormOne sfo JOIN AppBundle:InternationalOfficeForm io  WHERE sfo.id = io.student_form_one AND sfo.id = :id")
+                    ->setParameter("id", $studentID);
             
-            $query = $em->createQuery("SELECT ssf FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf  WHERE sfo.id = ssf.student_form_one AND sfo.id = :id")
-                ->setParameter("id", $studentID);
-        
-            $siteSupervisorFormArray = $query->getResult();
-            $siteSupervisorForm = $siteSupervisorFormArray[0];
-            
-            $query = $em->createQuery("SELECT hr FROM AppBundle:StudentFormOne sfo JOIN AppBundle:HRForm hr  WHERE sfo.id = hr.student_form_one AND sfo.id = :id")
-                ->setParameter("id", $studentID);
-
-            $hrFormArray = $query->getResult();
-            $hrForm = $hrFormArray[0];
-
-            
-            $query = $em->createQuery("SELECT sft FROM AppBundle:StudentFormOne sfo JOIN AppBundle:StudentFormTwo sft  WHERE sfo.id = sft.student_form_one AND sfo.id = :id")
-                ->setParameter("id", $studentID);
-
-            $studentFormTwoArray = $query->getResult();
-            $studentFormTwo = $studentFormTwoArray[0];
-            
-            $query = $em->createQuery("SELECT fl FROM AppBundle:StudentFormOne sfo JOIN AppBundle:FacultyLiaisonForm fl  WHERE sfo.id = fl.student_form_one AND sfo.id = :id")
-                ->setParameter("id", $studentID);
-        
-            $facultyLiaisonFormArray = $query->getResult();
-            $facultyLiaisonForm = $facultyLiaisonFormArray[0];
+                $ioFormArray = $query->getResult();
+                
+                if (empty($ioFormArray)) {
+                     $ioForm = $ioFormArray;
+                }else{
+                    $ioForm = $ioFormArray[0];
+                }            
+                
+            }
             
             
+            $careerConsultantForm = new Careerconsultantform($this->studentFormOne);
+            $form = $this->createForm('AppBundle\Form\CareerConsultantFormType', $careerConsultantForm);
+            $form->handleRequest($request);
+    
+            if ($form->isSubmitted() && $form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($careerConsultantForm);
+                $em->flush();
+    
+                return $this->redirectToRoute('careerconsultantform_show', array('id' => $careerConsultantForm->getId()));
+            }
+    
+            return $this->render('careerconsultantform/new.html.twig', array(
+                'studentFormOne' => $this->studentFormOne,
+                'siteSupervisorForm' => $siteSupervisorForm,
+                'hRForm' => $hrForm,
+                'ioForm' => $ioForm,
+                'studentFormTwo' => $studentFormTwo,
+                'facultyLiaisonForm' => $facultyLiaisonForm,
+                'careerConsultantForm' => $careerConsultantForm,
+                'form' => $form->createView(),
+            ));
         }
-        
-        
-        $careerConsultantForm = new Careerconsultantform($this->studentFormOne);
-        $form = $this->createForm('AppBundle\Form\CareerConsultantFormType', $careerConsultantForm);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($careerConsultantForm);
-            $em->flush();
-
-            return $this->redirectToRoute('careerconsultantform_show', array('id' => $careerConsultantForm->getId()));
-        }
-
-        return $this->render('careerconsultantform/new.html.twig', array(
-            'studentFormOne' => $this->studentFormOne,
-            'siteSupervisorForm' => $siteSupervisorForm,
-            'hRForm' => $hrForm,
-            'studentFormTwo' => $studentFormTwo,
-            'facultyLiaisonForm' => $facultyLiaisonForm,
-            'careerConsultantForm' => $careerConsultantForm,
-            'form' => $form->createView(),
-        ));
     }
 
     /**
@@ -234,60 +293,94 @@ class CareerConsultantFormController extends Controller
      */
     public function showAction(CareerConsultantForm $careerConsultantForm)
     {
-      
+        $em = $this->getDoctrine()->getManager();
+
         $this->studentID = $careerConsultantForm->getStudentFormOne();
+        
+        $studentFormOne = $em->getRepository('AppBundle:StudentFormOne')->findOneById($this->studentID);
+
         $user = $this->getUser();
         
         $username = $user->getUsername();
-        if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') || $username == $studentFormOne->getUserName() || $this->get('security.authorization_checker')->isGranted('ROLE_IO_ADMIN')){
-            
-            $em = $this->getDoctrine()->getManager();
+        
+        $name = $user->getFirstName() . " " . $user->getLastName();
+        
+        dump($name);
+        dump($studentFormOne->getFacultyLiaison());
         
         
-            
-            $query = $em->createQuery('SELECT u FROM AppBundle:StudentFormOne u WHERE u.id = :id')
-                ->setParameter("id", $this->studentID);
-            $studentFormOneID = $query->getResult();
-            
-            //$this->studentFormOneData = $studentFormOneID;
-            $this->studentFormOne = $studentFormOneID[0];
-
-            $query = $em->createQuery("SELECT ssf FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf  WHERE sfo.id = ssf.student_form_one AND sfo.id = :id")
-                ->setParameter("id", $this->studentID);
+        if($name == $studentFormOne->getFacultyLiaison()){
+            dump(true);
+        }else{
+            dump(false);
+        }
         
-            $siteSupervisorFormArray = $query->getResult();
-            $siteSupervisorForm = $siteSupervisorFormArray[0];
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') || $username == $studentFormOne->getUserName() || $name == $studentFormOne->getFacultyLiaison()) {   
             
-            $query = $em->createQuery("SELECT hr FROM AppBundle:StudentFormOne sfo JOIN AppBundle:HRForm hr  WHERE sfo.id = hr.student_form_one AND sfo.id = :id")
-                ->setParameter("id", $this->studentID);
-
-            $hrFormArray = $query->getResult();
-            $hrForm = $hrFormArray[0];
-
+            // if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') || $username == $studentFormOne->getUserName() || $this->get('security.authorization_checker')->isGranted('ROLE_IO_ADMIN')){
+                
+                $em = $this->getDoctrine()->getManager();
             
-            $query = $em->createQuery("SELECT sft FROM AppBundle:StudentFormOne sfo JOIN AppBundle:StudentFormTwo sft  WHERE sfo.id = sft.student_form_one AND sfo.id = :id")
-                ->setParameter("id", $this->studentID);
-
-            $studentFormTwoArray = $query->getResult();
-            $studentFormTwo = $studentFormTwoArray[0];
             
-            $query = $em->createQuery("SELECT fl FROM AppBundle:StudentFormOne sfo JOIN AppBundle:FacultyLiaisonForm fl  WHERE sfo.id = fl.student_form_one AND sfo.id = :id")
-                ->setParameter("id", $this->studentID);
-        
-            $facultyLiaisonFormArray = $query->getResult();
-            $facultyLiaisonForm = $facultyLiaisonFormArray[0];
-        
-            $deleteForm = $this->createDeleteForm($careerConsultantForm);
+                
+                $query = $em->createQuery('SELECT u FROM AppBundle:StudentFormOne u WHERE u.id = :id')
+                    ->setParameter("id", $this->studentID);
+                $studentFormOneID = $query->getResult();
+                
+                //$this->studentFormOneData = $studentFormOneID;
+                $this->studentFormOne = $studentFormOneID[0];
     
-            return $this->render('careerconsultantform/show.html.twig', array(
-                'studentFormOne' => $this->studentFormOne,
-                'siteSupervisorForm' => $siteSupervisorForm,
-                'hRForm' => $hrForm,
-                'studentFormTwo' => $studentFormTwo,
-                'facultyLiaisonForm' => $facultyLiaisonForm,
-                'careerConsultantForm' => $careerConsultantForm,
-                'delete_form' => $deleteForm->createView(),
-            ));
+                $query = $em->createQuery("SELECT ssf FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf  WHERE sfo.id = ssf.student_form_one AND sfo.id = :id")
+                    ->setParameter("id", $this->studentID);
+            
+                $siteSupervisorFormArray = $query->getResult();
+                $siteSupervisorForm = $siteSupervisorFormArray[0];
+                
+                $query = $em->createQuery("SELECT hr FROM AppBundle:StudentFormOne sfo JOIN AppBundle:HRForm hr  WHERE sfo.id = hr.student_form_one AND sfo.id = :id")
+                    ->setParameter("id", $this->studentID);
+    
+                $hrFormArray = $query->getResult();
+                $hrForm = $hrFormArray[0];
+    
+                
+                $query = $em->createQuery("SELECT sft FROM AppBundle:StudentFormOne sfo JOIN AppBundle:StudentFormTwo sft  WHERE sfo.id = sft.student_form_one AND sfo.id = :id")
+                    ->setParameter("id", $this->studentID);
+    
+                $studentFormTwoArray = $query->getResult();
+                $studentFormTwo = $studentFormTwoArray[0];
+                
+                $query = $em->createQuery("SELECT fl FROM AppBundle:StudentFormOne sfo JOIN AppBundle:FacultyLiaisonForm fl  WHERE sfo.id = fl.student_form_one AND sfo.id = :id")
+                    ->setParameter("id", $this->studentID);
+            
+                $facultyLiaisonFormArray = $query->getResult();
+                $facultyLiaisonForm = $facultyLiaisonFormArray[0];
+                
+                
+                $query = $em->createQuery("SELECT io FROM AppBundle:StudentFormOne sfo JOIN AppBundle:InternationalOfficeForm io  WHERE sfo.id = io.student_form_one AND sfo.id = :id")
+                    ->setParameter("id", $this->studentID);
+            
+                $ioFormArray = $query->getResult();
+                
+                if (empty($ioFormArray)) {
+                     $ioForm = $ioFormArray;
+                }else{
+                    $ioForm = $ioFormArray[0];
+                }            
+            
+                $deleteForm = $this->createDeleteForm($careerConsultantForm);
+        
+                return $this->render('careerconsultantform/show.html.twig', array(
+                    'studentFormOne' => $this->studentFormOne,
+                    'siteSupervisorForm' => $siteSupervisorForm,
+                    'hRForm' => $hrForm,
+                    'ioForm' => $ioForm,
+                    'studentFormTwo' => $studentFormTwo,
+                    'facultyLiaisonForm' => $facultyLiaisonForm,
+                    'careerConsultantForm' => $careerConsultantForm,
+                    'delete_form' => $deleteForm->createView(),
+                ));
+        }else{
+            return $this->redirectToRoute('studentformone_index');
         }
     }
 
@@ -299,21 +392,25 @@ class CareerConsultantFormController extends Controller
      */
     public function editAction(Request $request, CareerConsultantForm $careerConsultantForm)
     {
-        $deleteForm = $this->createDeleteForm($careerConsultantForm);
-        $editForm = $this->createForm('AppBundle\Form\CareerConsultantFormType', $careerConsultantForm);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('careerconsultantform_edit', array('id' => $careerConsultantForm->getId()));
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {   
+            return $this->redirectToRoute('studentformone_index');
+        }else{
+            $deleteForm = $this->createDeleteForm($careerConsultantForm);
+            $editForm = $this->createForm('AppBundle\Form\CareerConsultantFormType', $careerConsultantForm);
+            $editForm->handleRequest($request);
+    
+            if ($editForm->isSubmitted() && $editForm->isValid()) {
+                $this->getDoctrine()->getManager()->flush();
+    
+                return $this->redirectToRoute('careerconsultantform_edit', array('id' => $careerConsultantForm->getId()));
+            }
+    
+            return $this->render('careerconsultantform/edit.html.twig', array(
+                'careerConsultantForm' => $careerConsultantForm,
+                'edit_form' => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+            ));
         }
-
-        return $this->render('careerconsultantform/edit.html.twig', array(
-            'careerConsultantForm' => $careerConsultantForm,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
     }
 
     /**
@@ -324,16 +421,20 @@ class CareerConsultantFormController extends Controller
      */
     public function deleteAction(Request $request, CareerConsultantForm $careerConsultantForm)
     {
-        $form = $this->createDeleteForm($careerConsultantForm);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($careerConsultantForm);
-            $em->flush();
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {   
+            return $this->redirectToRoute('studentformone_index');
+        }else{
+            $form = $this->createDeleteForm($careerConsultantForm);
+            $form->handleRequest($request);
+    
+            if ($form->isSubmitted() && $form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->remove($careerConsultantForm);
+                $em->flush();
+            }
+    
+            return $this->redirectToRoute('careerconsultantform_index');
         }
-
-        return $this->redirectToRoute('careerconsultantform_index');
     }
 
     /**
@@ -351,4 +452,123 @@ class CareerConsultantFormController extends Controller
             ->getForm()
         ;
     }
+    
+
+    // /**
+    //  * Exports all existing completed forms.
+    //  *
+    //  * @Route("/", name="export_file")
+    //  * @Method("GET")
+    //  */
+    /**
+     * @Route("/", name="export_file")
+     * @Template()
+     */
+    public function exportAction()
+    {
+        // get the service container to pass to the closure
+        $container = $this->container;
+        $response = new StreamedResponse(function() use($container) {
+
+            $em = $container->get('doctrine')->getManager();
+
+            // The getExportQuery method returns a query that is used to retrieve
+            // all the objects (lines of your csv file) you need. The iterate method
+            // is used to limit the memory consumption
+            $results = $em->getRepository('AppBundle:StudentFormOne')->getExportQuery()->iterate();
+            $handle = fopen('php://output', 'r+');
+
+            while (false !== ($row = $results->next())) {
+                // add a line in the csv file. You need to implement a toArray() method
+                // to transform your object into an array
+                fputcsv($handle, $row[0]->toArray());
+                // used to limit the memory consumption
+                $em->detach($row[0]);
+            }
+
+            fclose($handle);
+        });
+
+        $response->headers->set('Content-Type', 'application/force-download');
+        $response->headers->set('Content-Disposition','attachment; filename="export.csv"');
+
+        return $response;
+        // $serializer = new Serializer([new ObjectNormalizer()], [new CsvEncoder()]);
+
+        // // instantiation, when using it inside the Symfony framework
+        // $serializer = $container->get('serializer');
+        
+        // // encoding contents in CSV format
+        // $serializer->encode($results, 'csv');
+        
+        // // decoding CSV contents
+        // $data = $serializer->decode(file_get_contents('data.csv'), 'csv');
+    }
+    
+    
+    // /**
+    //  * Exports all existing completed forms.
+    //  *
+    //  * @Route("/", name="export_file")
+    //  * @Method("GET")
+    //  */
+    // public function exportAction(Request $request)
+    // {
+    //     $em = $this->getDoctrine()->getManager();
+        
+    //     $query = $em->createQuery("SELECT sfo, ssf, sft, hr, fl, cc FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf WHERE sfo.id = ssf.student_form_one JOIN AppBundle:Facultyliaisonform fl WHERE sfo.id = fl.student_form_one JOIN AppBundle:CareerConsultantForm cc WHERE sfo.id = cc.student_form_one");
+        
+    //     $records = $query->getResult();
+    //     if($records->count()) {
+    //       $csvPath = 'file.csv';
+        
+    //       $csvh = fopen($csvPath, 'w');
+    //       $d = ','; // this is the default but i like to be explicit
+    //       $e = '"'; // this is the default but i like to be explicit
+        
+    //       foreach($records as $record) {
+    //           $data = $record->toArray(false); // false for the shallow conversion
+    //           fputcsv($csvh, $data, $d, $e);
+    //       }
+        
+    //       fclose($csvh);
+    //     }
+    //     return new Response(
+    //     header('Content-Type: application/csv'),
+    //     header('Content-Disposition: attachment; filename="'.$csvh.'";')
+    //     );
+    // }
+    
+    //     /**
+    //  * Exports all existing completed forms.
+    //  *
+    //  * @Route("/", name="export_file")
+    //  * @Method("GET")
+    //  */
+    // public function exportAction(Request $request)
+    // {
+    //     $em = $this->getDoctrine()->getManager();
+        
+    //     $query = $em->createQuery("SELECT sfo, ssf, sft, hr, fl, cc FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf WHERE sfo.id = ssf.student_form_one JOIN AppBundle:Facultyliaisonform fl WHERE sfo.id = fl.student_form_one JOIN AppBundle:CareerConsultantForm cc WHERE sfo.id = cc.student_form_one");
+        
+    //     $records = $query->getResult();
+    //     if($records->count()) {
+    //       $csvPath = 'file.csv';
+        
+    //       $csvh = fopen($csvPath, 'w');
+    //       $d = ','; // this is the default but i like to be explicit
+    //       $e = '"'; // this is the default but i like to be explicit
+        
+    //       foreach($records as $record) {
+    //           $data = $record->toArray(false); // false for the shallow conversion
+    //           fputcsv($csvh, $data, $d, $e);
+    //       }
+        
+    //       fclose($csvh);
+    //     }
+    //     return new Response(
+    //     header('Content-Type: application/csv'),
+    //     header('Content-Disposition: attachment; filename="'.$csvh.'";')
+    //     );
+    // }
 }

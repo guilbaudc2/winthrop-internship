@@ -1,7 +1,18 @@
 {% extends 'innerbase.html.twig' %}
 
+{% block title %}Faculty Liaison List{% endblock %}
+
 {% block body %}
-    <h1>Faculty Liaison List</h1>
+    <h1 class="header center">Faculty Liaison List</h1>
+    
+    <div class="section" id="nav-backBtn">
+        <ul>
+            <li>
+                <a href="{{ path('facultyliaisonlist_new') }}" class="btn waves-effect waves-light button-back">Add New Faculty Member</a>
+            </li>
+        </ul>
+    </div>
+    
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
             <div class="card-panel">
@@ -21,10 +32,7 @@
                             <td>
                                 <ul>
                                     <li>
-                                        <a href="{{ path('facultyliaisonlist_show', { 'id': facultyLiaisonList.id }) }}">show</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ path('facultyliaisonlist_edit', { 'id': facultyLiaisonList.id }) }}">edit</a>
+                                        <a href="{{ path('facultyliaisonlist_show', { 'id': facultyLiaisonList.id }) }}" class="waves-effect waves-light btn show">show</a>
                                     </li>
                                 </ul>
                             </td>
@@ -34,10 +42,5 @@
                 </table>
             </div>
         </div>
-    </div>   
-    <ul>
-        <li>
-            <a href="{{ path('facultyliaisonlist_new') }}">Add New Faculty Liaison</a>
-        </li>
-    </ul>
+    </div>  
 {% endblock %}

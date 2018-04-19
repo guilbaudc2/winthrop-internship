@@ -2,30 +2,23 @@
 
 {% block title %}Edit User{% endblock %}
 
-{% block stylesheets %}
-    <link rel="stylesheet" type="text/css" href="../../../assets/css/reset.css">
-    <link type="text/css" rel="stylesheet" href="../../../assets/css/materialize.css"  media="screen,projection"/>
-    <link type="text/css" rel="stylesheet" href="../../../assets/css/materialize.min.css"  media="screen,projection"/>
-    <link rel="stylesheet" type="text/css" href="../../../assets/css/styles.css">
-{% endblock %}
-
-{% block javascripts %}<script type="text/javascript" src="../../../assets/js/materialize.min.js"></script>{% endblock %}
-
 {% block body %}
     <h1 class="header center">{{ user.firstName }} {{ user.lastName }}'s User Information</h1>
+    <div class="section" id="nav-backBtn">
+        <ul>
+            <li>
+                <a href="{{ path('user_index') }}" class="btn waves-effect waves-light button-back">Back to the list</a>
+            </li>
+        </ul>
+    </div>
     <div class="section no-pad-bot" id="index-banner">
         <div class="container">
             <div class="card-panel">
             {{ form_start(edit_form) }}
                 {{ form_widget(edit_form) }}
-                <input type="submit" class="btn-large waves-effect waves-light landing-btn-color button-resize" value="Save Changes" />
+                <input type="submit" value="Save Changes" />
             {{ form_end(edit_form) }}
             </div>
         </div>
     </div>
-    <ul>
-        <li>
-            <a href="{{ path('user_index') }}">Back to the list</a>
-        </li>
-    </ul>
 {% endblock %}                

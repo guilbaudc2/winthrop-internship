@@ -25,34 +25,37 @@ class StudentFormTwoController extends Controller
      */
     public function indexAction()
     {
-        
-        
-        if(!$this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')){
             
             $user = $this->getUser();
+            if (!$this->getUser()) {
+                    return $this->redirectToRoute('homepage');
+            }else{
             
-            $username = $user->getUsername();
+                if(!$this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')){
+                
+                $username = $user->getUsername();
+                
+                $em = $this->getDoctrine()->getManager();
+                $query = $em->createQuery('SELECT sfo FROM AppBundle:StudentFormOne sfo LEFT JOIN AppBundle:StudentFormTwo sft WITH sfo.id = sft.student_form_one WHERE sfo.userName = :userName AND sft.student_form_one IS NULL')
+                    ->setParameter('userName', $username);
+                $studentFormOnes = $query->getResult();
+                dump($studentFormOnes);
+                
+                $query = $em->createQuery('SELECT sft FROM AppBundle:StudentFormOne sfo JOIN AppBundle:StudentFormTwo sft WITH sfo.id = sft.student_form_one WHERE sfo.userName = :userName')
+                    ->setParameter('userName', $username);
+                $studentFormTwos = $query->getResult();
+                dump($studentFormTwos);
+                } else{
+                    $em = $this->getDoctrine()->getManager();        
+                    $query = $em->createQuery("SELECT sft FROM AppBundle:StudentFormTwo sft JOIN AppBundle:StudentFormOne sfo WHERE sfo.id = sft.student_form_one");
+                    $studentFormTwos = $query->getResult();
+                }
             
-            $em = $this->getDoctrine()->getManager();
-            $query = $em->createQuery('SELECT sfo FROM AppBundle:StudentFormOne sfo LEFT JOIN AppBundle:StudentFormTwo sft WITH sfo.id = sft.student_form_one WHERE sfo.userName = :userName AND sft.student_form_one IS NULL')
-                ->setParameter('userName', $username);
-            $studentFormOnes = $query->getResult();
-            dump($studentFormOnes);
-            
-            $query = $em->createQuery('SELECT sft FROM AppBundle:StudentFormOne sfo JOIN AppBundle:StudentFormTwo sft WITH sfo.id = sft.student_form_one WHERE sfo.userName = :userName')
-                ->setParameter('userName', $username);
-            $studentFormTwos = $query->getResult();
-            dump($studentFormTwos);
-        } else{
-            $em = $this->getDoctrine()->getManager();        
-            $query = $em->createQuery("SELECT sft FROM AppBundle:StudentFormTwo sft JOIN AppBundle:StudentFormOne sfo WHERE sfo.id = sft.student_form_one");
-            $studentFormTwos = $query->getResult();
+            return $this->render('studentformtwo/index.html.twig', array(
+                'studentFormOnes' => $studentFormOnes,
+                'studentFormTwos' => $studentFormTwos,
+            ));
         }
-        
-        return $this->render('studentformtwo/index.html.twig', array(
-            'studentFormOnes' => $studentFormOnes,
-            'studentFormTwos' => $studentFormTwos,
-        ));
     }
 
     /**
@@ -63,12 +66,12 @@ class StudentFormTwoController extends Controller
      */
     public function newAction(Request $request)
     {
-
+        $em = $this->getDoctrine()->getManager();
         if(isset($_GET["studentInfo"])){
             $studentID = $_GET["studentInfo"];
     
     
-            $em = $this->getDoctrine()->getManager();
+            // $em = $this->getDoctrine()->getManager();
                 
             $query = $em->createQuery('SELECT u FROM AppBundle:StudentFormOne u WHERE u.id = :id')
                 ->setParameter('id', $studentID);
@@ -77,15 +80,17 @@ class StudentFormTwoController extends Controller
             //$this->studentFormOneData = $studentFormOneID;
             $this->studentFormOne = $studentFormOneID[0];        
         
-        // $user = $this->getUser();
-        
-        // $username = $user->getUsername();
-        
+        }
         // $em = $this->getDoctrine()->getManager();
-        // $query = $em->createQuery('SELECT u.id FROM AppBundle:StudentFormOne u WHERE u.userName = :userName')
-        //     ->setParameter('userName', $username);
-        // $studentFormOneArray = $query->getResult();
-        // $studentFormOneID = $studentFormOneArray[0]['id'];
+        $query = $em->createQuery("SELECT ssf FROM AppBundle:SiteSupervisorForm ssf JOIN AppBundle:StudentFormOne sfo WHERE sfo.id = ssf.student_form_one AND sfo.id = :id");
+        $query->setParameter("id", $this->studentFormOne->getId());
+    
+        $siteSupervisorFormArray = $query->getResult();
+        
+        if (empty($siteSupervisorFormArray)) {
+             $siteSupervisorForm = $siteSupervisorFormArray;
+        }else{
+            $siteSupervisorForm = $siteSupervisorFormArray[0];
         }
         
         $studentFormTwo = new Studentformtwo($this->studentFormOne);
@@ -101,6 +106,7 @@ class StudentFormTwoController extends Controller
         }
 
         return $this->render('studentformtwo/new.html.twig', array(
+            'siteSupervisorForm' => $siteSupervisorForm,
             'studentFormTwo' => $studentFormTwo,
             'form' => $form->createView(),
         ));
@@ -134,6 +140,21 @@ class StudentFormTwoController extends Controller
      */
     public function editAction(Request $request, StudentFormTwo $studentFormTwo)
     {
+        $em = $this->getDoctrine()->getManager();
+        $studentFormOne = $studentFormTwo->getStudentFormOne();
+        dump($studentFormOne);
+        
+        $query = $em->createQuery("SELECT ssf FROM AppBundle:SiteSupervisorForm ssf JOIN AppBundle:StudentFormOne sfo WHERE sfo.id = ssf.student_form_one AND sfo.id = :id");
+        $query->setParameter("id", $studentFormOne->getId());
+    
+        $siteSupervisorFormArray = $query->getResult();
+        
+        if (empty($siteSupervisorFormArray)) {
+             $siteSupervisorForm = $siteSupervisorFormArray;
+        }else{
+            $siteSupervisorForm = $siteSupervisorFormArray[0];
+        }
+        
         $deleteForm = $this->createDeleteForm($studentFormTwo);
         $editForm = $this->createForm('AppBundle\Form\StudentFormTwoType', $studentFormTwo);
         $editForm->handleRequest($request);
@@ -145,6 +166,7 @@ class StudentFormTwoController extends Controller
         }
 
         return $this->render('studentformtwo/edit.html.twig', array(
+            'siteSupervisorForm' => $siteSupervisorForm,
             'studentFormTwo' => $studentFormTwo,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

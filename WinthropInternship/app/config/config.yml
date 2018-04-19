@@ -86,8 +86,8 @@ fos_user:
     resetting:
         email:
             from_email:
-                  address:        resetting@example.com
-                  sender_name:    Demo Resetting
+                  address:        cce@winthrop.edu
+                  sender_name:    Winthrop Internship Application Progress
 #            template: email/password_resetting.email.twig
             template: '@FOSUser/Resetting/email.txt.twig'
     registration:
@@ -101,3 +101,4 @@ fos_user:
             from_email:
                 address:        cce@winthrop.edu
                 sender_name:    Winthrop Internship Application Progress
+                
