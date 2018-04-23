@@ -2,6 +2,20 @@
 
 {% block title %}Edit User{% endblock %}
 
+{% block javascripts %} 
+    <script>
+        $(document).ready(function() {
+            
+            $( "label[for='user_roles_0']" ).prev().remove();
+            $( "label[for='user_roles_1']" ).prev().remove();
+            $( "label[for='user_roles_2']" ).prev().remove();
+            $( "label[for='user_roles_3']" ).prev().remove();
+            $( "label[for='user_roles_4']" ).prev().remove();
+
+        });
+    </script>
+{% endblock %}
+
 {% block body %}
     <h1 class="header center">{{ user.firstName }} {{ user.lastName }}'s User Information</h1>
     <div class="section" id="nav-backBtn">
@@ -21,4 +35,80 @@
             </div>
         </div>
     </div>
-{% endblock %}                
+{% endblock %}  
+
+{#{% extends 'innerbase.html.twig' %}#}
+
+{#{% block title %}Edit User{% endblock %}#}
+
+{#{% block javascripts %} #}
+{#    <script>#}
+{#        $(document).ready(function() {#}
+            
+{#            $( "label[for='user_roles_0'])" ).prev().remove();#}
+{#            $( "label[for='user_roles_1'])" ).prev().remove();#}
+{#            $( "label[for='user_roles_2'])" ).prev().remove();#}
+{#            $( "label[for='user_roles_3'])" ).prev().remove();#}
+{#            $( "label[for='user_roles_4'])" ).prev().remove();#}
+
+{#        });#}
+{#    </script>#}
+{#{% endblock %}#}
+
+{#{% block body %}#}
+{#    <h1 class="header center">{{ user.firstName }} {{ user.lastName }}'s User Information</h1>#}
+{#    <div class="section" id="nav-backBtn">#}
+{#        <ul>#}
+{#            <li>#}
+{#                <a href="{{ path('user_index') }}" class="btn waves-effect waves-light button-back">Back to the list</a>#}
+{#            </li>#}
+{#        </ul>#}
+{#    </div>#}
+{#    <div class="section no-pad-bot" id="index-banner">#}
+{#        <div class="container">#}
+{#            <div class="card-panel">#}
+{#            {{ form_start(edit_form) }}#}
+                {#{{ form_widget(edit_form) }}#}
+{#                {{ form_row(edit_form.firstName) }}#}
+{#                {{ form_row(edit_form.lastName) }}#}
+{#                {{ form_row(edit_form.username) }}#}
+{#                {{ form_row(edit_form.email) }}#}
+{#                {{ form_row(edit_form.password) }}#}
+                
+                
+{#                <div class="row">#}
+{#                    <div class="input-field col s12">#}
+{#                        <div id="user_roles">#}
+{#                            <label for="user_roles_0">#}
+{#                                <input type="checkbox" class="filled-in" id="user_roles_0" name="user[roles][]" value="ROLE_STUDENT">#}
+{#                                <span>ROLE_STUDENT</span>#}
+{#                            </label>#}
+{#                            <label for="user_roles_1">#}
+{#                                <input type="checkbox" class="filled-in" id="user_roles_1" name="user[roles][]" value="ROLE_HR_ADMIN">#}
+{#                                <span>ROLE_HR_ADMIN</span>#}
+{#                            </label>#}
+{#                            <label for="user_roles_2">#}
+{#                                <input type="checkbox" class="filled-in" id="user_roles_2" name="user[roles][]" value="ROLE_IO_ADMIN">#}
+{#                                <span>ROLE_IO_ADMIN</span>#}
+{#                            </label>#}
+{#                            <label for="user_roles_3">#}
+{#                                <input type="checkbox" class="filled-in" id="user_roles_3" name="user[roles][]" value="ROLE_FL_ADMIN">#}
+{#                                <span>ROLE_FL_ADMIN</span>#}
+{#                            </label>#}
+{#                            <label for="user_roles_4">#}
+{#                                <input type="checkbox" class="filled-in" id="user_roles_4" name="user[roles][]" value="ROLE_SUPER_ADMIN" checked="checked">#}
+{#                                <span>ROLE_SUPER_ADMIN</span>#}
+{#                            </label>#}
+{#                        </div>#}
+{#                        <label class="required">Roles</label>#}
+{#                    </div>#}
+{#                </div>#}
+                
+{#                {{ form_row(edit_form.enabled) }}#}
+                
+{#                <input type="submit" value="Save Changes" />#}
+{#            {{ form_end(edit_form) }}#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#{% endblock %}                #}

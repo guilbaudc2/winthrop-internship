@@ -8,6 +8,13 @@
     <h2>Site Supervisor Form Information</h2>   
     
     <div class="section no-pad-bot" id="index-banner">
+        <div class="section" id="nav-backBtn">
+            <ul>
+                <li>
+                    <a href="{{ path('studentformone_index') }}" class="btn waves-effect waves-light button-back">Back to the list</a>
+                </li>
+            </ul>
+        </div>
         <div class="container">
             <div class="card-panel">
                 {% if siteSupervisorForm %}
@@ -132,9 +139,4 @@ in addition to your Learning Agreement must be reviewed and approved by your fac
             </div>
         </div>
     </div>
-    <ul>
-        <li>
-            <a href="{{ path('studentformone_index') }}">Back to the list</a>
-        </li>
-    </ul>
 {% endblock %}

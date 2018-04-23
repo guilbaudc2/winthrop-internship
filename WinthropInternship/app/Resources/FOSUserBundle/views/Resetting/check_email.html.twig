@@ -1,11 +1,14 @@
 {% extends "@FOSUser/layout.html.twig" %}
 
+{% block title %}Check Email{% endblock %}
+
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% block fos_user_content %}
 <div class="fosUserSuccess">
 <p>
-{{ 'resetting.check_email'|trans({'%tokenLifetime%': tokenLifetime})|nl2br }}
+We just sent a message to the email you provided to reset your password. Please check your inbox and follow the instructions in the email.
+{#{{ 'resetting.check_email'|trans({'%tokenLifetime%': tokenLifetime})|nl2br }}#}
 </p>
 </div>
 {% endblock %}

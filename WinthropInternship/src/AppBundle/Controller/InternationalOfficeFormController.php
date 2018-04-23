@@ -67,7 +67,7 @@ class InternationalOfficeFormController extends Controller
      * @Route("/new", name="internationalofficeform_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, \Swift_Mailer $mailer)
     {
 
 //  In twig file, each row is a form with a hidden input. The hidden input is the student form one id which will add the id to a global variable $_GET. It is pulled from the global variable below. This is used to generate an
@@ -109,6 +109,34 @@ class InternationalOfficeFormController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($internationalOfficeForm);
             $em->flush();
+            
+            $studentFName = $this->studentFormOne->getFirstName();
+            $studentLName = $this->studentFormOne->getLastName();
+            $studentEmail = $this->studentFormOne->getEmailAddress();
+            $studentFormTwoURL = "http://18.233.91.151:8080/WinthropInternship/web/app_dev.php/studentformtwo";
+                
+            $message = (new \Swift_Message('Successful Submission of Winthrop Internship International Office Form'))
+                ->setFrom('cce@winthrop.edu')
+                ->setTo($studentEmail)
+                ->setBody(
+                    $this->renderView(
+                        'emails/IOForm/student_notifcation.html.twig',
+                        array('studentFName' => $studentFName,
+                              'studentFormTwoURL' => $studentFormTwoURL,
+                        )
+                    ),
+                    'text/html'
+                )
+                ->addPart(
+                    $this->renderView(
+                        'emails/IOForm/student_notification.txt.twig',
+                        array('studentFName' => $studentFName,
+                              'studentFormTwoURL' => $studentFormTwoURL,
+                        )
+                    ),
+                    'text/plain'
+                );
+            $mailer->send($message);
 
             return $this->redirectToRoute('internationalofficeform_show', array('id' => $internationalOfficeForm->getId()));
         }

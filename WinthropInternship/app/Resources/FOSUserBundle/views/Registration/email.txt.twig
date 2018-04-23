@@ -9,4 +9,50 @@
 {{ 'registration.email.message'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}) }}
 {% endautoescape %}
 {% endblock %}
-{% block body_html %}{% endblock %}
+{% block body_html %}
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+<style type="text/css">
+
+body{
+    font-family: "Roboto Light", GillSans, Calibri, Trebuchet, sans-serif;
+}
+
+h1{
+    font-family: "Roboto";
+    padding:5px;
+    text-align:center;
+    background-color: #103A55;
+    color: white;
+}
+ 
+div.link{
+    display:flex;
+    justify-content: center;
+}
+  
+a{
+    background-color: #EB6F5D;
+    padding: 5px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #ffffff;
+    text-align:center;
+}
+
+a:hover{
+    background-color: #103A55;
+}
+ 
+</style>
+</head>
+<body>
+
+<div><h1>Winthrop Internship Learning Engagement</h1></div>
+
+{% autoescape false %}
+{{ 'registration.email.message'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}) }}
+{% endautoescape %}
+
+{% endblock %}

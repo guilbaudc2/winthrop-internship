@@ -41,9 +41,12 @@
             <li>
                 <a href="{{ path('studentformone_index') }}" class="btn waves-effect waves-light button-back">Back to the list</a>
             </li>
-            <li>
-                <button id="export" class="btn waves-effect waves-light button-back" >Export File</button>
+            {#<li>#}
+            {#    <button id="export" class="btn waves-effect waves-light button-back" >Export File</button>#}
                {# <a href="{{ path('export_file', { 'id': studentFormOne.id }) }}" class="btn waves-effect waves-light button-back">Export file</a> #}
+            {#</li>#}
+            <li>
+                <a class="btn waves-effect waves-light button-back" href="javascript:window.print()">Print Completed Application</a>
             </li>
             <li>
                 <a href="{{ path('studentformone_edit', { 'id': studentFormOne.id }) }}" class="btn waves-effect waves-light button-back">Edit</a>
@@ -435,6 +438,53 @@
             </div>
         </div>
     </div>    
+
+{% if ccForm %}
+    <h2>General Responsibilities of the Parties:</h2>
+     
+    <div class="section no-pad-bot" id="index-banner">
+        <div class="container">
+            <div class="card-panel">   
+                <ol class="completedApplicationInfo">
+                    <li>Student responsibilities:
+                        <ol>
+                            <li>Work on the days &amp; times agreed upon with supervisor</li>
+                            <li>Dress in the appropriate attire for the internship site</li>
+                            <li>Watch the CCE orientation video at www.youtube.com/watch?v=W2XIz-1-_cw&amp;feature=youtu.be</li>
+                            <li>Your safety is important. If you ever feel unsafe, harassed, or discriminated against at the site you may leave on your own free will. The student should contact the internship coordinator and/or site<br />supervisor with concerns even if you are not sure.</li>
+                            <li>Complete tasks and projects associated with the learning outcomes</li>
+                            <li>Complete all assignments</li>
+                            <li>Communicate with all parties if length of the internship needs to be adjusted in order to complete thehours requirement</li>
+                            <li>DISCLAIMER:<br />Please note that the presence of job announcements on any website, list serve, bulletin or other communications maintained by Winthrop University does not indicate an endorsement or recommendation by Winthrop University or CCE. We are not responsible for safety, wages, working conditions or other aspects of off-campus employment. We do not conduct a background check on employers - so make sure you spend time researching before you apply.</li>
+                        </ol>
+                    </li>
+                    <li>Faculty liaison or designee responsibilities:
+                        <ol>
+                            <li>Meet with the student interested in an internship and discuss the internship requirements</li>
+                            <li>Check with employer to confirm the intern&rsquo;s role</li>
+                            <li>Send initial correspondence and follow-up emails at the mid-point and at the conclusion of the internship</li>
+                            <li>Be a sounding board for interns and site supervisors</li>
+                            <li>Be vigilant! Listen for any safety and security concerns the students may have, and TAKE ACTION to report or intervene if appropriate.</li>
+                        </ol>
+                    </li>
+                    <li>Site supervisor responsibilities:
+                        <ol>
+                            <li>Follow the Fair Labor Standards Act for internships (www.dol.gov/whd/regs/compliance/whdfs71.htm)</li>
+                            <li>Orient intern on the culture of the site</li>
+                            <li>The safety of our students is of utmost importance. Students/interns are directed to report any safety or workplace concerns to their faculty liaison or to Career and Civic Engagement. Internship sites/supervisors are required to provide a safe environment and to abide by all federal and state workplace laws and regulations in agreeing to accept an intern from Winthrop University into their workplace.</li>
+                            <li>Explain work place expectations to the intern</li>
+                            <li>Provide the student/intern and the faculty liaison or designee with any applicable policies or procedures the student/intern is expected to follow.</li>
+                            <li>Assign appropriate work projects that complement the learning objectives</li>
+                            <li>Complete the online mid-point and final evaluation for the student</li>
+                        </ol>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>    
+
+
+{% endif %}
 
     <ul>
         <li>

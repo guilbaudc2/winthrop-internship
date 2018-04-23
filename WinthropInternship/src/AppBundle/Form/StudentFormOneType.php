@@ -28,6 +28,7 @@ class StudentFormOneType extends AbstractType
             'label' => 'Winthrop Username',
         ))->add('cWID', TextType::class, array(
             'label' => 'CWID/Winthrop ID Number/W-Number (Input "W")',
+            'attr' => array('maxlength' => 9),
         ))->add('emailAddress', EmailType::class, array(
             'label' => 'Winthrop Email Address',
         ))->add('classEnrolled', EntityType::class, array('class' => 'AppBundle:ClassList',
@@ -38,7 +39,8 @@ class StudentFormOneType extends AbstractType
 ))->add('numCredits', NumberType::class, array(
             'label' => 'Number of Credits for Internship Course',
         ))->add('phoneNumber', TextType::class, array(
-            'label' => 'Phone Number (Digits Only)',
+            'label' => 'Phone Number (Digits Only, Include Area Code)',
+            'attr' => array('maxlength' => 10),
         ))->add('workAuthorization', ChoiceType::class, array(
     'choices'  => array(
         'US Citizen' => true,

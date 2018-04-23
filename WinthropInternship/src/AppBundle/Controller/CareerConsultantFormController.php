@@ -204,7 +204,7 @@ class CareerConsultantFormController extends Controller
      * @Route("/new", name="careerconsultantform_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, \Swift_Mailer $mailer)
     {
         if (!$this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {   
             return $this->redirectToRoute('studentformone_index');
@@ -268,6 +268,32 @@ class CareerConsultantFormController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($careerConsultantForm);
                 $em->flush();
+                
+                
+                $studentFName = $this->studentFormOne->getFirstName();
+                $studentLName = $this->studentFormOne->getLastName();
+                $studentEmail = $this->studentFormOne->getEmailAddress();
+                
+                $message = (new \Swift_Message('Successful Completion of Winthrop Internship Learning Agreement'))
+                    ->setFrom('cce@winthrop.edu')
+                    ->setTo($studentEmail)
+                    ->setBody(
+                        $this->renderView(
+                            'emails/CCForm/student_notifcation.html.twig',
+                            array('studentFName' => $studentFName
+                            )
+                        ),
+                        'text/html'
+                    )
+                    ->addPart(
+                        $this->renderView(
+                            'emails/CCForm/student_notification.txt.twig',
+                            array('studentFName' => $studentFName
+                            )
+                        ),
+                        'text/plain'
+                    );
+                $mailer->send($message);
     
                 return $this->redirectToRoute('careerconsultantform_show', array('id' => $careerConsultantForm->getId()));
             }
@@ -316,69 +342,66 @@ class CareerConsultantFormController extends Controller
         }
         
         if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') || $username == $studentFormOne->getUserName() || $name == $studentFormOne->getFacultyLiaison()) {   
-            
-            // if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') || $username == $studentFormOne->getUserName() || $this->get('security.authorization_checker')->isGranted('ROLE_IO_ADMIN')){
                 
-                $em = $this->getDoctrine()->getManager();
-            
-            
-                
-                $query = $em->createQuery('SELECT u FROM AppBundle:StudentFormOne u WHERE u.id = :id')
-                    ->setParameter("id", $this->studentID);
-                $studentFormOneID = $query->getResult();
-                
-                //$this->studentFormOneData = $studentFormOneID;
-                $this->studentFormOne = $studentFormOneID[0];
-    
-                $query = $em->createQuery("SELECT ssf FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf  WHERE sfo.id = ssf.student_form_one AND sfo.id = :id")
-                    ->setParameter("id", $this->studentID);
-            
-                $siteSupervisorFormArray = $query->getResult();
-                $siteSupervisorForm = $siteSupervisorFormArray[0];
-                
-                $query = $em->createQuery("SELECT hr FROM AppBundle:StudentFormOne sfo JOIN AppBundle:HRForm hr  WHERE sfo.id = hr.student_form_one AND sfo.id = :id")
-                    ->setParameter("id", $this->studentID);
-    
-                $hrFormArray = $query->getResult();
-                $hrForm = $hrFormArray[0];
-    
-                
-                $query = $em->createQuery("SELECT sft FROM AppBundle:StudentFormOne sfo JOIN AppBundle:StudentFormTwo sft  WHERE sfo.id = sft.student_form_one AND sfo.id = :id")
-                    ->setParameter("id", $this->studentID);
-    
-                $studentFormTwoArray = $query->getResult();
-                $studentFormTwo = $studentFormTwoArray[0];
-                
-                $query = $em->createQuery("SELECT fl FROM AppBundle:StudentFormOne sfo JOIN AppBundle:FacultyLiaisonForm fl  WHERE sfo.id = fl.student_form_one AND sfo.id = :id")
-                    ->setParameter("id", $this->studentID);
-            
-                $facultyLiaisonFormArray = $query->getResult();
-                $facultyLiaisonForm = $facultyLiaisonFormArray[0];
-                
-                
-                $query = $em->createQuery("SELECT io FROM AppBundle:StudentFormOne sfo JOIN AppBundle:InternationalOfficeForm io  WHERE sfo.id = io.student_form_one AND sfo.id = :id")
-                    ->setParameter("id", $this->studentID);
-            
-                $ioFormArray = $query->getResult();
-                
-                if (empty($ioFormArray)) {
-                     $ioForm = $ioFormArray;
-                }else{
-                    $ioForm = $ioFormArray[0];
-                }            
-            
-                $deleteForm = $this->createDeleteForm($careerConsultantForm);
+            $em = $this->getDoctrine()->getManager();
         
-                return $this->render('careerconsultantform/show.html.twig', array(
-                    'studentFormOne' => $this->studentFormOne,
-                    'siteSupervisorForm' => $siteSupervisorForm,
-                    'hRForm' => $hrForm,
-                    'ioForm' => $ioForm,
-                    'studentFormTwo' => $studentFormTwo,
-                    'facultyLiaisonForm' => $facultyLiaisonForm,
-                    'careerConsultantForm' => $careerConsultantForm,
-                    'delete_form' => $deleteForm->createView(),
-                ));
+        
+            
+            $query = $em->createQuery('SELECT u FROM AppBundle:StudentFormOne u WHERE u.id = :id')
+                ->setParameter("id", $this->studentID);
+            $studentFormOneID = $query->getResult();
+            
+            $this->studentFormOne = $studentFormOneID[0];
+
+            $query = $em->createQuery("SELECT ssf FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf  WHERE sfo.id = ssf.student_form_one AND sfo.id = :id")
+                ->setParameter("id", $this->studentID);
+        
+            $siteSupervisorFormArray = $query->getResult();
+            $siteSupervisorForm = $siteSupervisorFormArray[0];
+            
+            $query = $em->createQuery("SELECT hr FROM AppBundle:StudentFormOne sfo JOIN AppBundle:HRForm hr  WHERE sfo.id = hr.student_form_one AND sfo.id = :id")
+                ->setParameter("id", $this->studentID);
+
+            $hrFormArray = $query->getResult();
+            $hrForm = $hrFormArray[0];
+
+            
+            $query = $em->createQuery("SELECT sft FROM AppBundle:StudentFormOne sfo JOIN AppBundle:StudentFormTwo sft  WHERE sfo.id = sft.student_form_one AND sfo.id = :id")
+                ->setParameter("id", $this->studentID);
+
+            $studentFormTwoArray = $query->getResult();
+            $studentFormTwo = $studentFormTwoArray[0];
+            
+            $query = $em->createQuery("SELECT fl FROM AppBundle:StudentFormOne sfo JOIN AppBundle:FacultyLiaisonForm fl  WHERE sfo.id = fl.student_form_one AND sfo.id = :id")
+                ->setParameter("id", $this->studentID);
+        
+            $facultyLiaisonFormArray = $query->getResult();
+            $facultyLiaisonForm = $facultyLiaisonFormArray[0];
+            
+            
+            $query = $em->createQuery("SELECT io FROM AppBundle:StudentFormOne sfo JOIN AppBundle:InternationalOfficeForm io  WHERE sfo.id = io.student_form_one AND sfo.id = :id")
+                ->setParameter("id", $this->studentID);
+        
+            $ioFormArray = $query->getResult();
+            
+            if (empty($ioFormArray)) {
+                 $ioForm = $ioFormArray;
+            }else{
+                $ioForm = $ioFormArray[0];
+            }            
+        
+            $deleteForm = $this->createDeleteForm($careerConsultantForm);
+    
+            return $this->render('careerconsultantform/show.html.twig', array(
+                'studentFormOne' => $this->studentFormOne,
+                'siteSupervisorForm' => $siteSupervisorForm,
+                'hRForm' => $hrForm,
+                'ioForm' => $ioForm,
+                'studentFormTwo' => $studentFormTwo,
+                'facultyLiaisonForm' => $facultyLiaisonForm,
+                'careerConsultantForm' => $careerConsultantForm,
+                'delete_form' => $deleteForm->createView(),
+            ));
         }else{
             return $this->redirectToRoute('studentformone_index');
         }
@@ -452,123 +475,4 @@ class CareerConsultantFormController extends Controller
             ->getForm()
         ;
     }
-    
-
-    // /**
-    //  * Exports all existing completed forms.
-    //  *
-    //  * @Route("/", name="export_file")
-    //  * @Method("GET")
-    //  */
-    /**
-     * @Route("/", name="export_file")
-     * @Template()
-     */
-    public function exportAction()
-    {
-        // get the service container to pass to the closure
-        $container = $this->container;
-        $response = new StreamedResponse(function() use($container) {
-
-            $em = $container->get('doctrine')->getManager();
-
-            // The getExportQuery method returns a query that is used to retrieve
-            // all the objects (lines of your csv file) you need. The iterate method
-            // is used to limit the memory consumption
-            $results = $em->getRepository('AppBundle:StudentFormOne')->getExportQuery()->iterate();
-            $handle = fopen('php://output', 'r+');
-
-            while (false !== ($row = $results->next())) {
-                // add a line in the csv file. You need to implement a toArray() method
-                // to transform your object into an array
-                fputcsv($handle, $row[0]->toArray());
-                // used to limit the memory consumption
-                $em->detach($row[0]);
-            }
-
-            fclose($handle);
-        });
-
-        $response->headers->set('Content-Type', 'application/force-download');
-        $response->headers->set('Content-Disposition','attachment; filename="export.csv"');
-
-        return $response;
-        // $serializer = new Serializer([new ObjectNormalizer()], [new CsvEncoder()]);
-
-        // // instantiation, when using it inside the Symfony framework
-        // $serializer = $container->get('serializer');
-        
-        // // encoding contents in CSV format
-        // $serializer->encode($results, 'csv');
-        
-        // // decoding CSV contents
-        // $data = $serializer->decode(file_get_contents('data.csv'), 'csv');
-    }
-    
-    
-    // /**
-    //  * Exports all existing completed forms.
-    //  *
-    //  * @Route("/", name="export_file")
-    //  * @Method("GET")
-    //  */
-    // public function exportAction(Request $request)
-    // {
-    //     $em = $this->getDoctrine()->getManager();
-        
-    //     $query = $em->createQuery("SELECT sfo, ssf, sft, hr, fl, cc FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf WHERE sfo.id = ssf.student_form_one JOIN AppBundle:Facultyliaisonform fl WHERE sfo.id = fl.student_form_one JOIN AppBundle:CareerConsultantForm cc WHERE sfo.id = cc.student_form_one");
-        
-    //     $records = $query->getResult();
-    //     if($records->count()) {
-    //       $csvPath = 'file.csv';
-        
-    //       $csvh = fopen($csvPath, 'w');
-    //       $d = ','; // this is the default but i like to be explicit
-    //       $e = '"'; // this is the default but i like to be explicit
-        
-    //       foreach($records as $record) {
-    //           $data = $record->toArray(false); // false for the shallow conversion
-    //           fputcsv($csvh, $data, $d, $e);
-    //       }
-        
-    //       fclose($csvh);
-    //     }
-    //     return new Response(
-    //     header('Content-Type: application/csv'),
-    //     header('Content-Disposition: attachment; filename="'.$csvh.'";')
-    //     );
-    // }
-    
-    //     /**
-    //  * Exports all existing completed forms.
-    //  *
-    //  * @Route("/", name="export_file")
-    //  * @Method("GET")
-    //  */
-    // public function exportAction(Request $request)
-    // {
-    //     $em = $this->getDoctrine()->getManager();
-        
-    //     $query = $em->createQuery("SELECT sfo, ssf, sft, hr, fl, cc FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf WHERE sfo.id = ssf.student_form_one JOIN AppBundle:Facultyliaisonform fl WHERE sfo.id = fl.student_form_one JOIN AppBundle:CareerConsultantForm cc WHERE sfo.id = cc.student_form_one");
-        
-    //     $records = $query->getResult();
-    //     if($records->count()) {
-    //       $csvPath = 'file.csv';
-        
-    //       $csvh = fopen($csvPath, 'w');
-    //       $d = ','; // this is the default but i like to be explicit
-    //       $e = '"'; // this is the default but i like to be explicit
-        
-    //       foreach($records as $record) {
-    //           $data = $record->toArray(false); // false for the shallow conversion
-    //           fputcsv($csvh, $data, $d, $e);
-    //       }
-        
-    //       fclose($csvh);
-    //     }
-    //     return new Response(
-    //     header('Content-Type: application/csv'),
-    //     header('Content-Disposition: attachment; filename="'.$csvh.'";')
-    //     );
-    // }
 }

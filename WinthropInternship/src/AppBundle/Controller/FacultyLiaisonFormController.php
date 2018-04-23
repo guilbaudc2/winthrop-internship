@@ -300,7 +300,7 @@ class FacultyLiaisonFormController extends Controller
      * @Route("/new", name="facultyliaisonform_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, \Swift_Mailer $mailer)
     {
 
         if(isset($_GET["studentInfo"])){
@@ -354,6 +354,31 @@ class FacultyLiaisonFormController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($facultyLiaisonForm);
             $em->flush();
+            
+            $studentFName = $this->studentFormOne->getFirstName();
+            $studentLName = $this->studentFormOne->getLastName();
+            $studentEmail = $this->studentFormOne->getEmailAddress();
+                
+            $message = (new \Swift_Message('Successful Submission of Winthrop Internship Faculty Liaison Form'))
+                ->setFrom('cce@winthrop.edu')
+                ->setTo($studentEmail)
+                ->setBody(
+                    $this->renderView(
+                        'emails/FLForm/student_notifcation.html.twig',
+                        array('studentFName' => $studentFName
+                        )
+                    ),
+                    'text/html'
+                )
+                ->addPart(
+                    $this->renderView(
+                        'emails/FLForm/student_notification.txt.twig',
+                        array('studentFName' => $studentFName
+                        )
+                    ),
+                    'text/plain'
+                );
+            $mailer->send($message);
             return $this->redirectToRoute('facultyliaisonform_show', array('id' => $facultyLiaisonForm->getId()));
         }
         return $this->render('facultyliaisonform/new.html.twig', array(

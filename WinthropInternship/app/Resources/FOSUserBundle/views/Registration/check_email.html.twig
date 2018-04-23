@@ -1,10 +1,11 @@
-{% extends "FOSUserBundle::layout.html.twig" %}
+{% extends "@FOSUser/layout.html.twig" %}
+{#{% extends "FOSUserBundle::layout.html.twig" %}#}
 {#{% extends 'base.html.twig' %}#}
 
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% block fos_user_content %}
-    <div class="registrationSuccess">
+    <div class="fosUserSuccess">
     <p>{{ 'Check Email'|trans({'%email%': user.email}) }}</p>
     </div>
 {% endblock fos_user_content %}

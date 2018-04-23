@@ -2,6 +2,21 @@
 
 {% block title %}New User{% endblock %}
 
+{% block javascripts %} 
+    <script>
+        $(document).ready(function() {
+            
+            $( "label[for='user_roles_0']" ).prev().remove();
+            $( "label[for='user_roles_1']" ).prev().remove();
+            $( "label[for='user_roles_2']" ).prev().remove();
+            $( "label[for='user_roles_3']" ).prev().remove();
+            $( "label[for='user_roles_4']" ).prev().remove();
+
+        });
+    </script>
+{% endblock %}
+
+
 {% block body %}
     <h1 class="header center">Create New User</h1>
     <div class="section" id="nav-backBtn">

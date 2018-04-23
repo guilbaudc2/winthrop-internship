@@ -23,7 +23,6 @@ class ReportController extends Controller
     public function indexAction(Request $request)
     {
         if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
-            // replace this example code with whatever you need
             return $this->render('generatereports/generatereports.html.twig', array(
                 'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),
             ));
@@ -41,7 +40,6 @@ class ReportController extends Controller
         
         $ccQuery3 = $em->createQuery("SELECT sfo FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf WHERE sfo.id = ssf.student_form_one JOIN AppBundle:CareerConsultantForm cc WHERE sfo.id = cc.student_form_one");
         
-        // $ccQuery3 = $em->createQuery("SELECT sfo, ssf, sft, hr, fl, cc FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf WHERE sfo.id = ssf.student_form_one JOIN AppBundle:StudentFormTwo sft WHERE sfo.id = sft.student_form_one JOIN AppBundle:HRForm hr WHERE sfo.id = hr.student_form_one JOIN AppBundle:Facultyliaisonform fl WHERE sfo.id = fl.student_form_one JOIN AppBundle:CareerConsultantForm cc WHERE sfo.id = cc.student_form_one");
         
         $students = $ccQuery3->getResult();
         
@@ -75,7 +73,6 @@ class ReportController extends Controller
             
             $ccForm = $innerQuery->getResult();
             
-            // var_dump($siteSupervisorForm[0]->getForProfit());
 
             $forProfit = $siteSupervisorForm[0]->getForProfit() ? 'Yes' : 'No';
             $paid = $siteSupervisorForm[0]->getPaid() ? 'Yes' : 'No';
@@ -109,8 +106,6 @@ class ReportController extends Controller
         $em = $this->getDoctrine()->getManager();
         
         $ccQuery3 = $em->createQuery("SELECT sfo FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf WHERE sfo.id = ssf.student_form_one JOIN AppBundle:CareerConsultantForm cc WHERE sfo.id = cc.student_form_one");
-        
-        // $ccQuery3 = $em->createQuery("SELECT sfo, ssf, sft, hr, fl, cc FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf WHERE sfo.id = ssf.student_form_one JOIN AppBundle:StudentFormTwo sft WHERE sfo.id = sft.student_form_one JOIN AppBundle:HRForm hr WHERE sfo.id = hr.student_form_one JOIN AppBundle:Facultyliaisonform fl WHERE sfo.id = fl.student_form_one JOIN AppBundle:CareerConsultantForm cc WHERE sfo.id = cc.student_form_one");
         
         $students = $ccQuery3->getResult();
         
@@ -166,8 +161,6 @@ class ReportController extends Controller
         
         $ccQuery3 = $em->createQuery("SELECT sfo FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf WHERE sfo.id = ssf.student_form_one AND ssf.paid = 0 JOIN AppBundle:CareerConsultantForm cc WHERE sfo.id = cc.student_form_one ORDER BY sfo.classEnrolled ASC");
         
-        // $ccQuery3 = $em->createQuery("SELECT sfo, ssf, sft, hr, fl, cc FROM AppBundle:StudentFormOne sfo JOIN AppBundle:SiteSupervisorForm ssf WHERE sfo.id = ssf.student_form_one JOIN AppBundle:StudentFormTwo sft WHERE sfo.id = sft.student_form_one JOIN AppBundle:HRForm hr WHERE sfo.id = hr.student_form_one JOIN AppBundle:Facultyliaisonform fl WHERE sfo.id = fl.student_form_one JOIN AppBundle:CareerConsultantForm cc WHERE sfo.id = cc.student_form_one");
-        
         $students = $ccQuery3->getResult();
         
         $rows = array();
@@ -201,7 +194,6 @@ class ReportController extends Controller
             
             $perWeekHoursWorked = $siteSupervisorForm[0]->getEstimatedHours()/$siteSupervisorForm[0]->getTotalWeeks();
             
-            // dump($event);
             
             $data = array($event->getClassEnrolled(), $event->getSemesterEnrolled(), $event->getYearEnrolled()->format('Y'), $event->getCWID(), $event->getFirstName(), $event->getLastName(), $perWeekHoursWorked, $siteSupervisorForm[0]->getOrganizationName(), " ", $event->getFacultyLiaison(), $name, date("Y/m/d"));
             
