@@ -98,13 +98,22 @@ class SiteSupervisorFormController extends Controller
 
             $this->studentFormOne = $studentFormOneID[0];
             
-            $query = $em->createQuery('SELECT u.firstName, u.lastName FROM AppBundle:StudentFormOne u WHERE u.siteSuperAccessCode = :accessCode')
+            $query = $em->createQuery('SELECT u.firstName, u.lastName, u.emailAddress, u.phoneNumber, u.semesterEnrolled, u.yearEnrolled, u.major, u.facultyLiaison FROM AppBundle:StudentFormOne u WHERE u.siteSuperAccessCode = :accessCode')
                 ->setParameter('accessCode', $accessCode);
             $studentData = $query->getResult();
             
             $studentFormOne = $studentData[0];
             
         }
+        
+        $query = $em->createQuery('SELECT ssf FROM AppBundle:StudentFormOne u JOIN AppBundle:SiteSupervisorForm ssf WHERE u.id = ssf.student_form_one AND u.id = :id')
+                ->setParameter('id', $studentFormOneID);
+        $ssf = $query->getResult();
+        if($ssf != null)
+        {
+            $id = $ssf[0]->getId();
+            return $this->redirectToRoute('sitesupervisorform_show', array('id' => $id));
+        }else{
         
         $siteSupervisorForm = new SiteSupervisorForm($this->studentFormOne);
 
@@ -153,6 +162,7 @@ class SiteSupervisorFormController extends Controller
                 'siteSupervisorForm' => $siteSupervisorForm,
                 'form' => $form->createView(),
             ));
+        }
     }
 
     /**

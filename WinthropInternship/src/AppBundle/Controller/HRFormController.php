@@ -76,7 +76,7 @@ class HRFormController extends Controller
      * @Route("/new", name="hrform_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, \Swift_Mailer $mailer)
     {
 
         if ($this->get('security.authorization_checker')->isGranted('ROLE_HR_ADMIN') || $this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
@@ -100,6 +100,34 @@ class HRFormController extends Controller
                     $em = $this->getDoctrine()->getManager();
                     $em->persist($hRForm);
                     $em->flush();
+                    
+                    $studentFName = $this->studentFormOne->getFirstName();
+                    $studentLName = $this->studentFormOne->getLastName();
+                    $studentEmail = $this->studentFormOne->getEmailAddress();
+                    $studentFormTwoURL = "http://18.233.91.151:8080/WinthropInternship/web/app_dev.php/studentformtwo";
+                        
+                    $message = (new \Swift_Message('Successful Submission of Winthrop Internship Human Resources Form'))
+                        ->setFrom('cce@winthrop.edu')
+                        ->setTo($studentEmail)
+                        ->setBody(
+                            $this->renderView(
+                                'emails/HRForm/student_notifcation.html.twig',
+                                array('studentFName' => $studentFName,
+                              'studentFormTwoURL' => $studentFormTwoURL,
+                                )
+                            ),
+                            'text/html'
+                        )
+                        ->addPart(
+                            $this->renderView(
+                                'emails/HRForm/student_notification.txt.twig',
+                                array('studentFName' => $studentFName,
+                              'studentFormTwoURL' => $studentFormTwoURL,
+                                )
+                            ),
+                            'text/plain'
+                        );
+                    $mailer->send($message);
                     
                     }
                     

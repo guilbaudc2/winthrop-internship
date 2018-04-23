@@ -22,7 +22,7 @@ class SiteSupervisorFormType extends AbstractType
         $builder->add('forProfit')->add('organizationName', TextType::class, array(
             'label' => 'Organization Name',
         ))->add('businessLicenseNum', TextType::class, array(
-            'label' => 'Business License Number or FEIN #',
+            'label' => 'Business License Number or FEIN # (Not SSN)',
         ))->add('stateIssued')->add('directInternshipSupervisor', TextType::class, array(
             'label' => 'Direct Internship Supervisor\'s Name',
         ))->add('supervisorsTitle', TextType::class, array(
@@ -30,17 +30,20 @@ class SiteSupervisorFormType extends AbstractType
         ))->add('physicalAddress', TextType::class, array(
             'label' => 'Physical Address',
         ))->add('availableForSiteVisit')->add('supervisorPhone', TextType::class, array(
-            'label' => 'Supervisor\'s Phone Number',
+            'label' => 'Supervisor\'s Phone Number (Digits Only, Include Area Code)',
+            'attr' => array('maxlength' => 10),
         ))->add('supervisorEmail', EmailType::class, array(
-            'label' => 'Supervisor\'s Email Addressr',
+            'label' => 'Supervisor\'s Email Address',
         ))->add('internshipProjectedStartDate', DateType::class, array('widget' => 'single_text'))->add('internshipProjectedEndDate', DateType::class, array('widget' => 'single_text'))->add('totalWeeks')->add('estimatedHours')->add('paid')->add('salaryOrStipend', ChoiceType::class, array('choices' => array("Salary" => "Salary",  "Stipend" => "Stipend", "Not Applicable" => "Not Applicable"),        
     'label' => 'Select Salary or Stipend (If not paid, Select \'Not Applicable\')',
 ))->add('salary', NumberType::class, array(
             'scale' => 2,
             'label' => 'Salary Amount',
+            'required' => false
         ))->add('stipend', NumberType::class, array(
             'scale' => 2,
             'label' => 'Stipend Amount',
+            'required' => false
         ))->add('task', TextareaType::class, array(
             'label' => 'Intern Tasks/Role:',
         ))->add('projects', TextareaType::class, array(

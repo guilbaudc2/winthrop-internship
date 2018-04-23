@@ -70,18 +70,14 @@ class StudentFormTwoController extends Controller
         if(isset($_GET["studentInfo"])){
             $studentID = $_GET["studentInfo"];
     
-    
-            // $em = $this->getDoctrine()->getManager();
                 
             $query = $em->createQuery('SELECT u FROM AppBundle:StudentFormOne u WHERE u.id = :id')
                 ->setParameter('id', $studentID);
             $studentFormOneID = $query->getResult();
             
-            //$this->studentFormOneData = $studentFormOneID;
             $this->studentFormOne = $studentFormOneID[0];        
         
         }
-        // $em = $this->getDoctrine()->getManager();
         $query = $em->createQuery("SELECT ssf FROM AppBundle:SiteSupervisorForm ssf JOIN AppBundle:StudentFormOne sfo WHERE sfo.id = ssf.student_form_one AND sfo.id = :id");
         $query->setParameter("id", $this->studentFormOne->getId());
     
@@ -101,6 +97,31 @@ class StudentFormTwoController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($studentFormTwo);
             $em->flush();
+            
+            $studentFName = $this->studentFormOne->getFirstName();
+            $studentLName = $this->studentFormOne->getLastName();
+            $studentEmail = $this->studentFormOne->getEmailAddress();
+                
+            $message = (new \Swift_Message('Successful Submission of Winthrop Internship Student Form Two'))
+                ->setFrom('cce@winthrop.edu')
+                ->setTo($studentEmail)
+                ->setBody(
+                    $this->renderView(
+                        'emails/FLForm/student_notifcation.html.twig',
+                        array('studentFName' => $studentFName
+                        )
+                    ),
+                    'text/html'
+                )
+                ->addPart(
+                    $this->renderView(
+                        'emails/FLForm/student_notification.txt.twig',
+                        array('studentFName' => $studentFName
+                        )
+                    ),
+                    'text/plain'
+                );
+            $mailer->send($message);
 
             return $this->redirectToRoute('studentformtwo_show', array('id' => $studentFormTwo->getId()));
         }
@@ -110,8 +131,6 @@ class StudentFormTwoController extends Controller
             'studentFormTwo' => $studentFormTwo,
             'form' => $form->createView(),
         ));
-        
-        //return $this->render('studentformtwo/new.html.twig');
     }
 
     /**

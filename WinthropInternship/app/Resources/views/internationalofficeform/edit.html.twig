@@ -2,7 +2,6 @@
 
 {% block title %}International Office Form{% endblock %}
 
-{% endblock %}
 
 {% block body %}
     <h1 class="header center">Edit International Office Form Approval</h1>
@@ -26,7 +25,7 @@
     <ul>
         <li>
             {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
+                <input type="submit" class="del-btn" value="Delete">
             {{ form_end(delete_form) }}
         </li>
     </ul>

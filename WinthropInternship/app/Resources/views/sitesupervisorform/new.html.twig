@@ -27,12 +27,12 @@
                             <td>{{ studentFormOne.phoneNumber }}</td>
                         </tr>
                         <tr>
-                            <th>Prospective Intern's Semester/Date Enrolled</th>
-                            <td>{{ studentFormOne.semester}}/{{ studentFormOne.yearEnrolled}}</td>
+                            <th>Prospective Intern's Semester/Year Enrolled</th>
+                            <td>{{ studentFormOne.semesterEnrolled}}/{% if studentFormOne.yearEnrolled %}{{ studentFormOne.yearEnrolled|date('Y') }}{% endif %}</td>
                         </tr>
                         <tr>
                             <th>Prospective Intern's Major</th>
-                            <td>{{ studentFormOne.Major }}</td>
+                            <td>{{ studentFormOne.major }}</td>
                         </tr>
                         <tr>
                             <th>Prospective Intern's Faculty Liaison</th>
