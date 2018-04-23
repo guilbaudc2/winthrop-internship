@@ -49,10 +49,11 @@
             <li>
                 <a class="btn waves-effect waves-light button-back" href="javascript:window.print()">Print Completed Application</a>
             </li>
-{% endif %}
+{% else %}
             <li>
                 <a href="{{ path('studentformone_edit', { 'id': studentFormOne.id }) }}" class="btn waves-effect waves-light button-back">Edit</a>
             </li>
+{% endif %}
         </ul>
     </div>
     
@@ -486,7 +487,7 @@
     </div>    
 
 
-{% endif %}
+{% else %}
 
     <ul>
         <li>
@@ -495,4 +496,5 @@
             {{ form_end(delete_form) }}
         </li>
     </ul>
+{% endif %}
 {% endblock %}
