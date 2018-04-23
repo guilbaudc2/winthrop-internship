@@ -41,6 +41,7 @@
             <li>
                 <a href="{{ path('studentformone_index') }}" class="btn waves-effect waves-light button-back">Back to the list</a>
             </li>
+{% if ccForm %}
             {#<li>#}
             {#    <button id="export" class="btn waves-effect waves-light button-back" >Export File</button>#}
                {# <a href="{{ path('export_file', { 'id': studentFormOne.id }) }}" class="btn waves-effect waves-light button-back">Export file</a> #}
@@ -48,6 +49,7 @@
             <li>
                 <a class="btn waves-effect waves-light button-back" href="javascript:window.print()">Print Completed Application</a>
             </li>
+{% endif %}
             <li>
                 <a href="{{ path('studentformone_edit', { 'id': studentFormOne.id }) }}" class="btn waves-effect waves-light button-back">Edit</a>
             </li>
